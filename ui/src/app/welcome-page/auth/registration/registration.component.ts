@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../shared/interfaces';
 import {AuthService} from '../../../shared/services/auth.service';
 import {switchMap, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-
+import {MustMatch} from './password.validators';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -16,21 +16,32 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      password_repeat: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    // this.form = new FormGroup({
+    //   email: new FormControl('', [Validators.required, Validators.email]),
+    //   password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    //   password_repeat: new FormControl('', [Validators.required, Validators.minLength(6), PasswordValidators.staMustMatch()], ),
+    //   math: new FormControl(false),
+    //   programming: new FormControl(false),
+    //   electricalChains: new FormControl(false),
+    // });
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
       math: new FormControl(false),
       programming: new FormControl(false),
       electricalChains: new FormControl(false),
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     });
   }
 
   submit() {
-    // console.log(this.form);
+    console.log(this.form);
     const user: User = {
       email: this.form.value.email,
       password: this.form.value.password,
@@ -40,6 +51,7 @@ export class RegistrationComponent implements OnInit {
         electricalChains: this.form.value.electricalChains,
       }
     };
+    return;
     // console.log(user);
     this.authService.signup(user)
       .pipe(
