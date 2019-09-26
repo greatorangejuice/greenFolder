@@ -1,0 +1,20 @@
+version: '0.1'
+
+services:
+#  rest:
+#    container_name: rest
+#    build:
+#      context: .
+#      dockerfile: ./rest
+#    ports:
+#      - '8080:'
+  ui:
+    container_name: userInterface
+    build:
+      context: .
+      dockerfile: ./docker/ui/Dockerfile
+    volumes:
+      - './app'
+      - '/app/node_modules'
+    ports:
+      - '8000:80'
