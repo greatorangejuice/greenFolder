@@ -1,0 +1,7 @@
+<div class="card">
+  <h2>{{task.title}}</h2>
+  <div class="card-bottom">
+    <small>{{task.date | date:'medium'}}</small>
+    <button mat-stroked-button [routerLink]="['task', task.id]">Перейти</button>
+  </div>
+</div>

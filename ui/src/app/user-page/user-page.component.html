@@ -1,0 +1,41 @@
+<!--<app-userlayout-page></app-userlayout-page>-->
+
+<div class="tasks-list">
+  <mat-button-toggle-group
+    [value]="visibleTasks"
+
+    name="fontStyle" aria-label="Font Style"
+  >
+    <mat-button-toggle value="progress">Current tasks</mat-button-toggle>
+    <mat-button-toggle value="finished">Finished tasks</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Автор</th>
+      <th>Название</th>
+      <th>Дата</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks | searchTasks:visibleTasks:'status' ; let id = index">
+      <td>{{id + 1}}</td>
+      <td>{{task.author}}</td>
+      <td>{{task.title}}</td>
+      <td>{{task.date | date:'medium'}}</td>
+      <td>
+        <button class="btn btn-link open" [routerLink]="['/task']"> Открыть</button>
+        <a>Удалить</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!--<div class="tasks-list">-->
+<!--  <button class="btn btn-primary" (click)="changeOption()">Current tasks</button>-->
+<!--  <button class="btn btn-dark">Finished tasks</button>-->
+<!--</div>-->

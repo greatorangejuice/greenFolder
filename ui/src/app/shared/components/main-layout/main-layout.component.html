@@ -1,0 +1,49 @@
+<header class="navbar">
+  <h3 class="unselectable"><a [routerLink]="['/tasks']">B-LANS PLATFORM</a>{{title}}</h3>
+  <div>
+    <button mat-button [matMenuTriggerFor]="beforeMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <div
+        *ngIf="!title; else main"
+      >
+        <button
+          mat-menu-item
+          color="black"
+          class="burger-button"
+          (click)="goToAccount()"
+        >
+          <mat-icon>account_circle</mat-icon>
+          Account
+        </button>
+      </div>
+
+      <ng-template #main>
+        <button
+          mat-menu-item
+          color="black"
+          class="burger-button"
+          (click)="goToMain()"
+        >
+          <mat-icon>home</mat-icon>
+          Main Page
+        </button>
+      </ng-template>
+
+      <div>
+        <button
+          mat-menu-item
+          (click)="logout()"
+          class="burger-button"
+        >
+          <mat-icon>clear</mat-icon>
+          Logout
+        </button>
+      </div>
+    </mat-menu>
+  </div>
+</header>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

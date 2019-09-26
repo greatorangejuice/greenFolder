@@ -1,0 +1,19 @@
+<h3>Available tasks</h3>
+<mat-form-field>
+  <label for="search">
+    <input matInput id="search" placeholder="Search" [(ngModel)]="searchValue" autocomplete="off">
+  </label>
+</mat-form-field>
+<div
+  *ngIf="tasks; else loading"
+>
+  <app-task-list
+    *ngFor="let task of tasks | searchTasks:searchValue:'title'"
+    [task]=task
+  ></app-task-list>
+</div>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+</ng-template>
