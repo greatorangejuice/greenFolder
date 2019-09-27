@@ -13,12 +13,14 @@ import {MainLayoutComponent} from './components/main-layout/main-layout.componen
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SearchPipe} from './pipes/search.pipe';
+import {GreencolorDirective} from "./directives/greencolor.directive";
 
 @NgModule({
   declarations: [
     DropdownDirective,
     MainLayoutComponent,
     SearchPipe,
+    GreencolorDirective,
   ],
   imports: [
     CommonModule,
