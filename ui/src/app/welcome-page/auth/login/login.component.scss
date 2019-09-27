@@ -20,3 +20,17 @@ form {
     opacity: 0.7;
   }
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert {
+  display: inline-block;
+  padding: 0 16px;
+  color: #2afc1c;
+  font-weight: bold;
+  background: #333333;
+}

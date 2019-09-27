@@ -14,6 +14,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SearchPipe} from './pipes/search.pipe';
 import {GreencolorDirective} from "./directives/greencolor.directive";
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {GreencolorDirective} from "./directives/greencolor.directive";
     MainLayoutComponent,
     SearchPipe,
     GreencolorDirective,
+    AlertComponent,
   ],
   imports: [
     CommonModule,

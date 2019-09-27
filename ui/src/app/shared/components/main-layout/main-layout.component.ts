@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-main-layout',
@@ -15,6 +16,7 @@ export class MainLayoutComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class MainLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.alertService.success('unlogin');
   }
 
   goToAccount() {

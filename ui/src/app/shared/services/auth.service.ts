@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {AlertService} from "./alert.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private route: Router,
+    private alertService: AlertService,
   ) {}
 
   get token(): string {
@@ -36,11 +38,9 @@ export class AuthService {
 
 
   login(user: User): Observable<any> {
-    // user.returnSecureToken = true;
     return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
       .pipe(
         tap(
-            // console.log(v);
             this.setToken,
         )
       );
@@ -58,6 +58,7 @@ export class AuthService {
   }
 
   logout() {
+    // this.alertService.success('Success unlogin');
     this.setToken(null);
     this.route.navigate(['/welcome'], {
       queryParams: {
@@ -84,7 +85,6 @@ export class AuthService {
   private setToken(response: FbAuthResponse | null) {
     if (response) {
       this.userId = response.localId;
-      console.log(this.userId);
       const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
       localStorage.setItem('fb-token', response.idToken);
       localStorage.setItem('fb-token-expires', expiresDate.toString());

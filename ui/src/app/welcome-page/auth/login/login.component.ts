@@ -68,7 +68,8 @@ export class LoginComponent implements OnInit {
             console.log(error.error.error.message);
             const errMessage: string = error.error.error.message;
             this.message =
-              'EMAIL_NOT_FOUND' ? 'Email not found' : '';
+              'EMAIL_NOT_FOUND' ? 'Email or Password is not correct' : '';
+              // 'EMAIL_NOT_FOUND' ? 'Email or Password is not correct' : ''
             // this.message = 'Connection error. Please, check your internet connection.';
             // if (!this.message) {
             //   this.message = 'Connection error. Please, check your internet connection.';

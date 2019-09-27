@@ -3,13 +3,23 @@
     <input type="email" id="email" formControlName="email">
     <label for="password">Password</label>
     <input type="password" id="password" formControlName="password">
-    <button
-      mat-button
-      [disabled]="form.invalid || submitted" type="submit" class="welcome-buttons">Login</button>
-    <button
-      mat-button
-      [routerLink]="'registration'"
-      class="welcome-buttons"
-    >Registration</button>
+    <div class="buttons">
+      <div>
+        <button
+          mat-button
+          [disabled]="form.invalid || submitted"
+          type="submit"
+          class="welcome-buttons"
+        >Login
+        </button>
+        <button
+          mat-button
+          [routerLink]="'registration'"
+          class="welcome-buttons"
+        >Registration
+        </button>
+      </div>
+      <div class="alert">{{message}}</div>
+    </div>
   </form>
-{{message}}
+
