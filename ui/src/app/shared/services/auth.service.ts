@@ -36,6 +36,10 @@ export class AuthService {
     // return this.lo
   // }
 
+  testGetUsers():Observable<any> {
+    return this.httpClient.get('http://localhost:8080/user/all');
+  }
+
 
   login(user: User): Observable<any> {
     return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)

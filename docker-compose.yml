@@ -1,18 +1,44 @@
-version: '0.1'
+version: '3.2'
 
 services:
-#  rest:
-#    container_name: rest
-#    build:
-#      context: .
-#      dockerfile: ./rest
-#    ports:
-#      - '8080:'
+  docker-mysql:
+    image: mysql:latest
+    container_name: docker-mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPass1992
+      MYSQL_DATABASE: blansplatform
+      MYSQL_USER: kirill
+      MYSQL_PASSWORD: RootPass1992
+    networks:
+      - application
+
+  rest:
+    container_name: rest
+    build:
+      context: ./docker/rest
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    networks:
+      - application
+    depends_on:
+      - docker-mysql
+
+networks:
+  application:
+    driver: bridge
+
   ui:
     container_name: userInterface
     build:
       context: .
-      dockerfile: ./docker/ui/Dockerfile
+      dockerfile: ./ui/Dockerfile
     volumes:
       - './app'
       - '/app/node_modules'
