@@ -34,6 +34,10 @@ export class AuthService {
     // return this.lo
   // }
 
+  testGetUsers():Observable<any> {
+    return this.httpClient.get('http://localhost:8080/user/all');
+  }
+
 
   login(user: User): Observable<any> {
     // user.returnSecureToken = true;
