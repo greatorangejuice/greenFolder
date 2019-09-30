@@ -7,7 +7,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatTableModule, MatButtonToggleModule,
 } from '@angular/material';
 import {MainLayoutComponent} from './components/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
@@ -34,6 +34,9 @@ import { AlertComponent } from './components/alert/alert.component';
     MatMenuModule,
     MatProgressSpinnerModule,
     RouterModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatTableModule
   ],
   exports: [
     HttpClientModule,
@@ -46,6 +49,9 @@ import { AlertComponent } from './components/alert/alert.component';
     MatProgressSpinnerModule,
     MainLayoutComponent,
     RouterModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatTableModule,
     SearchPipe,
   ],
 })

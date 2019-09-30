@@ -1,0 +1,5 @@
+<div>
+  <ul *ngFor="let message of messages">
+    <li><p class="notification-title" (click)="openNoti(message.text)">{{message.title}}</p></li>
+  </ul>
+</div>

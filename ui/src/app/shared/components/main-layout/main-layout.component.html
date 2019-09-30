@@ -1,50 +1,66 @@
-<header class="navbar">
-  <h3 class="unselectable"><a [routerLink]="['/tasks']"><span greencolor>GREEN</span> FOLDER</a>{{title}}</h3>
-  <div>
-    <button mat-button [matMenuTriggerFor]="beforeMenu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <div
-        *ngIf="!title; else main"
-      >
-        <button
-          mat-menu-item
-          color="black"
-          class="burger-button"
-          (click)="goToAccount()"
-        >
-          <mat-icon>account_circle</mat-icon>
-          Account
-        </button>
-      </div>
-
-      <ng-template #main>
-        <button
-          mat-menu-item
-          color="black"
-          class="burger-button"
-          (click)="goToMain()"
-        >
-          <mat-icon>home</mat-icon>
-          Main Page
-        </button>
-      </ng-template>
-
+<div class="main-layout">
+<!--  <div class="content">-->
+    <header class="navbar">
+      <h3 class="unselectable"><a [routerLink]="['/tasks']"><span greencolor>GREEN</span> FOLDER</a>{{title}}</h3>
       <div>
-        <button
-          mat-menu-item
-          (click)="logout()"
-          class="burger-button"
-        >
-          <mat-icon>clear</mat-icon>
-          Logout
+        <button mat-button [matMenuTriggerFor]="beforeMenu">
+          <mat-icon>menu</mat-icon>
         </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <div
+            *ngIf="!title; else main"
+          >
+            <button
+              mat-menu-item
+              color="black"
+              class="burger-button"
+              (click)="goToAccount()"
+            >
+              <mat-icon>account_circle</mat-icon>
+              Account
+            </button>
+          </div>
+
+          <ng-template #main>
+            <button
+              mat-menu-item
+              color="black"
+              class="burger-button"
+              (click)="goToMain()"
+            >
+              <mat-icon>home</mat-icon>
+              Main Page
+            </button>
+          </ng-template>
+
+          <div>
+            <button
+              mat-menu-item
+
+              class="burger-button"
+            >
+              <mat-icon>bug_report</mat-icon>
+              Bug Report
+            </button>
+          </div>
+
+          <div>
+            <button
+              mat-menu-item
+              (click)="logout()"
+              class="burger-button"
+            >
+              <mat-icon>clear</mat-icon>
+              Logout
+            </button>
+          </div>
+        </mat-menu>
       </div>
-    </mat-menu>
+    </header>
+    <router-outlet></router-outlet>
+    <app-alert></app-alert>
   </div>
-</header>
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
-<app-alert></app-alert>
+  <footer class="footer">
+    <div>Green Folder, 2019</div>
+  </footer>
+<!--</div>-->

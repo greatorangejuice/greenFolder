@@ -1,12 +1,13 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Task} from '../shared/interfaces';
+import { Component, OnInit } from '@angular/core';
+import {Task} from "../../shared/interfaces";
 
 @Component({
-  selector: 'app-user-page',
-  templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.scss']
+  selector: 'app-user-tasks-lists',
+  templateUrl: './user-tasks-lists.component.html',
+  styleUrls: ['./user-tasks-lists.component.scss']
 })
-export class UserPageComponent implements OnInit {
+export class UserTasksListsComponent implements OnInit {
+
   visibleTasks = 'progress';
 
   tasks: Task[] = [
@@ -38,4 +39,5 @@ export class UserPageComponent implements OnInit {
   changeStatus(status: string) {
     this.visibleTasks = status;
   }
+
 }

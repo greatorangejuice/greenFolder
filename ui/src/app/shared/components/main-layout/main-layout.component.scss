@@ -1,7 +1,19 @@
+body {
+  height: 100%;
+}
 .burger-button {
   display: flex;
   align-items: center;
 }
 .unselectable {
   user-select: none;
+}
+.main-layout {
+  min-height: calc(100vh - 30px);
+}
+.content {
+}
+.footer {
+  display: flex;
+  justify-content: center;
 }
