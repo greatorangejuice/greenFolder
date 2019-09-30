@@ -2,6 +2,7 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "usr")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,21 +23,25 @@ public class User {
                 mappedBy = "customer",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Task> tasks;
     @OneToMany(targetEntity = Offer.class,
                 mappedBy = "executor",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Offer> offers;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userTo",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Message> inboxMessages;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userFrom",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Message> outgoingMessage;
     private Faculty faculty;
     private String webMoneyAccount;

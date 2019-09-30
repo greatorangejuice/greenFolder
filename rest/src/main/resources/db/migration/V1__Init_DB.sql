@@ -30,7 +30,7 @@ create table task (
   primary key (id)
 ) engine=InnoDB;
 
-create table user (
+create table usr (
   id bigint not null auto_increment,
   email varchar(255),
   faculty integer,
@@ -43,20 +43,20 @@ create table user (
 
 
 alter table message
-add constraint message_sender_user_fk
-foreign key (sender_user_id) references user (id);
+add constraint message_sender_usr_fk
+foreign key (sender_user_id) references usr (id);
 
 alter table message
-add constraint message_recipient_user_fk
-foreign key (recipient_user_id) references user (id);
+add constraint message_recipient_usr_fk
+foreign key (recipient_user_id) references usr (id);
 
 alter table offer
 add constraint offer_customer_fk
-foreign key (customer_id) references user (id);
+foreign key (customer_id) references usr (id);
 
 alter table offer
 add constraint offer_executor_fk
-foreign key (executor_id) references user (id);
+foreign key (executor_id) references usr (id);
 
 alter table offer
 add constraint offer_task_fk
@@ -64,8 +64,8 @@ foreign key (task_id) references task (id);
 
 alter table task
 add constraint task_customer_fk
-foreign key (customer_id) references user (id);
+foreign key (customer_id) references usr (id);
 
 alter table task
 add constraint task_executor_fk
-foreign key (executor_id) references user (id);
+foreign key (executor_id) references usr (id);

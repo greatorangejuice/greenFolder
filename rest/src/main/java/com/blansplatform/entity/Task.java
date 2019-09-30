@@ -2,6 +2,7 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,15 +18,16 @@ public class Task {
     private TaskStatus taskStatus;
     private String subject;
     private Faculty faculty;
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
     private User customer;
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "executorId")
     private User executor;
     @OneToMany(targetEntity = Offer.class,
             mappedBy = "task",
             cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<Offer> offers;
     private String keywords;
 
