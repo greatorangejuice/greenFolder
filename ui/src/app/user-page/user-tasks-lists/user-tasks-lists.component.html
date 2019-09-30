@@ -1,22 +1,22 @@
 <!--<app-userlayout-page></app-userlayout-page>-->
 <!--<app-profile></app-profile>-->
-<div class="container">
-  <div class="tasks-list">
-    <mat-button-toggle-group
-      [value]="visibleTasks"
+<div>
+  <mat-button-toggle-group
+    [value]="visibleTasks"
 
-      name="fontStyle" aria-label="Font Style"
-    >
-      <mat-button-toggle value="progress" (click)="changeStatus('progress')">Current tasks</mat-button-toggle>
-      <mat-button-toggle value="finished" (click)="changeStatus('finished')">Finished tasks</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-  <div>
+    name="fontStyle" aria-label="Font Style"
+  >
+    <mat-button-toggle value="progress" (click)="changeStatus('progress')">Current tasks</mat-button-toggle>
+    <mat-button-toggle value="finished" (click)="changeStatus('finished')">Finished tasks</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div class="container">
+
+  <div class="tasks-list">
     <table>
       <thead>
       <tr>
         <th>#</th>
-        <!--      <th>Автор</th>-->
         <th>Title</th>
         <th>Deadline</th>
         <th>Manage</th>

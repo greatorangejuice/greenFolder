@@ -31,10 +31,10 @@ export class NotificationListComponent implements OnInit {
   ngOnInit() {
   }
 
-  openNoti(text: string) {
+  openNoti(title, text) {
     const dialogRef = this.dialog.open(NotificationModal, {
       width: '250px',
-      data: {title: 'title', text: 'text'}
+      data: {title: title, text: text}
     });
 
     dialogRef.afterClosed().subscribe(result => {
