@@ -5,6 +5,7 @@ export interface Task {
   date: Date;
   author: string;
   status: string;
+  isFinished?: boolean;
 }
 
 export interface Subjects {
@@ -30,4 +31,9 @@ export interface FbAuthResponse {
   idToken: string;
   expiresIn: string;
   localId: string;
+}
+
+export interface Users {
+  // subjects: string;
+  user_id: string;
 }

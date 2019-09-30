@@ -6,8 +6,8 @@
 
     name="fontStyle" aria-label="Font Style"
   >
-    <mat-button-toggle value="progress">Current tasks</mat-button-toggle>
-    <mat-button-toggle value="finished">Finished tasks</mat-button-toggle>
+    <mat-button-toggle value="progress" (click)="changeStatus('progress')">Current tasks</mat-button-toggle>
+    <mat-button-toggle value="finished" (click)="changeStatus('finished')">Finished tasks</mat-button-toggle>
   </mat-button-toggle-group>
 </div>
 <div>
@@ -15,20 +15,20 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Автор</th>
-      <th>Название</th>
-      <th>Дата</th>
-      <th>Действие</th>
+<!--      <th>Автор</th>-->
+      <th>Title</th>
+      <th>Deadline</th>
+      <th>Manage</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let task of tasks | searchTasks:visibleTasks:'status' ; let id = index">
       <td>{{id + 1}}</td>
-      <td>{{task.author}}</td>
+<!--      <td>{{task.author}}</td>-->
       <td>{{task.title}}</td>
       <td>{{task.date | date:'medium'}}</td>
       <td>
-        <button class="btn btn-link open" [routerLink]="['/task']"> Открыть</button>
+        <button class="btn btn-link open" [routerLink]="['/task', task.id]"> Открыть</button>
         <a>Удалить</a>
       </td>
     </tr>

@@ -9,6 +9,7 @@ import {AuthGuard} from '../shared/services/auth.guard';
 import {FormsModule} from '@angular/forms';
 import {SearchPipe} from '../shared/pipes/search.pipe';
 import {SharedModule} from '../shared/shared.module';
+import {TaskService} from "../shared/services/task.service";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {SharedModule} from '../shared/shared.module';
     ]),
     FormsModule,
   ],
-  exports: [RouterModule, SearchPipe]
+  exports: [RouterModule, SearchPipe],
+  providers: [TaskService]
 })
 export class TaskModule {
 }

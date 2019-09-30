@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {UserPageComponent} from './user-page.component';
 import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component';
-import {MatButtonModule, MatButtonToggleModule} from '@angular/material';
+import {MatButtonModule, MatButtonToggleModule, MatTableModule} from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
 import {MainLayoutComponent} from '../shared/components/main-layout/main-layout.component';
 
@@ -16,12 +16,15 @@ import {MainLayoutComponent} from '../shared/components/main-layout/main-layout.
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      {path: '', component: MainLayoutComponent, children: [
+      {
+        path: '', component: MainLayoutComponent, children: [
           {path: '', component: UserPageComponent},
-        ]}
+        ]
+      }
     ]),
     MatButtonModule,
     MatButtonToggleModule,
+    MatTableModule,
   ],
   exports: [RouterModule]
 })

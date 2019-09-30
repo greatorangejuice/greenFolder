@@ -1,1 +1,28 @@
 <h1>TASK COMPONENT {{id}}</h1>
+<div *ngIf="task$ | async as task; else loading">
+  <div *ngFor="let user of task">
+    {{user.user_id}}
+  </div>
+</div>
+<ng-template #loading>
+  <p>loading</p>
+</ng-template>
+
+<!--<div *ngIf="posts$ | async as post">-->
+<!--  <div class="post">-->
+<!--    <div class="header">-->
+<!--      <h1>{{post.title}}</h1>-->
+
+<!--      <button-->
+<!--        routerLink="/"-->
+<!--        class="btn btn-link">На главную-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div class="info">-->
+<!--      <strong>{{post.author}}</strong>-->
+<!--      <small>{{post.date | date:'medium'}}</small>-->
+<!--    </div>-->
+<!--    <quill-view-html [content]="post.text">-->
+<!--    </quill-view-html>-->
+<!--  </div>-->
+<!--</div>-->
