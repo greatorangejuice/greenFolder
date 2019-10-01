@@ -1,4 +1,4 @@
-package com.blansplatform.service;
+package com.blansplatform.service.entityServices;
 
 import com.blansplatform.entity.User;
 import com.blansplatform.repository.UserRepository;
@@ -10,6 +10,9 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+    private final String IF_EMAIL_EXIST = "exist";
+    private final String IF_EMAIL_NOT_EXIST = "not exist";
 
     final private UserRepository userRepository;
 
@@ -30,7 +33,6 @@ public class UserService {
        return user;
     }
 
-
     public void addUser(User user) {
         userRepository.save(user);
     }
@@ -41,5 +43,13 @@ public class UserService {
 
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    public String checkUserByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+        if(user == null){
+            return IF_EMAIL_NOT_EXIST;
+        }
+        return IF_EMAIL_EXIST;
     }
 }

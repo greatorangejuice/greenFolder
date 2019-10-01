@@ -1,7 +1,7 @@
-package com.blansplatform.controller;
+package com.blansplatform.controller.entityControllers;
 
 import com.blansplatform.entity.Offer;
-import com.blansplatform.service.OfferService;
+import com.blansplatform.service.entityServices.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -21,16 +21,17 @@ public class Task {
     private Faculty faculty;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
-    @JsonBackReference
+    @JsonBackReference(value = "task_customer")
     private User customer;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "executorId")
-    @JsonBackReference
+    @JsonBackReference(value = "task_executor")
     private User executor;
     @OneToMany(targetEntity = Offer.class,
             mappedBy = "task",
-            cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "offers_task")
     private List<Offer> offers;
     private String keywords;
 

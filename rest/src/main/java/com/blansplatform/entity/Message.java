@@ -12,11 +12,11 @@ public class Message {
     private Long id;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "senderUserId")
-    @JsonBackReference
+    @JsonBackReference(value = "outgoingMessage_userFrom")
     private User userFrom;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "recipientUserId")
-    @JsonBackReference
+    @JsonBackReference(value = "inboxMessages_userTo")
     private User userTo;
     private String messageHead;
     private String messageBody;

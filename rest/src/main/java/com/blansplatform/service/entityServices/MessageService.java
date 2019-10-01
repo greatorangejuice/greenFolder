@@ -1,4 +1,4 @@
-package com.blansplatform.service;
+package com.blansplatform.service.entityServices;
 
 import com.blansplatform.entity.Message;
 import com.blansplatform.repository.MessageRepository;

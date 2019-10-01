@@ -1,4 +1,4 @@
-package com.blansplatform.service;
+package com.blansplatform.service.entityServices;
 
 import com.blansplatform.entity.Offer;
 import com.blansplatform.repository.OfferRepository;

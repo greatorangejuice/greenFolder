@@ -38,6 +38,8 @@ create table usr (
   password varchar(255),
   role integer,
   web_money_account varchar(255),
+  course varchar(255),
+  university integer,
   primary key (id)
 ) engine=InnoDB;
 

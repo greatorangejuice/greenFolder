@@ -13,15 +13,15 @@ public class Offer {
     private Long id;
     @ManyToOne(targetEntity = Task.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "taskId")
-    @JsonBackReference
+    @JsonBackReference(value = "offers_task")
     private Task task;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "executorId")
-    @JsonBackReference
+    @JsonBackReference(value = "offers_executor")
     private User executor;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
-    @JsonBackReference
+    @JsonBackReference(value = "offers_customer")
     private User customer;
     private String bid;
     private OfferStatus offerStatus;
