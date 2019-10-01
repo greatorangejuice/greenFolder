@@ -1,6 +1,7 @@
 package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.OfferStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,12 +13,15 @@ public class Offer {
     private Long id;
     @ManyToOne(targetEntity = Task.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "taskId")
+    @JsonBackReference
     private Task task;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "executorId")
+    @JsonBackReference
     private User executor;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
+    @JsonBackReference
     private User customer;
     private String bid;
     private OfferStatus offerStatus;

@@ -2,7 +2,7 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,25 +23,25 @@ public class User {
                 mappedBy = "customer",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Task> tasks;
     @OneToMany(targetEntity = Offer.class,
                 mappedBy = "executor",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Offer> offers;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userTo",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Message> inboxMessages;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userFrom",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Message> outgoingMessage;
     private Faculty faculty;
     private String webMoneyAccount;

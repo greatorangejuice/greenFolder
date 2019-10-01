@@ -2,7 +2,8 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,14 +21,16 @@ public class Task {
     private Faculty faculty;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
+    @JsonBackReference
     private User customer;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "executorId")
+    @JsonBackReference
     private User executor;
     @OneToMany(targetEntity = Offer.class,
             mappedBy = "task",
             cascade = CascadeType.REMOVE)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Offer> offers;
     private String keywords;
 
