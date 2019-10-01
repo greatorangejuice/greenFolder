@@ -4,36 +4,38 @@ import {Observable, throwError} from 'rxjs';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 import {catchError, tap} from 'rxjs/operators';
+import {AlertService} from "./services/alert.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
   constructor(
     private auth: AuthService,
     private router: Router,
+    private alertService: AlertService,
   ) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.isAuthenticated()) {
-      req = req.clone({
-        setParams: {
-          auth: this.auth.token
-        }
-      });
-    }
+    // if (this.auth.isAuthenticated()) {
+    //   req = req.clone({
+    //     setParams: {
+    //       auth: this.auth.token
+    //     }
+    //   });
+    // }
     return next.handle(req)
       .pipe(
-        tap(
-          (resp) => {
-            console.log(resp); }
-        ),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            this.auth.logout();
+            // this.auth.logout();
             this.router.navigate(['/welcome'], {
               queryParams: {
                 authfailed: true
               }
             });
           }
+          console.log('error');
+          console.log(error);
+          console.log(error.statusText);
+          this.alertService.warning('test warning');
           return throwError(error)
         })
       )

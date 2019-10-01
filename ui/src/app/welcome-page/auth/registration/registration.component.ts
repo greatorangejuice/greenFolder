@@ -26,16 +26,8 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.form = new FormGroup({
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    //   password_repeat: new FormControl('', [Validators.required, Validators.minLength(6), PasswordValidators.staMustMatch()], ),
-    //   math: new FormControl(false),
-    //   programming: new FormControl(false),
-    //   electricalChains: new FormControl(false),
-    // });
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], this.checkForEmail.bind(this)],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       name: new FormControl(''),
@@ -45,6 +37,22 @@ export class RegistrationComponent implements OnInit {
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
+  }
+
+  checkForEmail(control: FormControl): Promise<any> {
+    return new Promise<any>( resolve => {
+      setTimeout( () => {
+        this.authService.checkEmail(control.value).subscribe(
+          (res) => {
+            if (res === 'exist') {
+              resolve(null)
+            } else {
+              resolve({'emailInUse': true} )
+            }
+          }
+        )
+      }, 2000 );
+    })
   }
 
   submit() {
@@ -58,6 +66,7 @@ export class RegistrationComponent implements OnInit {
         electricalChains: this.form.value.electricalChains,
       }
     };
+
     return;
     // console.log(user);
     this.authService.signup(user)

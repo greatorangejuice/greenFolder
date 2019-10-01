@@ -46,19 +46,7 @@ export class AuthService {
       );
   }
 
-  getUserData(user: User): Observable<any> {
-    user.returnSecureToken = true;
-    return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`,
-      {idToken: 'IISu6yhZybYSHaGzl1ZEPXWM1Fo1'})
-      .pipe(
-        tap( req => console.log(req),
-            err => console.log(err)
-          )
-    );
-  }
-
   logout() {
-    // this.alertService.success('Success unlogin');
     this.setToken(null);
     this.route.navigate(['/welcome'], {
       queryParams: {
@@ -92,7 +80,9 @@ export class AuthService {
     }
   }
 
-
-
+  checkEmail(email: string): Observable<string> {
+    console.log('checking');
+    return this.httpClient.get<string>(`${environment.backend}/mail/check`);
+  }
 
 }
