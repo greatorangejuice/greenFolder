@@ -2,10 +2,10 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.blansplatform.enumeration.University;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,66 +23,102 @@ public class User {
                 mappedBy = "customer",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Task> tasks;
+    @JsonManagedReference(value = "task_customer")
+    private List<Task> customerTasks;
+    @OneToMany(targetEntity = Task.class,
+            mappedBy = "executor",
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "task_executor")
+    private List<Task> executorTasks;
     @OneToMany(targetEntity = Offer.class,
                 mappedBy = "executor",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Offer> offers;
+    @JsonManagedReference(value = "offers_executor")
+    private List<Offer> executorOffers;
+    @OneToMany(targetEntity = Offer.class,
+            mappedBy = "customer",
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "offers_customer")
+    private List<Offer> customerOffers;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userTo",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference(value = "inboxMessages_userTo")
     private List<Message> inboxMessages;
     @OneToMany(targetEntity = Message.class,
                 mappedBy = "userFrom",
                 cascade = CascadeType.REMOVE,
                 fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference(value = "outgoingMessage_userFrom")
     private List<Message> outgoingMessage;
     private Faculty faculty;
     private String webMoneyAccount;
+    private String course;
+    private University university;
 
-    public User(String name, String email, Role role, ArrayList<Task> tasks, ArrayList<Offer> offers, ArrayList<Message> inboxMessages,
-                ArrayList<Message> outgoingMessage ,Faculty faculty, String webMoneyAccount, String password) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.tasks = tasks;
-        this.offers = offers;
-        this.inboxMessages = inboxMessages;
-        this.outgoingMessage = outgoingMessage;
-        this.faculty = faculty;
-        this.webMoneyAccount = webMoneyAccount;
-        this.password = password;
-    }
 
-    public User(Long id, String name, String email, String password, Role role, ArrayList<Task> tasks, ArrayList<Offer> offers, ArrayList<Message> inboxMessages,
-                ArrayList<Message> outgoingMessage , Faculty faculty, String webMoneyAccount) {
-        this.id = id;
+    public User(String name, String email, String password, Role role, List<Task> customerTasks, List<Task> executorTasks, List<Offer> executorOffers, List<Offer> customerOffers, List<Message> inboxMessages,
+                List<Message> outgoingMessage, Faculty faculty, String webMoneyAccount, String course, University university) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.tasks = tasks;
-        this.offers = offers;
+        this.customerTasks = customerTasks;
+        this.executorTasks = executorTasks;
+        this.executorOffers = executorOffers;
+        this.customerOffers = customerOffers;
         this.inboxMessages = inboxMessages;
         this.outgoingMessage = outgoingMessage;
         this.faculty = faculty;
         this.webMoneyAccount = webMoneyAccount;
+        this.course = course;
+        this.university = university;
     }
 
     public User() {
+    }
+
+    public List<Offer> getCustomerOffers() {
+        return customerOffers;
+    }
+
+    public void setCustomerOffers(List<Offer> customerOffers) {
+        this.customerOffers = customerOffers;
+    }
+
+    public List<Task> getExecutorTasks() {
+        return executorTasks;
+    }
+
+    public void setExecutorTasks(List<Task> executorTasks) {
+        this.executorTasks = executorTasks;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     public List<Message> getOutgoingMessage() {
         return outgoingMessage;
     }
 
-    public void setOutgoingMessage(ArrayList<Message> outgoingMessage) {
+    public void setOutgoingMessage(List<Message> outgoingMessage) {
         this.outgoingMessage = outgoingMessage;
     }
 
@@ -126,20 +162,20 @@ public class User {
         this.role = role;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> getCustomerTasks() {
+        return customerTasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setCustomerTasks(List<Task> customerTasks) {
+        this.customerTasks = customerTasks;
     }
 
-    public List<Offer> getOffers() {
-        return offers;
+    public List<Offer> getExecutorOffers() {
+        return executorOffers;
     }
 
-    public void setOffers(List<Offer> offers) {
-        this.offers = offers;
+    public void setExecutorOffers(List<Offer> executorOffers) {
+        this.executorOffers = executorOffers;
     }
 
     public List<Message> getInboxMessages() {
@@ -171,17 +207,21 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id) &&
+        return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
                 role == user.role &&
-                Objects.equals(tasks, user.tasks) &&
-                Objects.equals(offers, user.offers) &&
+                Objects.equals(customerTasks, user.customerTasks) &&
+                Objects.equals(executorTasks, user.executorTasks) &&
+                Objects.equals(executorOffers, user.executorOffers) &&
+                Objects.equals(customerOffers, user.customerOffers) &&
                 Objects.equals(inboxMessages, user.inboxMessages) &&
                 Objects.equals(outgoingMessage, user.outgoingMessage) &&
                 faculty == user.faculty &&
-                Objects.equals(webMoneyAccount, user.webMoneyAccount);
+                Objects.equals(webMoneyAccount, user.webMoneyAccount) &&
+                Objects.equals(course, user.course) &&
+                university == user.university;
     }
 
     @Override
@@ -195,13 +235,18 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
-                ", tasks=" + tasks +
-                ", offers=" + offers +
+                ", customerTasks=" + customerTasks +
+                ", executorTasks=" + executorTasks +
+                ", executorOffers=" + executorOffers +
+                ", customerOffers=" + customerOffers +
                 ", inboxMessages=" + inboxMessages +
                 ", outgoingMessage=" + outgoingMessage +
                 ", faculty=" + faculty +
                 ", webMoneyAccount='" + webMoneyAccount + '\'' +
+                ", course='" + course + '\'' +
+                ", university=" + university +
                 '}';
     }
 }

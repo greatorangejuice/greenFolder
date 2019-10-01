@@ -1,5 +1,7 @@
 package com.blansplatform.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,9 +12,11 @@ public class Message {
     private Long id;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "senderUserId")
+    @JsonBackReference(value = "outgoingMessage_userFrom")
     private User userFrom;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "recipientUserId")
+    @JsonBackReference(value = "inboxMessages_userTo")
     private User userTo;
     private String messageHead;
     private String messageBody;

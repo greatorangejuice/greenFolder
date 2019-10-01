@@ -1,7 +1,7 @@
-package com.blansplatform.controller;
+package com.blansplatform.controller.entityControllers;
 
 import com.blansplatform.entity.User;
-import com.blansplatform.service.UserService;
+import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

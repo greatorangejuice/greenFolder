@@ -1,7 +1,7 @@
-package com.blansplatform.controller;
+package com.blansplatform.controller.entityControllers;
 
 import com.blansplatform.entity.Message;
-import com.blansplatform.service.MessageService;
+import com.blansplatform.service.entityServices.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

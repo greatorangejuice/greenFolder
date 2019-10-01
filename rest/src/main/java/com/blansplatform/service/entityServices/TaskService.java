@@ -1,4 +1,4 @@
-package com.blansplatform.service;
+package com.blansplatform.service.entityServices;
 
 import com.blansplatform.entity.Task;
 import com.blansplatform.repository.TaskRepository;

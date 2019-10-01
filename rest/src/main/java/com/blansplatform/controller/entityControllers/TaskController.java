@@ -1,7 +1,7 @@
-package com.blansplatform.controller;
+package com.blansplatform.controller.entityControllers;
 
 import com.blansplatform.entity.Task;
-import com.blansplatform.service.TaskService;
+import com.blansplatform.service.entityServices.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
