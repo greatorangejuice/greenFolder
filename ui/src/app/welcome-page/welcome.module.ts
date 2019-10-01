@@ -6,7 +6,7 @@ import {WelcomePageComponent} from './welcome-page.component';
 import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {SharedModule} from '../shared/shared.module';
-import {MatCheckboxModule} from '@angular/material';
+import {MatCheckboxModule, MatSelectModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -23,6 +23,7 @@ import {MatCheckboxModule} from '@angular/material';
     ReactiveFormsModule,
     SharedModule,
     MatCheckboxModule,
+    MatSelectModule,
   ],
   exports: [
     RouterModule

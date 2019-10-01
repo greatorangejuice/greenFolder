@@ -10,9 +10,15 @@ import {MustMatch} from './password.validators';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
+
 export class RegistrationComponent implements OnInit {
   form: FormGroup;
-
+  hide = true;
+  universityList = [
+    {id: 'bsuir', name: 'Belorussian State University'},
+    {id: 'bntu', name: 'Belorussian State'},
+    {id: 'bsu', name: 'Belorussian State'},
+  ];
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -30,11 +36,12 @@ export class RegistrationComponent implements OnInit {
     // });
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      math: new FormControl(false),
-      programming: new FormControl(false),
-      electricalChains: new FormControl(false),
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      name: new FormControl(''),
+      surname: new FormControl(''),
+      city: new FormControl('Minsk'),
+      university: new FormControl(),
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
@@ -96,4 +103,5 @@ export class RegistrationComponent implements OnInit {
   //   }
   //   return null;
   // }
+
 }

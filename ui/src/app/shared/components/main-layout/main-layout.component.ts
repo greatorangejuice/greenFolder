@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from "../../services/alert.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-main-layout',
@@ -11,6 +12,7 @@ import {AlertService} from "../../services/alert.service";
 export class MainLayoutComponent implements OnInit {
 
   title =  '';
+  isLoggedIn$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -20,6 +22,9 @@ export class MainLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.isLoggedIn$ = this.authService.isLoggedIn();
+    // console.log('logged?');
+    // console.log(this.isLoggedIn$);
     if (this.router.url === '/tasks') {
       this.title = '';
     } else if(this.router.url === '/user') {

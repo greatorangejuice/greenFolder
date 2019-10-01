@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FbAuthResponse, User} from '../interfaces';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -13,6 +13,10 @@ import {AlertService} from "./alert.service";
 export class AuthService {
 
   userId: string;
+  loggedIn = new BehaviorSubject<boolean>(false);
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
 
   constructor(
     private httpClient: HttpClient,
@@ -29,17 +33,9 @@ export class AuthService {
     return localStorage.getItem('fb-token');
   }
 
-  // getId(req: any): Observable<any> {
-    // console.log(this.userId);
-    // return this.userId;
-    // console.log('getid: ', req);
-    // return this.lo
-  // }
-
   testGetUsers():Observable<any> {
     return this.httpClient.get('http://localhost:8080/user/all');
   }
-
 
   login(user: User): Observable<any> {
     return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
@@ -83,7 +79,6 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.token;
   }
-
 
   // Получаем токен и закидыаем его в локал сторедж;
   private setToken(response: FbAuthResponse | null) {
