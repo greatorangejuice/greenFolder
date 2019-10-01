@@ -19,7 +19,7 @@ import static javax.ws.rs.HttpMethod.*;
 public class CorsFilter implements Filter {
     private static final String DELIMITER = ", ";
     private static final String ACCESS_AGE = "3600";
-    private static final String ALLOW_ORIGIN = "http://localhost:4200";
+    private static final String ALLOW_ORIGIN = "http://localhost:8000";
     private final Environment environment;
 
     @Autowired

@@ -1,46 +1,43 @@
 version: '3.2'
 
 services:
-  docker-mysql:
+  mysql-db:
     image: mysql:latest
-    container_name: docker-mysql
-    expose:
-      - 3306
-    ports:
-      - 3306:3306
+    container_name: mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: RootPass1992
       MYSQL_DATABASE: blansplatform
-      MYSQL_USER: kirill
-      MYSQL_PASSWORD: RootPass1992
     networks:
       - application
 
   rest:
     container_name: rest
     build:
-      context: ./docker/rest
+      context: ./rest
       dockerfile: Dockerfile
-    expose:
-      - 8080
     ports:
       - 8080:8080
     networks:
       - application
     depends_on:
-      - docker-mysql
+      - mysql-db
+    restart: on-failure
 
-networks:
-  application:
-    driver: bridge
 
   ui:
     container_name: userInterface
     build:
-      context: .
-      dockerfile: ./ui/Dockerfile
+      context: ./ui
+      dockerfile: Dockerfile
     volumes:
-      - './app'
-      - '/app/node_modules'
+      - ./app
+      - /app/node_modules
     ports:
-      - '8000:80'
+      - 8000:80
+    networks:
+      - application
+
+
+networks:
+  application:
+    driver: bridge
