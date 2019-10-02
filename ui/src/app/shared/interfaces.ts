@@ -8,23 +8,24 @@ export interface Task {
   isFinished?: boolean;
 }
 
-export interface Subjects {
-  math: boolean;
-  programming: boolean;
-  electricalChains: boolean;
-}
+// export interface Subjects {
+//   math: boolean;
+//   programming: boolean;
+//   electricalChains: boolean;
+// }
 
 export interface User {
   email: string;
   password: string;
+  university?: string;
   name?: string;
+  surname?: string;
   faculty?: string;
+  course?: string;
   uid?: string;
   vkId?: string;
   returnSecureToken?: boolean;
-  subjects?: Subjects;
-  math?: any;
-  // idToken?: string;
+  city?: string;
 }
 
 export interface FbAuthResponse {

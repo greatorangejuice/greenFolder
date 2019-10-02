@@ -7,16 +7,15 @@ import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AlertService} from "./alert.service";
 
+export interface Univers {
+  allUniversityAsMap: object;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   userId: string;
-  loggedIn = new BehaviorSubject<boolean>(false);
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
 
   constructor(
     private httpClient: HttpClient,
@@ -31,10 +30,6 @@ export class AuthService {
       return null;
     }
     return localStorage.getItem('fb-token');
-  }
-
-  testGetUsers():Observable<any> {
-    return this.httpClient.get('http://localhost:8080/user/all');
   }
 
   login(user: User): Observable<any> {
@@ -56,8 +51,7 @@ export class AuthService {
   }
 
   signup(user: User): Observable<any> {
-    user.returnSecureToken = true;
-    return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, user);
+    return this.httpClient.post(`${environment.backend}/register`, user);
   }
 
   sendUserData(userInfo): Observable<any> {
@@ -80,9 +74,19 @@ export class AuthService {
     }
   }
 
-  checkEmail(email: string): Observable<string> {
-    console.log('checking');
-    return this.httpClient.get<string>(`${environment.backend}/mail/check`);
+  checkEmail(email: object): Observable<string> {
+    return this.httpClient.post<string>(`${environment.backend}/mail/check`, email);
+  }
+
+  getUniversityList():Observable<any> {
+    return this.httpClient.get(`${environment.backend}/registration`)
+      .pipe(
+        map(
+          (res: Univers) => {
+              return Object.keys(res.allUniversityAsMap)
+          }
+        )
+      )
   }
 
 }
