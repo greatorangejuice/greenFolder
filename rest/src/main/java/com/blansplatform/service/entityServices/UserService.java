@@ -1,5 +1,6 @@
 package com.blansplatform.service.entityServices;
 
+import com.blansplatform.dto.MailDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final String IF_EMAIL_EXIST = "exist";
-    private final String IF_EMAIL_NOT_EXIST = "not exist";
+    private final String IF_EMAIL_EXIST = "yes";
+    private final String IF_EMAIL_NOT_EXIST = "no";
 
     final private UserRepository userRepository;
 
@@ -45,11 +46,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String checkUserByEmail(String email){
-        User user = userRepository.findUserByEmail(email);
+    public MailDto checkUserByEmail(MailDto mailDto) {
+        User user = userRepository.findFirstUserByEmail(mailDto.getEmail());
         if(user == null){
-            return IF_EMAIL_NOT_EXIST;
+            mailDto.setStatus(IF_EMAIL_NOT_EXIST);
+            return mailDto;
         }
-        return IF_EMAIL_EXIST;
+        mailDto.setStatus(IF_EMAIL_EXIST);
+        return mailDto;
     }
 }
