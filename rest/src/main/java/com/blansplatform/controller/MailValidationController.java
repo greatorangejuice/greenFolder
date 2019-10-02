@@ -1,5 +1,6 @@
 package com.blansplatform.controller;
 
+import com.blansplatform.dto.MailDto;
 import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class MailValidationController {
     }
 
     @PostMapping("/check")
-    public @ResponseBody String mailAlreadyExistCheck(@RequestBody String email){
-        return userService.checkUserByEmail(email);
+    public @ResponseBody MailDto mailAlreadyExistCheck(@RequestBody MailDto mailDto){
+        return userService.checkUserByEmail(mailDto);
     }
 }
