@@ -8,8 +8,24 @@
     justify-content: center;
     flex-direction: column;
   }
-  padding: 25px;
+  padding: 0 25px;
 }
 .picture {
   width: 200px;
+}
+.main-list {
+  background-color: beige;
+  li {
+    padding: 5px;
+  }
+}
+
+.main-page_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+    button {
+      margin: 5px;
+    }
 }
