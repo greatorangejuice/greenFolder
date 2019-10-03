@@ -34,6 +34,7 @@ export class RegistrationComponent implements OnInit {
      );
 
     this.form = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
@@ -51,6 +52,7 @@ export class RegistrationComponent implements OnInit {
   submit() {
     console.log(this.form);
     const user: User = {
+      username: this.form.value.username,
       email: this.form.value.email,
       password: this.form.value.password,
       name: this.form.value.name,

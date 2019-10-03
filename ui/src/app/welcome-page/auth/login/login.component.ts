@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         () => {
         this.submitted = false;
-        this.router.navigate(['/tasks']);
+        this.router.navigate(['/main']);
         },
         (error) => {
           if (error.name === 'HttpErrorResponse') {

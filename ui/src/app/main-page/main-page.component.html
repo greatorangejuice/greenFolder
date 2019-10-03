@@ -14,8 +14,8 @@
     </ol>
 
     <div class="main-page_buttons">
-      <button mat-raised-button>Правила использования сервиса</button>
-      <button mat-raised-button>Создать заявку</button>
+      <button mat-raised-button (click)="openRules()">Правила использования сервиса</button>
+      <button mat-raised-button [routerLink]="['/order']">Создать заявку</button>
     </div>
 <!--    <mat-list>-->
 <!--    <mat-list-item>Создаешь заявку, где ты максимально подробно описываешь, что тебе нужно</mat-list-item>-->

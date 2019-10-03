@@ -1,6 +1,12 @@
 <div class="registration-container">
   <form [formGroup]="form" (ngSubmit)="submit()" class="registration-form">
     <mat-form-field>
+      <input
+        matInput placeholder="Username"
+        formControlName="username"
+      >
+    </mat-form-field>
+    <mat-form-field>
     <input
       matInput placeholder="Email"
       formControlName="email"
