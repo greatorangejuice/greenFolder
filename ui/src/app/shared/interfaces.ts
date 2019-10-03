@@ -15,9 +15,9 @@ export interface Task {
 // }
 
 export interface User {
-  username?: string;
-  email: string;
-  password: string;
+  username: string;
+  email?: string;
+  password?: string;
   university?: string;
   name?: string;
   surname?: string;
@@ -29,10 +29,19 @@ export interface User {
   city?: string;
 }
 
-export interface FbAuthResponse {
+export interface Token {
+  idToken: string
+}
+
+// export interface FbAuthResponse {
+//   idToken: string;
+//   expiresIn: string;
+//   localId: string;
+// }
+
+export interface loginResponse {
   idToken: string;
   expiresIn: string;
-  localId: string;
 }
 
 export interface Users {

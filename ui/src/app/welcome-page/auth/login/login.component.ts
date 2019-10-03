@@ -38,9 +38,13 @@ export class LoginComponent implements OnInit {
     );
 
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
+
+    const date = new Date().getTime();
+    console.log(date);
+    console.log(typeof (date));
   }
 
   submit() {
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     const user: User = {
-      email: this.form.value.email,
+      username: this.form.value.username,
       password: this.form.value.password,
     };
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FbAuthResponse, User} from '../interfaces';
+import {loginResponse, Token, User} from '../interfaces';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
@@ -15,8 +15,6 @@ export interface Univers {
 })
 export class AuthService {
 
-  userId: string;
-
   constructor(
     private httpClient: HttpClient,
     private route: Router,
@@ -24,16 +22,29 @@ export class AuthService {
   ) {}
 
   get token(): string {
-    const expireDate = new Date(localStorage.getItem('fb-token-expires'));
+    const expireDate = new Date(localStorage.getItem('idToken-expires'));
     if (new Date() > expireDate) {
       this.logout();
       return null;
     }
-    return localStorage.getItem('fb-token');
+    if (expireDate.getTime() - new Date().getTime() <= 300000) {
+      this.refreshToken()
+        .subscribe(
+            this.setToken,
+        )
+    }
+    return localStorage.getItem('idToken');
+  }
+
+  refreshToken(): Observable<any> {
+    const token = localStorage.getItem('idToken');
+    const username = localStorage.getItem('username');
+    const request = { token: token, username: username };
+    return this.httpClient.post(`${environment.backend}/token/refresh`, request);
   }
 
   login(user: User): Observable<any> {
-    return this.httpClient.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
+    return this.httpClient.post(`${environment.backend}/login`, user)
       .pipe(
         tap(
             this.setToken,
@@ -51,31 +62,21 @@ export class AuthService {
   }
 
   signup(user: User): Observable<any> {
-    return this.httpClient.post(`${environment.backend}/register`, user);
-  }
-
-  sendUserData(userInfo): Observable<any> {
-    return this.httpClient.post(`${environment.fbDataBaseUrl}/users.json`, userInfo);
+    return this.httpClient.post(`${environment.backend}/registration`, user);
   }
 
   isAuthenticated(): boolean {
     return !!this.token;
   }
 
-  // Получаем токен и закидыаем его в локал сторедж;
-  private setToken(response: FbAuthResponse | null) {
+  private setToken(response: loginResponse | null) {
     if (response) {
-      this.userId = response.localId;
       const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('fb-token', response.idToken);
-      localStorage.setItem('fb-token-expires', expiresDate.toString());
+      localStorage.setItem('idToken', response.idToken);
+      localStorage.setItem('idToken-expires', expiresDate.toString());
     } else {
       localStorage.clear();
     }
-  }
-
-  checkEmail(email: object): Observable<string> {
-    return this.httpClient.post<string>(`${environment.backend}/mail/check`, email);
   }
 
   getUniversityList():Observable<any> {
@@ -90,3 +91,9 @@ export class AuthService {
   }
 
 }
+
+
+
+// checkEmail(email: object): Observable<string> {
+//   return this.httpClient.post<string>(`${environment.backend}/mail/check`, email);
+// }
