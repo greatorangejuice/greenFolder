@@ -6,6 +6,7 @@ import com.blansplatform.entity.User;
 import com.blansplatform.security.jwt.JwtTokenProvider;
 import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +21,8 @@ public class LoginService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    @Value("${jwt.token.expired}")
+    private String tokenTimeForExpired;
 
     @Autowired
     public LoginService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
@@ -37,7 +40,7 @@ public class LoginService {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
             String token = jwtTokenProvider.createToken(username, user.getRoles());
-            return new TokenDto(token, username);
+            return new TokenDto(token, username, tokenTimeForExpired);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
