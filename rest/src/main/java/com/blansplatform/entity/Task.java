@@ -4,6 +4,8 @@ import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,7 +32,7 @@ public class Task {
     @OneToMany(targetEntity = Offer.class,
             mappedBy = "task",
             cascade = CascadeType.REMOVE,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     @JsonManagedReference(value = "offers_task")
     private List<Offer> offers;
     private String keywords;
