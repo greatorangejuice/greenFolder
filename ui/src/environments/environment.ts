@@ -8,7 +8,7 @@ export const environment: Environment = {
   production: false,
   apiKey: 'AIzaSyBaFjmBco0vKZTiBrAGjArpLGfBGJERULg',
   fbDataBaseUrl: 'https://blans-platform.firebaseio.com',
-  backend: 'localhost:8080',
+  backend: 'http://localhost:8080',
 };
 
 /*

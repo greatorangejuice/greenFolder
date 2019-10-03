@@ -1,0 +1,15 @@
+.welcome-title {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  padding: 25px;
+}
+.picture {
+  width: 200px;
+}

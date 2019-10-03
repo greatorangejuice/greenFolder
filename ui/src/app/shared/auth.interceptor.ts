@@ -32,9 +32,6 @@ export class AuthInterceptor implements HttpInterceptor{
               }
             });
           }
-          console.log('error');
-          console.log(error);
-          console.log(error.statusText);
           this.alertService.warning('test warning');
           return throwError(error)
         })

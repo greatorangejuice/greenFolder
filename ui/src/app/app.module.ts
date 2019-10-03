@@ -1,17 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule, Provider} from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import {AuthGuard} from './shared/services/auth.guard';
+import {AuthInterceptor} from './shared/auth.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import {WelcomeModule} from './welcome-page/welcome.module';
 import {TaskModule} from './task-page/task.module';
 import {SharedModule} from './shared/shared.module';
-import {AuthGuard} from './shared/services/auth.guard';
 import {UserModule} from './user-page/user.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {AuthInterceptor} from './shared/auth.interceptor';
 import {AlertService} from "./shared/services/alert.service";
+import {MainPageModule} from "./main-page/main-page.module";
 
 const INTERCEPTOR: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -31,6 +32,7 @@ const INTERCEPTOR: Provider = {
     SharedModule,
     UserModule,
     BrowserAnimationsModule,
+    MainPageModule,
   ],
   providers: [AuthGuard, INTERCEPTOR, AlertService],
   bootstrap: [AppComponent]

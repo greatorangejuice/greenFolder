@@ -1,36 +1,8 @@
-<!--<form [formGroup]="form" (ngSubmit)="submit()">-->
-<!--  <label for="email">Email</label>-->
-<!--  <input type="email" id="email" formControlName="email">-->
-<!--  <label for="password">Password</label>-->
-<!--  <input type="password" id="password" formControlName="password">-->
-<!--  <label for="password-repeat">Repeat password</label>-->
-<!--  <input type="password" id="password-repeat" formControlName="confirmPassword">-->
-
-<!--  <div class="second-part">-->
-<!--    <label>Предметы</label>-->
-<!--    <mat-checkbox formControlName="math">Высшая математика</mat-checkbox>-->
-<!--    <mat-checkbox formControlName="programming">ОАИП</mat-checkbox>-->
-<!--    <mat-checkbox formControlName="electricalChains">ТЭЦ</mat-checkbox>-->
-<!--  </div>-->
-
-<!--  <button-->
-<!--    mat-button-->
-<!--    type="submit"-->
-<!--    class="welcome-buttons"-->
-<!--    [disabled]="form.invalid"-->
-<!--  >Registration</button>-->
-<!--  <button-->
-<!--    mat-button-->
-<!--    [routerLink]="''"-->
-<!--    class="welcome-buttons"-->
-<!--  >Return to main page</button>-->
-<!--</form>-->
-
 <div class="registration-container">
   <form [formGroup]="form" (ngSubmit)="submit()" class="registration-form">
     <mat-form-field>
     <input
-      matInput placeholder="Email*"
+      matInput placeholder="Email"
       formControlName="email"
       #email
     >
@@ -43,11 +15,7 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Confirm your password" [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
     </mat-form-field>
-
 
     <div class="userinfo">
       <div class="name">
@@ -75,10 +43,22 @@
         <mat-form-field *ngIf="universityList$ | async as universityList; else loading">
           <mat-select placeholder="University" formControlName="university">
             <mat-option *ngFor="let university of universityList"
-                        [value]="university.id"> {{university.name}} </mat-option>
+                        [value]="university"> {{university}} </mat-option>
           </mat-select>
         </mat-form-field>
         <ng-template #loading>Loading...</ng-template>
+        <mat-form-field class=faculty>
+          <input
+            matInput placeholder="Faculty"
+            formControlName="faculty"
+          >
+        </mat-form-field>
+        <mat-form-field class=course>
+          <input
+            matInput placeholder="Course"
+            formControlName="course"
+          >
+        </mat-form-field>
       </div>
       </div>
 
@@ -94,4 +74,4 @@
         >Return to main page</button>
   </form>
 </div>
-<app-alert></app-alert>
+<!--<app-alert></app-alert>-->
