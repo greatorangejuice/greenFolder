@@ -25,12 +25,6 @@ export class LoginComponent implements OnInit {
   // Сделать двойной запрос: сначала логин, с отдельным вытягиваением  id, после запрос на получение данных пользователя.
 
   ngOnInit() {
-    this.authService.testGetUsers()
-      .subscribe(
-        (req) => {
-          console.log(req);
-        }
-      );
     this.route.queryParams.subscribe(
       (params: Params) => {
         // if (params['loginAgain']) {
@@ -66,8 +60,6 @@ export class LoginComponent implements OnInit {
         () => {
         this.submitted = false;
         this.router.navigate(['/tasks']);
-        // const test = this.authService.getId();
-        // console.log(test)
         },
         (error) => {
           if (error.name === 'HttpErrorResponse') {
