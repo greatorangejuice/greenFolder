@@ -5,6 +5,7 @@ import com.blansplatform.entity.User;
 import com.blansplatform.security.jwt.JwtTokenProvider;
 import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ public class JwtRefreshService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    @Value("${jwt.token.expired}")
+    private String tokenTimeForExpired;
 
     @Autowired
     public JwtRefreshService(JwtTokenProvider jwtTokenProvider, UserService userService) {
@@ -25,7 +28,7 @@ public class JwtRefreshService {
         String token = tokenDto.getToken();
         if (token != null && user != null && jwtTokenProvider.validateToken(token)) {
             String refreshedToken = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-            return new TokenDto(refreshedToken, user.getName());
+            return new TokenDto(refreshedToken, user.getName(), tokenTimeForExpired);
         }
         throw new BadCredentialsException("Invalid username or token");
     }
