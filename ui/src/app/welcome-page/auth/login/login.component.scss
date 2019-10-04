@@ -2,6 +2,10 @@ form {
   max-width: 500px;
   margin: 0 auto;
 }
+.login-page {
+  display: flex;
+  flex-direction: column;
+}
 
 .welcome-buttons {
   display: inline-block;

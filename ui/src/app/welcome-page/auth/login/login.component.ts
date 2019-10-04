@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   message: string;
+  valueAfterRegister = '';
+  hide = true;
 
   constructor(
     private authService: AuthService,
@@ -33,12 +35,14 @@ export class LoginComponent implements OnInit {
        this.message =
          (params.loginAgain) ? 'Please, login' :
          (params.logout) ? 'Unlogin' :
-           (params.authFailed) ? 'Session is finished. Please, login again.' : '';
+           (params.authFailed) ? 'Session is finished. Please, login again.' :
+             (params.authSuccessful) ? 'Now you can use your new account' : '';
+       this.valueAfterRegister = params.usernameForLogin;
       }
     );
 
     this.form = new FormGroup({
-      username: new FormControl('', [Validators.required]),
+      username: new FormControl(this.valueAfterRegister, [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
   }

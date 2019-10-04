@@ -17,6 +17,9 @@ export class RegistrationComponent implements OnInit {
   form: FormGroup;
   hide = true;
   universityList$: Observable<any>;
+  invalidMail = false;
+  invalidUsername = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -66,12 +69,28 @@ export class RegistrationComponent implements OnInit {
     this.authService.signup(user)
       .subscribe(
         (req) => {
-          console.log(req);
           this.alertService.success('Successful registered!')
+          this.router.navigate(['/welcome'], {
+            queryParams: {
+              authSuccessful: true,
+              usernameForLogin: user.username,
+            }
+          })
           },
         (err) => {
-          console.log(err);
-          this.alertService.danger('Что-то пошло не так')
+          const error = err.error;
+          if (error.email && error.username) {
+            this.alertService.danger(`Ящик ${user.email} и имя ${user.username} уже зарегистрированы!`);
+            this.form.value.mail = '';
+          }
+          if (error.email) {
+            this.alertService.danger(`Ящик с именем ${user.email} уже зарегистрирован!`);
+            this.form.value.mail = '';
+          }
+          if (error.username) {
+            this.alertService.danger(`Пользователь с именем ${user.username} уже зарегистрирован!`);
+            this.form.value.username = '';
+          }
         }
         );
   }
