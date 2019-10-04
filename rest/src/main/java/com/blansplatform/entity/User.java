@@ -3,7 +3,7 @@ package com.blansplatform.entity;
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.University;
 import com.blansplatform.enumeration.UserStatus;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -23,47 +23,29 @@ public class User {
     private UserStatus userStatus;
     private String city;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+    @JoinTable(name = "user_roles", joinColumns =
+            {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
     private String email;
     private String password;
-    @OneToMany(targetEntity = Task.class,
-                mappedBy = "customer",
-                cascade = CascadeType.REMOVE,
-                fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "task_customer")
+    @OneToMany(targetEntity = Task.class, mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Task> customerTasks;
-    @OneToMany(targetEntity = Task.class,
-            mappedBy = "executor",
-            cascade = CascadeType.REMOVE,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "task_executor")
+    @OneToMany(targetEntity = Task.class, mappedBy = "executor", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Task> executorTasks;
-    @OneToMany(targetEntity = Offer.class,
-                mappedBy = "executor",
-                cascade = CascadeType.REMOVE,
-                fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "offers_executor")
+    @OneToMany(targetEntity = Offer.class, mappedBy = "executor", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Offer> executorOffers;
-    @OneToMany(targetEntity = Offer.class,
-            mappedBy = "customer",
-            cascade = CascadeType.REMOVE,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "offers_customer")
+    @OneToMany(targetEntity = Offer.class, mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Offer> customerOffers;
-    @OneToMany(targetEntity = Message.class,
-                mappedBy = "userTo",
-                cascade = CascadeType.REMOVE,
-                fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "inboxMessages_userTo")
+    @OneToMany(targetEntity = Message.class, mappedBy = "userTo", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> inboxMessages;
-    @OneToMany(targetEntity = Message.class,
-                mappedBy = "userFrom",
-                cascade = CascadeType.REMOVE,
-                fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "outgoingMessage_userFrom")
+    @OneToMany(targetEntity = Message.class, mappedBy = "userFrom", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> outgoingMessage;
     private Faculty faculty;
     private String webMoneyAccount;

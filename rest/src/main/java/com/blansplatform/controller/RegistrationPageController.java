@@ -5,10 +5,9 @@ import com.blansplatform.entity.User;
 import com.blansplatform.service.RegistrationPageService;
 import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.core.Response;
 
 @Controller
 @RequestMapping("/registration")
@@ -29,9 +28,8 @@ public class RegistrationPageController {
     }
 
     @PostMapping
-    public @ResponseBody Response newUserRegistration (@RequestBody User user) {
-        userService.addUser(user);
-        return Response.status(Response.Status.CREATED.getStatusCode()).build();
+    public @ResponseBody ResponseEntity newUserRegistration (@RequestBody User user) {
+        return userService.addUser(user);
     }
 
 }

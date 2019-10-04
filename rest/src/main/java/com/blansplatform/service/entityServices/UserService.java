@@ -5,16 +5,22 @@ import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.UserStatus;
 import com.blansplatform.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
 
     private final String IF_EMAIL_EXIST = "yes";
     private final String IF_EMAIL_NOT_EXIST = "no";
+    private final String IF_EMAIL_ALREADY_EXIST = " email already exist";
+    private final String IF_USERNAME_ALREADY_EXIST = " username already exist";
 
     final private UserRepository userRepository;
 
@@ -35,9 +41,25 @@ public class UserService {
        return user;
     }
 
-    public void addUser(User user) {
+    public ResponseEntity<HashMap> addUser(User user) {
+        HashMap response = newUserDataValidation(user);
+        if (!response.isEmpty()) {
+            return new ResponseEntity<HashMap>(response, HttpStatus.CONFLICT);
+        }
         user.setUserStatus(UserStatus.ACTIVE);
         userRepository.save(user);
+        return new ResponseEntity<HashMap>(HttpStatus.CREATED);
+    }
+
+    public HashMap newUserDataValidation(User user) {
+        Map<String, String> dataValidation = new HashMap<>();
+        if (userRepository.findFirstUserByEmail(user.getEmail()) != null) {
+            dataValidation.put("email", user.getEmail() + IF_EMAIL_ALREADY_EXIST);
+        }
+        if (userRepository.findFirstUserByUsername(user.getUsername()) != null) {
+            dataValidation.put("username", user.getUsername() + IF_USERNAME_ALREADY_EXIST);
+        }
+        return (HashMap) dataValidation;
     }
 
     public void deleteUser(User user) {
@@ -49,7 +71,7 @@ public class UserService {
     }
 
     public MailDto checkUserByEmail(MailDto mailDto) {
-        User user = userRepository.findUserByEmail(mailDto.getEmail());
+        User user = userRepository.findFirstUserByEmail(mailDto.getEmail());
         if(user == null){
             mailDto.setStatus(IF_EMAIL_NOT_EXIST);
             return mailDto;
@@ -59,10 +81,10 @@ public class UserService {
     }
 
     public User findUserByEmail (String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findFirstUserByEmail(email);
     }
 
     public User findUserByUsername(String username) {
-       return userRepository.findUserByUsername(username);
+       return userRepository.findFirstUserByUsername(username);
     }
 }
