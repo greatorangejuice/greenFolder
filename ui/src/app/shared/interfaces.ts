@@ -40,8 +40,8 @@ export interface Token {
 // }
 
 export interface loginResponse {
-  idToken: string;
-  expiresIn: string;
+  token: string;
+  tokenLifeTime: string;
 }
 
 export interface Users {

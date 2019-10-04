@@ -21,8 +21,8 @@ import { OrderFormComponent } from './order-form/order-form.component';
     RouterModule.forChild([
       {
         path: '', component: MainLayoutComponent, children: [
-          {path: '', component: MainPageComponent, canActivate: [AuthGuard]},
-          {path: 'order', component: OrderFormComponent, canActivate: [AuthGuard]}
+          {path: '', component: MainPageComponent, },
+          {path: 'order', component: OrderFormComponent, }
         ]
       }
     ]),

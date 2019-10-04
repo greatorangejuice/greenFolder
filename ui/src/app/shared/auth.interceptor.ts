@@ -18,10 +18,12 @@ export class AuthInterceptor implements HttpInterceptor{
     const idToken = localStorage.getItem('idToken');
 
     if (this.auth.isAuthenticated()) {
-      req = req.clone({
+      req = req.clone(
+        {
         headers: req.headers.set("Authorization",
           "Bearer_ " + idToken),
-      });
+      }
+      );
     }
 
     return next.handle(req)
@@ -38,7 +40,7 @@ export class AuthInterceptor implements HttpInterceptor{
           } else if(error.status === 403) {
             console.log(403);
           }
-          this.alertService.warning('test warning');
+          this.alertService.warning('INTERCEPTOR');
           return throwError(error)
         })
       )

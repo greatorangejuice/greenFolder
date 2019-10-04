@@ -41,19 +41,13 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
-
-    const date = new Date().getTime();
-    console.log(date);
-    console.log(typeof (date));
   }
 
   submit() {
     if (this.form.invalid) {
       return;
     }
-
     this.submitted = true;
-
     const user: User = {
       username: this.form.value.username,
       password: this.form.value.password,
@@ -67,6 +61,8 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           if (error.name === 'HttpErrorResponse') {
+            console.log('Ошибка в логине');
+            console.log(error);
             console.log(error.error.error.message);
             const errMessage: string = error.error.error.message;
             this.message =

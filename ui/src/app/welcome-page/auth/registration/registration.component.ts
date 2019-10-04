@@ -71,7 +71,7 @@ export class RegistrationComponent implements OnInit {
           },
         (err) => {
           console.log(err);
-          this.alertService.danger('Bad request')
+          this.alertService.danger('Что-то пошло не так')
         }
         );
   }

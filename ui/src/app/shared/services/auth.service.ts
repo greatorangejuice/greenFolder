@@ -22,6 +22,7 @@ export class AuthService {
   ) {}
 
   get token(): string {
+    console.log('Запрос на get token');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
     if (new Date() > expireDate) {
       this.logout();
@@ -54,11 +55,11 @@ export class AuthService {
 
   logout() {
     this.setToken(null);
-    this.route.navigate(['/welcome'], {
-      queryParams: {
-        logout: true,
-      }
-    });
+    // this.route.navigate(['/welcome'], {
+    //   queryParams: {
+    //     logout: true,
+    //   }
+    // });
   }
 
   signup(user: User): Observable<any> {
@@ -70,9 +71,11 @@ export class AuthService {
   }
 
   private setToken(response: loginResponse | null) {
+    console.log('Устанавливаю токен');
+    console.log(response);
     if (response) {
-      const expiresDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('idToken', response.idToken);
+      const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime * 1000);
+      localStorage.setItem('idToken', response.token);
       localStorage.setItem('idToken-expires', expiresDate.toString());
     } else {
       localStorage.clear();

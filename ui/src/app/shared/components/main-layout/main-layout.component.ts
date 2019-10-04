@@ -43,6 +43,7 @@ export class MainLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/welcome']);
     this.alertService.success('unlogin');
   }
 
