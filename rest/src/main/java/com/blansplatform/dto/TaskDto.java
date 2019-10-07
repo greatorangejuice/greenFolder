@@ -16,8 +16,10 @@ public class TaskDto {
     private String subject;
     private Faculty faculty;
     private String keywords;
+    private String customer;
+    private String executor;
 
-    public TaskDto(Long id, String name, String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords) {
+    public TaskDto(Long id, String name, String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String customer, String executor) {
         this.id = id;
         this.name = name;
         this.specification = specification;
@@ -25,6 +27,11 @@ public class TaskDto {
         this.subject = subject;
         this.faculty = faculty;
         this.keywords = keywords;
+        this.customer = customer;
+        this.executor = executor;
+    }
+
+    public TaskDto() {
     }
 
     public Long getId() {
@@ -83,6 +90,22 @@ public class TaskDto {
         this.keywords = keywords;
     }
 
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
     @Override
     public String toString() {
         return "TaskDto{" +
@@ -93,6 +116,8 @@ public class TaskDto {
                 ", subject='" + subject + '\'' +
                 ", faculty=" + faculty +
                 ", keywords='" + keywords + '\'' +
+                ", customer='" + customer + '\'' +
+                ", executor='" + executor + '\'' +
                 '}';
     }
 }

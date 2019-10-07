@@ -41,6 +41,20 @@ public class TaskService {
         return TaskDtoFromTask.taskConverter(task);
     }
 
+    public List<TaskDto> findTasksByCustomerId(User customer) {
+        List<Task> tasksDto = taskRepository.findTaskByCustomerId(customer.getId());
+        return tasksDto.stream()
+                .map(TaskDtoFromTask::taskConverter)
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDto> findTasksByExecutorId(User executor) {
+        List<Task> tasksDto = taskRepository.findTaskByExecutorId(executor.getId());
+        return tasksDto.stream()
+                .map(TaskDtoFromTask::taskConverter)
+                .collect(Collectors.toList());
+    }
+
     public void addTask(Task task) {
         taskRepository.save(task);
     }

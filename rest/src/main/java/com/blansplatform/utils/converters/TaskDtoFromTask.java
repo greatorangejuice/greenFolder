@@ -17,7 +17,9 @@ public class TaskDtoFromTask {
                 task.getTaskStatus(),
                 task.getSubject(),
                 task.getFaculty(),
-                task.getKeywords()
+                task.getKeywords(),
+                task.getCustomer().getUsername(),
+                task.getExecutor().getUsername()
         );
     }
 }

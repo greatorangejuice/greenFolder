@@ -12,8 +12,8 @@ public class MessageDtoFromMessage {
     public static MessageDto MessageConverter(Message message) {
         return new MessageDto(
                 message.getId(),
-                message.getUserFrom(),
-                message.getUserTo(),
+                message.getUserFrom().getUsername(),
+                message.getUserTo().getUsername(),
                 message.getMessageHead(),
                 message.getMessageBody()
         );

@@ -13,7 +13,9 @@ public class OfferDtoFromOffer {
         return new OfferDto(
                 offer.getId(),
                 offer.getBid(),
-                offer.getOfferStatus()
+                offer.getOfferStatus(),
+                offer.getExecutor().getUsername(),
+                offer.getCustomer().getUsername()
         );
     }
 

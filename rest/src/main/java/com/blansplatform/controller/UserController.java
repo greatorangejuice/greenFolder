@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     public UserDto findUserById(@PathVariable Long id) {
-        return UserDtoFromUser.userDtoConverter(userService.findUserById(id));
+        return userService.findUserById(id);
     }
 
     @PostMapping

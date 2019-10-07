@@ -10,14 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class MessageDto {
 
     private Long id;
-    @JsonIgnore
-    private User userFrom;
-    @JsonIgnore
-    private User userTo;
+//    @JsonIgnore
+//    private User userFrom;
+//    @JsonIgnore
+//    private User userTo;
     private String messageHead;
     private String messageBody;
+    private String userFrom;
+    private String userTo;
 
-    public MessageDto(Long id, User userFrom, User userTo, String messageHead, String messageBody) {
+    public MessageDto(Long id, String userFrom, String userTo, String messageHead, String messageBody) {
         this.id = id;
         this.userFrom = userFrom;
         this.userTo = userTo;
@@ -33,19 +35,19 @@ public class MessageDto {
         this.id = id;
     }
 
-    public User getUserFrom() {
+    public String getUserFrom() {
         return userFrom;
     }
 
-    public void setUserFrom(User userFrom) {
+    public void setUserFrom(String userFrom) {
         this.userFrom = userFrom;
     }
 
-    public User getUserTo() {
+    public String getUserTo() {
         return userTo;
     }
 
-    public void setUserTo(User userTo) {
+    public void setUserTo(String userTo) {
         this.userTo = userTo;
     }
 
@@ -71,6 +73,8 @@ public class MessageDto {
                 "id=" + id +
                 ", messageHead='" + messageHead + '\'' +
                 ", messageBody='" + messageBody + '\'' +
+                ", userFrom='" + userFrom + '\'' +
+                ", userTo='" + userTo + '\'' +
                 '}';
     }
 }
