@@ -7,7 +7,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatProgressSpinnerModule, MatTableModule, MatButtonToggleModule, MatSnackBarModule,
+  MatProgressSpinnerModule, MatTableModule, MatButtonToggleModule, MatSnackBarModule, MatDialog, MatDialogModule,
 } from '@angular/material';
 import {MainLayoutComponent} from './components/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
@@ -37,7 +37,8 @@ import { AlertComponent } from './components/alert/alert.component';
     MatButtonModule,
     MatButtonToggleModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   exports: [
     HttpClientModule,
@@ -55,6 +56,7 @@ import { AlertComponent } from './components/alert/alert.component';
     MatTableModule,
     SearchPipe,
     AlertComponent,
+    MatDialogModule,
   ],
 })
 export class SharedModule {}

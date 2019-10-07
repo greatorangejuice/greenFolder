@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../shared/interfaces';
 import {AuthService} from '../../../shared/services/auth.service';
-import {switchMap, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {MustMatch} from './password.validators';
+import {MustMatch} from '../../../shared/forms-validators/same-fileds-values';
 import {Observable} from "rxjs";
 import {AlertService} from "../../../shared/services/alert.service";
 @Component({
@@ -53,7 +53,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form);
     const user: User = {
       username: this.form.value.username,
       email: this.form.value.email,
@@ -94,17 +93,6 @@ export class RegistrationComponent implements OnInit {
         }
         );
   }
-
-  // confirmedPass(control: FormControl) {
-  //   if (control.value && this.form) {
-  //     console.log(control.value);
-  //     console.log(this.form.value['password']);
-  //     return {
-  //       ['lengthError']: true,
-  //     };
-  //   }
-  //   return null;
-  // }
 
   // checkForEmail(control: FormControl): Promise<any> {
   //   return new Promise<any>( resolve => {

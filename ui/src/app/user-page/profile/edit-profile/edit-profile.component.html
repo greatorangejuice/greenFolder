@@ -1,0 +1,38 @@
+<div class="dialog-container">
+  <form [formGroup]="form" (submit)="editProfile()">
+    <div class="form-content">
+      <mat-form-field>
+        <input
+          matInput
+          [placeholder]="namePlaceholder"
+          formControlName="username"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Old password"
+          formControlName="currentPassword"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="New Password"
+          formControlName="newPassword"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Confirm new password"
+          formControlName="confirmPassword"
+        >
+      </mat-form-field>
+    </div>
+    <mat-dialog-actions class="footer">
+      <button mat-button mat-dialog-close>{{closeValue}}</button>
+      <button mat-button type="submit">Edit profile</button>
+    </mat-dialog-actions>
+  </form>
+</div>

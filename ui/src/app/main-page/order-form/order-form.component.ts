@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {MustMatch} from "../../welcome-page/auth/registration/password.validators";
 
 @Component({
   selector: 'app-order-form',

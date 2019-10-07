@@ -8,12 +8,6 @@ export interface Task {
   isFinished?: boolean;
 }
 
-// export interface Subjects {
-//   math: boolean;
-//   programming: boolean;
-//   electricalChains: boolean;
-// }
-
 export interface User {
   username: string;
   email?: string;
@@ -33,18 +27,16 @@ export interface Token {
   idToken: string
 }
 
-// export interface FbAuthResponse {
-//   idToken: string;
-//   expiresIn: string;
-//   localId: string;
-// }
-
 export interface loginResponse {
   token: string;
   tokenLifeTime: string;
 }
 
 export interface Users {
-  // subjects: string;
   user_id: string;
+}
+
+export interface Passwords {
+  currentPassword: string;
+  newPassword: string;
 }

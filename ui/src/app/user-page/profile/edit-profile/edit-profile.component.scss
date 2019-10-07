@@ -1,0 +1,13 @@
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 1028px) {
+    width: 500px;
+  }
+}
