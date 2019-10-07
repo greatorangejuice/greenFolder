@@ -11,16 +11,14 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(targetEntity = Task.class)
+    @ManyToOne(targetEntity = Task.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "taskId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Task task;
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "executorId")
     private User executor;
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User customer;
     private String bid;
     private OfferStatus offerStatus;

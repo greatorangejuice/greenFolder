@@ -3,7 +3,6 @@ package com.blansplatform.entity;
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.University;
 import com.blansplatform.enumeration.UserStatus;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -29,23 +28,17 @@ public class User {
     private List<Role> roles;
     private String email;
     private String password;
-    @OneToMany(targetEntity = Task.class, mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Task.class, mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task> customerTasks;
-    @OneToMany(targetEntity = Task.class, mappedBy = "executor", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Task.class, mappedBy = "executor", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task> executorTasks;
-    @OneToMany(targetEntity = Offer.class, mappedBy = "executor", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Offer.class, mappedBy = "executor", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Offer> executorOffers;
-    @OneToMany(targetEntity = Offer.class, mappedBy = "customer", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Offer.class, mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Offer> customerOffers;
-    @OneToMany(targetEntity = Message.class, mappedBy = "userTo", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Message.class, mappedBy = "userTo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Message> inboxMessages;
-    @OneToMany(targetEntity = Message.class, mappedBy = "userFrom", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(targetEntity = Message.class, mappedBy = "userFrom", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Message> outgoingMessage;
     private Faculty faculty;
     private String webMoneyAccount;

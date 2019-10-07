@@ -1,7 +1,12 @@
-package com.blansplatform.controller.entityControllers;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.controller;
+
+import com.blansplatform.dto.MessageDto;
 import com.blansplatform.entity.Message;
-import com.blansplatform.service.entityServices.MessageService;
+import com.blansplatform.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +24,12 @@ public class MessageController {
     }
 
     @GetMapping("/all")
-    public List<Message> findAllMessages() {
+    public List<MessageDto> findAllMessages() {
         return messageService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Message findMessageById(@PathVariable Long id) {
+    public MessageDto findMessageById(@PathVariable Long id) {
         return messageService.findMessageById(id);
     }
 

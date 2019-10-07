@@ -1,7 +1,13 @@
-package com.blansplatform.controller.entityControllers;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.controller;
+
+import com.blansplatform.dto.UserDto;
 import com.blansplatform.entity.User;
-import com.blansplatform.service.entityServices.UserService;
+import com.blansplatform.service.UserService;
+import com.blansplatform.utils.converters.UserDtoFromUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +26,13 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public List<User> findAllUsers() {
+    public List<UserDto> findAllUsers() {
         return userService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public User findUserById(@PathVariable Long id) {
-        return userService.findUserById(id);
+    public UserDto findUserById(@PathVariable Long id) {
+        return UserDtoFromUser.userDtoConverter(userService.findUserById(id));
     }
 
     @PostMapping
