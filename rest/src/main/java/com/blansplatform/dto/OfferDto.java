@@ -13,12 +13,19 @@ public class OfferDto {
     private Long id;
     private String bid;
     private OfferStatus offerStatus;
+    private String executor;
+    private String customer;
 
-    public OfferDto(Long id, String bid, OfferStatus offerStatus) {
+
+    public OfferDto(Long id, String bid, OfferStatus offerStatus, String executor, String customer) {
         this.id = id;
-
         this.bid = bid;
         this.offerStatus = offerStatus;
+        this.executor = executor;
+        this.customer = customer;
+    }
+
+    public OfferDto() {
     }
 
     public Long getId() {
@@ -45,12 +52,30 @@ public class OfferDto {
         this.offerStatus = offerStatus;
     }
 
+    public String getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "OfferDto{" +
                 "id=" + id +
                 ", bid='" + bid + '\'' +
                 ", offerStatus=" + offerStatus +
+                ", executor='" + executor + '\'' +
+                ", customer='" + customer + '\'' +
                 '}';
     }
 }

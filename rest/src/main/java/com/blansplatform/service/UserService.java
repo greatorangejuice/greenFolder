@@ -44,12 +44,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User findUserById(Long id) {
+
+    public UserDto findUserById(Long id) {
         User user = userRepository.findUserById(id);
         if (user == null) {
             throw new EntityNotFoundException("user not found");
         }
-       return user;
+       return UserDtoFromUser.userDtoConverter(user);
     }
 
     public ResponseEntity<HashMap> addUser(User user) {
