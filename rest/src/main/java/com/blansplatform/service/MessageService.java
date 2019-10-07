@@ -1,12 +1,19 @@
-package com.blansplatform.service.entityServices;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.service;
+
+import com.blansplatform.dto.MessageDto;
 import com.blansplatform.entity.Message;
 import com.blansplatform.repository.MessageRepository;
+import com.blansplatform.utils.converters.MessageDtoFromMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -18,16 +25,19 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public List<Message> findAll() {
-        return messageRepository.findAll();
+    public List<MessageDto> findAll() {
+        List<Message> messages = messageRepository.findAll();
+        return messages.stream()
+                .map(MessageDtoFromMessage::MessageConverter)
+                .collect(Collectors.toList());
     }
 
-    public Message findMessageById(Long id) {
+    public MessageDto findMessageById(Long id) {
         Message message = messageRepository.findMessageById(id);
         if (message == null){
             throw new EntityNotFoundException("Message not found");
         }
-        return message;
+        return MessageDtoFromMessage.MessageConverter(message);
     }
 
     public void addMessage(Message message) {

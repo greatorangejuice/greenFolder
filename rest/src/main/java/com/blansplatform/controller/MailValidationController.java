@@ -1,7 +1,7 @@
 package com.blansplatform.controller;
 
 import com.blansplatform.dto.MailDto;
-import com.blansplatform.service.entityServices.UserService;
+import com.blansplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

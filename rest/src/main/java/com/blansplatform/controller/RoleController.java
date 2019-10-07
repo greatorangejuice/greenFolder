@@ -1,7 +1,11 @@
-package com.blansplatform.controller.entityControllers;
+/*
+ * Copyright (c) GreenFolder
+ */
+
+package com.blansplatform.controller;
 
 import com.blansplatform.entity.Role;
-import com.blansplatform.service.entityServices.RoleService;
+import com.blansplatform.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

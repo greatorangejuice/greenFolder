@@ -17,13 +17,13 @@ public class Task {
     private TaskStatus taskStatus;
     private String subject;
     private Faculty faculty;
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private User customer;
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "executorId")
     private User executor;
-    @OneToMany(targetEntity = Offer.class, mappedBy = "task")
+    @OneToMany(targetEntity = Offer.class, mappedBy = "task", fetch = FetchType.LAZY)
     private List<Offer> offers;
     private String keywords;
 
