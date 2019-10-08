@@ -44,12 +44,13 @@ public class User {
     private String webMoneyAccount;
     private String course;
     private University university;
+    private String activationCode;
     @LastModifiedDate
     private Date updated;
 
     public User(String name, String surname, String username, String city, List<Role> roles, String email, String password, List<Task> customerTasks, List<Task> executorTasks,
                 List<Offer> executorOffers, List<Offer> customerOffers, List<Message> inboxMessages, List<Message> outgoingMessage, Faculty faculty,
-                String webMoneyAccount, String course, University university, UserStatus userStatus, Date updated) {
+                String webMoneyAccount, String course, University university, UserStatus userStatus, Date updated, String activationCode) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -69,9 +70,18 @@ public class User {
         this.university = university;
         this.userStatus = userStatus;
         this.updated = updated;
+        this.activationCode = activationCode;
     }
 
     public User() {
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
     public String getUsername() {
@@ -258,12 +268,13 @@ public class User {
                 Objects.equals(webMoneyAccount, user.webMoneyAccount) &&
                 Objects.equals(course, user.course) &&
                 university == user.university &&
+                Objects.equals(activationCode, user.activationCode) &&
                 Objects.equals(updated, user.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, username, userStatus, city, roles, email, password, customerTasks, executorTasks, executorOffers, customerOffers, inboxMessages, outgoingMessage, faculty, webMoneyAccount, course, university, updated);
+        return Objects.hash(id, name, surname, username, userStatus, city, roles, email, password, customerTasks, executorTasks, executorOffers, customerOffers, inboxMessages, outgoingMessage, faculty, webMoneyAccount, course, university, activationCode, updated);
     }
 
     @Override
@@ -288,6 +299,7 @@ public class User {
                 ", webMoneyAccount='" + webMoneyAccount + '\'' +
                 ", course='" + course + '\'' +
                 ", university=" + university +
+                ", activationCode='" + activationCode + '\'' +
                 ", updated=" + updated +
                 '}';
     }
