@@ -27,17 +27,26 @@ public class UserProfileService {
 
     public UserProfileDto userProfile(Long id) {
         UserProfileDto userProfileDto = new UserProfileDto();
-
         User userFromDb = userRepository.findUserById(id);
-
         userProfileDto.setUser(UserDtoFromUser.userDtoConverter(userFromDb));
-        userProfileDto.setTasksLikeExecutor(userFromDb.getExecutorTasks().stream().map(TaskDtoFromTask::taskConverter).collect(Collectors.toList()));
-        userProfileDto.setTasksLikeCustomer(userFromDb.getCustomerTasks().stream().map(TaskDtoFromTask::taskConverter).collect(Collectors.toList()));
-        userProfileDto.setInboxMessages(userFromDb.getInboxMessages().stream().map(MessageDtoFromMessage::MessageConverter).collect(Collectors.toList()));
-        userProfileDto.setOutgoingMessages(userFromDb.getOutgoingMessage().stream().map(MessageDtoFromMessage::MessageConverter).collect(Collectors.toList()));
-        userProfileDto.setInboxOffers(userFromDb.getCustomerOffers().stream().map(OfferDtoFromOffer::offerConverter).collect(Collectors.toList()));
-        userProfileDto.setOutgoingOffers(userFromDb.getExecutorOffers().stream().map(OfferDtoFromOffer::offerConverter).collect(Collectors.toList()));
-
+        userProfileDto.setTasksLikeExecutor(userFromDb.getExecutorTasks().stream()
+                .map(TaskDtoFromTask::taskConverter)
+                .collect(Collectors.toList()));
+        userProfileDto.setTasksLikeCustomer(userFromDb.getCustomerTasks()
+                .stream().map(TaskDtoFromTask::taskConverter)
+                .collect(Collectors.toList()));
+        userProfileDto.setInboxMessages(userFromDb.getInboxMessages().stream()
+                .map(MessageDtoFromMessage::MessageConverter)
+                .collect(Collectors.toList()));
+        userProfileDto.setOutgoingMessages(userFromDb.getOutgoingMessage().stream()
+                .map(MessageDtoFromMessage::MessageConverter)
+                .collect(Collectors.toList()));
+        userProfileDto.setInboxOffers(userFromDb.getCustomerOffers().stream()
+                .map(OfferDtoFromOffer::offerConverter)
+                .collect(Collectors.toList()));
+        userProfileDto.setOutgoingOffers(userFromDb.getExecutorOffers().stream()
+                .map(OfferDtoFromOffer::offerConverter)
+                .collect(Collectors.toList()));
         return userProfileDto;
     }
 
