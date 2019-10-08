@@ -24,8 +24,12 @@ public class UserDto {
     private String course;
     private University university;
     private List<Role> roles;
+    private String email;
 
-    public UserDto(Long id, String name, String surname, String username, UserStatus userStatus, String city, Faculty faculty, String webMoneyAccount, String course, University university, List<Role> roles) {
+    public UserDto() {
+    }
+
+    public UserDto(Long id, String name, String surname, String username, UserStatus userStatus, String city, Faculty faculty, String webMoneyAccount, String course, University university, List<Role> roles, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -37,6 +41,7 @@ public class UserDto {
         this.course = course;
         this.university = university;
         this.roles = roles;
+        this.email = email;
     }
 
     public List<Role> getRoles() {
@@ -45,6 +50,14 @@ public class UserDto {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {
@@ -140,6 +153,8 @@ public class UserDto {
                 ", webMoneyAccount='" + webMoneyAccount + '\'' +
                 ", course='" + course + '\'' +
                 ", university=" + university +
+                ", roles=" + roles +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
