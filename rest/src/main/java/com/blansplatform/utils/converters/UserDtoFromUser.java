@@ -20,7 +20,8 @@ public class UserDtoFromUser {
                 user.getWebMoneyAccount(),
                 user.getCourse(),
                 user.getUniversity(),
-                user.getRoles()
+                user.getRoles(),
+                user.getEmail()
         );
     }
 }

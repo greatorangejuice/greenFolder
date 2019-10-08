@@ -7,6 +7,9 @@ insert into usr (id, email, faculty, name, username,password, web_money_account,
 insert into usr (id, email, faculty, name, username,password, web_money_account, course, university, user_status)
             values (3, 'mail12', 0, 'test', 'third','$2a$04$QJYjqfdimlnDbtJeHL7iPuc0zh/VwLXPSxgBiRm4JnpOvSFYDJrYC', 9999, '4', 0, 0);
 
+insert into usr (id, email, faculty, name, username, password, web_money_account, course, university, user_status)
+            values (4, 'greenfolderteam@gmail.com', 0, 'greenFolder', 'greenFolder', 1234, 9999, '2', 0, 0);
+
 insert into role (id, name) values (1, 'USER');
 
 insert into role (id, name) values (2, 'ADMIN');
