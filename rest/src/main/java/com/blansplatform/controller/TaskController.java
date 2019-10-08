@@ -1,7 +1,12 @@
-package com.blansplatform.controller.entityControllers;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.controller;
+
+import com.blansplatform.dto.TaskDto;
 import com.blansplatform.entity.Task;
-import com.blansplatform.service.entityServices.TaskService;
+import com.blansplatform.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +24,12 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public List<Task> findAllTask() {
+    public List<TaskDto> findAllTask() {
         return taskService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Task findTaskById(@PathVariable Long id) {
+    public TaskDto findTaskById(@PathVariable Long id) {
         return taskService.findTaskById(id);
     }
 

@@ -1,7 +1,7 @@
 package com.blansplatform.security.jwt;
 
 import com.blansplatform.entity.User;
-import com.blansplatform.service.entityServices.UserService;
+import com.blansplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,12 @@
-package com.blansplatform.controller.entityControllers;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.controller;
+
+import com.blansplatform.dto.OfferDto;
 import com.blansplatform.entity.Offer;
-import com.blansplatform.service.entityServices.OfferService;
+import com.blansplatform.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +24,12 @@ public class OfferController {
     }
 
     @GetMapping("/all")
-    public List<Offer> findAllOffers() {
+    public List<OfferDto> findAllOffers() {
         return offerService.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Offer findOfferById(@PathVariable Long id) {
+    public OfferDto findOfferById(@PathVariable Long id) {
         return offerService.findOfferById(id);
     }
 

@@ -1,4 +1,8 @@
-package com.blansplatform.service.entityServices;
+/*
+ * Copyright (c) GreenFolder
+ */
+
+package com.blansplatform.service;
 
 import com.blansplatform.entity.Role;
 import com.blansplatform.repository.RoleRepository;

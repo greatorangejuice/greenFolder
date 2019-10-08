@@ -3,7 +3,6 @@ package com.blansplatform.service;
 import com.blansplatform.dto.TokenDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.security.jwt.JwtTokenProvider;
-import com.blansplatform.service.entityServices.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;

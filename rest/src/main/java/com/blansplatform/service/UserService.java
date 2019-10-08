@@ -1,9 +1,15 @@
-package com.blansplatform.service.entityServices;
+/*
+ * Copyright (c) GreenFolder
+ */
+
+package com.blansplatform.service;
 
 import com.blansplatform.dto.MailDto;
+import com.blansplatform.dto.UserDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.UserStatus;
 import com.blansplatform.repository.UserRepository;
+import com.blansplatform.utils.converters.UserDtoFromUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -29,16 +37,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<UserDto> findAll(){
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(UserDtoFromUser::userDtoConverter)
+                .collect(Collectors.toList());
     }
 
-    public User findUserById(Long id) {
+
+    public UserDto findUserById(Long id) {
         User user = userRepository.findUserById(id);
         if (user == null) {
             throw new EntityNotFoundException("user not found");
         }
-       return user;
+       return UserDtoFromUser.userDtoConverter(user);
     }
 
     public ResponseEntity<HashMap> addUser(User user) {
