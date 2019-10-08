@@ -11,6 +11,9 @@ import {MatDialogModule} from "@angular/material";
 import {UserService} from "../shared/services/user.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../shared/auth.interceptor";
+import {AuthGuard} from "../shared/services/auth.guard";
 
 @NgModule({
   declarations: [
@@ -28,8 +31,8 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     RouterModule.forChild([
       {
         path: '', component: MainLayoutComponent, children: [
-          {path: '', component: UserPageComponent},
-          {path: 'profile', component: ProfileComponent},
+          {path: '', component: UserPageComponent, canActivate: [AuthGuard]},
+          {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
         ]
       }
     ]),
@@ -37,6 +40,6 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     ReactiveFormsModule,
   ],
   exports: [RouterModule],
-  providers: [UserService]
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}]
 })
 export class UserModule {}

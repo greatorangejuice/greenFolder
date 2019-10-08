@@ -16,7 +16,7 @@ export class UserService {
   }
 
   getProfile():Observable<any> {
-    return this.http.get(`${environment.backend}/profile/1`, {headers: {'token': 'toooooken'}})
+    return this.http.get(`${environment.backend}/profile/1`)
       .pipe(
         tap(
           (res) => {
