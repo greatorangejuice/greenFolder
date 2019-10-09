@@ -19,12 +19,12 @@ export class AuthInterceptor implements HttpInterceptor{
     console.log(idToken);
 
     if (this.auth.isAuthenticated()) {
-      console.log('intercept auth');
       const cloned = req.clone(
         {
-        headers: req.headers.set("Authorization",
-          "Bearer_" + idToken),
-      }
+          setHeaders: {
+            Authorization: `Bearer_${idToken}`
+          }
+        }
       );
       return next.handle(cloned);
     } else {
