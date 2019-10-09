@@ -2,7 +2,7 @@
  * Copyright (c) GreenFolder
  */
 
-package com.blansplatform.utils;
+package com.blansplatform.utils.converters.mailUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class MailSenderUtil {
 
     private final JavaMailSender mailSender;
+    private static final String EMAIL_CONFIRM_MESSAGE = "Hello, Welcome to greenFolder. Please visit next link http://localhost:8080/activate/";
 
     @Value("${spring.mail.username}")
     private String username;
@@ -30,5 +31,9 @@ public class MailSenderUtil {
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
         mailSender.send(mailMessage);
+    }
+
+    public String activationEmailBuilder(String activationCode) {
+        return EMAIL_CONFIRM_MESSAGE + activationCode;
     }
 }

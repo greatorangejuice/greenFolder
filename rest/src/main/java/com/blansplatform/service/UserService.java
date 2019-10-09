@@ -10,32 +10,37 @@ import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.UserStatus;
 import com.blansplatform.repository.UserRepository;
 import com.blansplatform.utils.converters.UserDtoFromUser;
+import com.blansplatform.utils.converters.mailUtil.MailSenderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
-    private final String IF_EMAIL_EXIST = "yes";
-    private final String IF_EMAIL_NOT_EXIST = "no";
-    private final String IF_EMAIL_ALREADY_EXIST = " email already exist";
-    private final String IF_USERNAME_ALREADY_EXIST = " username already exist";
-
-    final private UserRepository userRepository;
-
+    private static final String IF_EMAIL_EXIST = "yes";
+    private static final String IF_EMAIL_NOT_EXIST = "no";
+    private static final String IF_EMAIL_ALREADY_EXIST = " email already exist";
+    private static final String IF_USERNAME_ALREADY_EXIST = " username already exist";
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private MailSenderUtil mailSenderUtil;
+
 
     public List<UserDto> findAll(){
         List<User> users = userRepository.findAll();
@@ -58,12 +63,15 @@ public class UserService {
         if (!response.isEmpty()) {
             return new ResponseEntity<HashMap>(response, HttpStatus.CONFLICT);
         }
+        user.setActivationCode(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUserStatus(UserStatus.ACTIVE);
+        mailSenderUtil.send(user.getEmail(), "Activation link", mailSenderUtil.activationEmailBuilder(user.getActivationCode()) );
         userRepository.save(user);
         return new ResponseEntity<HashMap>(HttpStatus.CREATED);
     }
 
-    public HashMap newUserDataValidation(User user) {
+    private HashMap newUserDataValidation(User user) {
         Map<String, String> dataValidation = new HashMap<>();
         if (userRepository.findFirstUserByEmail(user.getEmail()) != null) {
             dataValidation.put("email", user.getEmail() + IF_EMAIL_ALREADY_EXIST);
@@ -98,5 +106,14 @@ public class UserService {
 
     public User findUserByUsername(String username) {
        return userRepository.findFirstUserByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return (UserDetails) userFromDb;
     }
 }

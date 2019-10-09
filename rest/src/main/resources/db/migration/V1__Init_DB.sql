@@ -58,6 +58,7 @@ create table usr (
   surname varchar(255),
   university integer,
   web_money_account varchar(255),
+  activation_code varchar(255),
   updated date,
   primary key (id)
 ) engine=InnoDB;
