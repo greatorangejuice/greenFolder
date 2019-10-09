@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,5 +116,15 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
         return (UserDetails) userFromDb;
+    }
+
+    public Response activateUserByCode(String code) {
+        User userFromDB = userRepository.findUserByActivationCode(code);
+        if (userFromDB == null) {
+            return Response.status(Response.Status.CONFLICT.getStatusCode()).build();
+        }
+        userFromDB.setActivationCode(null);
+        userRepository.save(userFromDB);
+        return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 }

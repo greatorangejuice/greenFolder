@@ -39,7 +39,7 @@ public class LoginService {
             String username = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
             User user = userService.findUserByUsername(username);
-            if (user == null) {
+            if (user == null || !checkIsAccountActivated(user)) {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
             String token = jwtTokenProvider.createToken(username, user.getRoles());
@@ -47,5 +47,9 @@ public class LoginService {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    public boolean checkIsAccountActivated(User user){
+        return user.getActivationCode() == null;
     }
 }

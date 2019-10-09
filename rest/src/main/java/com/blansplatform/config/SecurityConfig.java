@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ADMIN_ENDPOINT = "/admin/**";
     private static final String LOGIN_ENDPOINT = "/login";
     private static final String REGISTRATION_ENDPOINT = "/registration";
+    private static final String ACCOUNT_ACTIVATION_PAGE = "/activation/*";
 
 
     @Bean
@@ -44,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(ACCOUNT_ACTIVATION_PAGE).permitAll()
                 .antMatchers(REGISTRATION_ENDPOINT).permitAll()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
