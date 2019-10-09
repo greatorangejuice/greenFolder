@@ -1,10 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
+import {Message} from "../../shared/interfaces";
 
-export interface Messages {
-  title: string;
-  text: string;
-}
+
 
 @Component({
   selector: 'app-notification-list',
@@ -13,16 +11,7 @@ export interface Messages {
 })
 export class NotificationListComponent implements OnInit {
 
-  messages: Messages[] = [
-    {
-    title: 'Message title',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur ducimus quae, tempore ullam vel.',
-    },
-    {
-      title: 'Message title',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur ducimus quae, tempore ullam vel.',
-    }
-  ];
+  @Input() messages: Message[];
 
   constructor(
     public dialog: MatDialog,
@@ -45,7 +34,6 @@ export class NotificationListComponent implements OnInit {
   }
 }
 
-
 @Component({
   selector: 'notification-modal.html',
   templateUrl: 'notification-modal.html',
@@ -53,7 +41,7 @@ export class NotificationListComponent implements OnInit {
 export class NotificationModal {
   constructor(
     public dialogRef: MatDialogRef<NotificationModal>,
-    @Inject(MAT_DIALOG_DATA) public data: Messages) {}
+    @Inject(MAT_DIALOG_DATA) public data: Message) {}
 
   onNoClick(): void {
     this.dialogRef.close();

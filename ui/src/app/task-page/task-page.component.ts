@@ -11,23 +11,8 @@ export class TaskPageComponent implements OnInit {
 
   searchValue: string;
 
-  tasks: Task[] = [
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'second',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'sfsfsfsfsdf',
-      status: 'available',
-    },
+  tasks = [
+
   ];
 
   constructor(

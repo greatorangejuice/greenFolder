@@ -24,7 +24,7 @@
         <th>Manage</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="tasks; else loading">
       <tr *ngFor="let task of tasks | searchTasks:visibleTasks:'taskStatus' ; let id = index">
         <td>{{id + 1}}</td>
         <!--      <td>{{task.author}}</td>-->
@@ -35,6 +35,7 @@
         </td>
       </tr>
       </tbody>
+      <ng-template #loading>Loading</ng-template>
     </table>
   </div>
 </div>

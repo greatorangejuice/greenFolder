@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {AllAccountInfo, Task, User} from '../shared/interfaces';
+import {AllAccountInfo, Message, Task, User} from '../shared/interfaces';
 import {UserService} from "../shared/services/user.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {UserService} from "../shared/services/user.service";
 export class UserPageComponent implements OnInit {
 
   user: User;
-
+  outgoingMessages: Message[];
 
   constructor(
     private userService: UserService,
@@ -21,6 +21,7 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (request: AllAccountInfo) => {
           this.user = request.user;
+          this.outgoingMessages = request.outgoingMessages;
         }
       )
   }
