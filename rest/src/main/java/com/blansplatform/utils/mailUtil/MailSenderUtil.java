@@ -2,7 +2,7 @@
  * Copyright (c) GreenFolder
  */
 
-package com.blansplatform.utils.converters.mailUtil;
+package com.blansplatform.utils.mailUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

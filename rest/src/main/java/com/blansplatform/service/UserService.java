@@ -10,7 +10,7 @@ import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.UserStatus;
 import com.blansplatform.repository.UserRepository;
 import com.blansplatform.utils.converters.UserDtoFromUser;
-import com.blansplatform.utils.converters.mailUtil.MailSenderUtil;
+import com.blansplatform.utils.mailUtil.MailSenderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

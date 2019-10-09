@@ -43,7 +43,7 @@ public class LoginService {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
             String token = jwtTokenProvider.createToken(username, user.getRoles());
-            return new TokenDto(token, username, tokenTimeForExpired);
+            return new TokenDto(token, username, tokenTimeForExpired, user.getRoles());
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
