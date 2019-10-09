@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../shared/services/user.service";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
+import {AllAccountInfo, User} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-profile',
@@ -11,8 +12,9 @@ import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 })
 export class ProfileComponent implements OnInit {
 
+  @Input() user:User;
+
   constructor(
-    private userService: UserService,
     public dialog: MatDialog,
   ) {}
 
@@ -24,8 +26,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.userService.getProfile()
-      .subscribe()
+
   }
 
 }

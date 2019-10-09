@@ -26,7 +26,7 @@
       <tr *ngFor="let task of tasks | searchTasks:visibleTasks:'status' ; let id = index">
         <td>{{id + 1}}</td>
         <!--      <td>{{task.author}}</td>-->
-        <td>{{task.title}}</td>
+        <td>{{task.name}}</td>
         <td>{{task.date | date:'mediumDate'}}</td>
         <td>
           <button class="btn btn-link open" [routerLink]="['/task', task.id]"> Открыть</button>

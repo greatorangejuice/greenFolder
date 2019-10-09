@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Task} from "../../shared/interfaces";
 
 @Component({
@@ -8,122 +8,9 @@ import {Task} from "../../shared/interfaces";
 })
 export class UserTasksListsComponent implements OnInit {
 
-  visibleTasks = 'progress';
-
-  tasks: Task[] = [
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'second',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'sfsfsfsfsdf',
-      status: 'finished',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-    {
-      title: 'first',
-      date: new Date(),
-      text: 'text',
-      author: 'Developer',
-      id: 'fdgnsjfsdfsdf',
-      status: 'progress',
-    },
-  ];
+  @Input() tasks: Task[];
+  visibleTasks = 'ACTIVE';
+  // ACTIVE, INACTIVE, INPROGRESS, DONE
 
   // @ViewChild('aria', {static: false}) elemAria: ElementRef;
   constructor() { }

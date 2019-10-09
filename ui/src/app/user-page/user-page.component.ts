@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Task} from '../shared/interfaces';
+import {AllAccountInfo, Task, User} from '../shared/interfaces';
+import {UserService} from "../shared/services/user.service";
 
 @Component({
   selector: 'app-user-page',
@@ -8,8 +9,19 @@ import {Task} from '../shared/interfaces';
 })
 export class UserPageComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
+    this.userService.getProfile()
+      .subscribe(
+        (request: AllAccountInfo) => {
+          this.user = request.user;
+        }
+      )
   }
 }

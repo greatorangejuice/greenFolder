@@ -2,8 +2,9 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {Passwords} from "../interfaces";
+import {AllAccountInfo, Passwords} from "../interfaces";
 import {tap} from "rxjs/operators";
+import {All} from "tslint/lib/rules/completedDocsRule";
 
 @Injectable()
 export class UserService {
@@ -15,8 +16,8 @@ export class UserService {
     return this.http.put(`${environment.backend}/edit`, passwords);
   }
 
-  getProfile():Observable<any> {
-    return this.http.get(`${environment.backend}/profile/1`)
+  getProfile():Observable<AllAccountInfo> {
+    return this.http.get<AllAccountInfo>(`${environment.backend}/profile/1`)
       .pipe(
         tap(
           (res) => {

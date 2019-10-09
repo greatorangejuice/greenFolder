@@ -1,26 +1,46 @@
 export interface Task {
-  id?: string;
-  title: string;
-  text: string;
+  id: number;
+  name: string;
+  subject: string;
+  customer: string;
+  executor: string;
+  specification: string;
+  faculty: string;
+  keywords: string;
+  taskStatus: string;
   date: Date;
-  author: string;
-  status: string;
-  isFinished?: boolean;
 }
 
 export interface User {
   username: string;
   email?: string;
   password?: string;
-  university?: string;
   name?: string;
   surname?: string;
+  city?: string;
+  university?: string;
   faculty?: string;
   course?: string;
-  uid?: string;
-  vkId?: string;
-  returnSecureToken?: boolean;
-  city?: string;
+  userStatus?: string;
+  webMoneyAccount?: string;
+  roles?: object[];
+}
+
+export interface AllAccountInfo {
+  inboxMessages: Message[];
+  outgoingMessages: Message[];
+  inboxOffers: object[];
+  tasksLikeCustomer: object[];
+  tasksLikeExecutor: object[];
+  user: User;
+}
+
+export interface Message {
+  id: number;
+  messageBody: string;
+  messageHead: string;
+  userFrom: string;
+  userTo: string;
 }
 
 export interface Token {
