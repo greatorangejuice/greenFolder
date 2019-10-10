@@ -31,17 +31,21 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final MailSenderUtil mailSenderUtil;
+
     private static final String IF_EMAIL_EXIST = "yes";
     private static final String IF_EMAIL_NOT_EXIST = "no";
     private static final String IF_EMAIL_ALREADY_EXIST = " email already exist";
     private static final String IF_USERNAME_ALREADY_EXIST = " username already exist";
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private MailSenderUtil mailSenderUtil;
 
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailSenderUtil mailSenderUtil) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.mailSenderUtil = mailSenderUtil;
+    }
 
     public List<UserDto> findAll(){
         List<User> users = userRepository.findAll();
@@ -49,7 +53,6 @@ public class UserService implements UserDetailsService {
                 .map(UserDtoFromUser::userDtoConverter)
                 .collect(Collectors.toList());
     }
-
 
     public UserDto findUserById(Long id) {
         User user = userRepository.findUserById(id);
