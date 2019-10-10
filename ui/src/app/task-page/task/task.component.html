@@ -1,7 +1,8 @@
 <h1>TASK COMPONENT {{id}}</h1>
 <div *ngIf="task$ | async as task; else loading">
-  <div *ngFor="let user of task">
-    {{user.user_id}}
+  <div *ngFor="let task of task">
+<!--    {{}}-->
+    work
   </div>
 </div>
 <ng-template #loading>

@@ -13,11 +13,18 @@ import {UserModule} from './user-page/user.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AlertService} from "./shared/services/alert.service";
 import {MainPageModule} from "./main-page/main-page.module";
+import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.interceptor";
 
 const INTERCEPTOR: Provider = {
   provide: HTTP_INTERCEPTORS,
   multi: true,
   useClass: AuthInterceptor,
+};
+
+const ERRINTERCEPTOR: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: CatchErrorInterceptor,
 };
 
 @NgModule({
@@ -34,7 +41,7 @@ const INTERCEPTOR: Provider = {
     BrowserAnimationsModule,
     MainPageModule,
   ],
-  providers: [AuthGuard, INTERCEPTOR, AlertService],
+  providers: [AuthGuard, INTERCEPTOR, AlertService, ERRINTERCEPTOR],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

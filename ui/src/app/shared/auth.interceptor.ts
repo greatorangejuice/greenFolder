@@ -16,8 +16,6 @@ export class AuthInterceptor implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const idToken = localStorage.getItem('idToken');
-    console.log(idToken);
-
     if (this.auth.isAuthenticated()) {
       const cloned = req.clone(
         {
@@ -29,31 +27,7 @@ export class AuthInterceptor implements HttpInterceptor{
       return next.handle(cloned);
     } else {
       return next.handle(req)
-        .pipe(
-          tap(
-            (req) => {
-              console.log(req);
-            }
-          ),
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-              console.log(401);
-              // this.auth.logout();
-              // this.router.navigate(['/welcome'], {
-              //   queryParams: {
-              //     authfailed: true
-              //   }
-              // });
-            } else if(error.status === 403) {
-              console.log(403);
-            }
-            this.alertService.warning('INTERCEPTOR');
-            return throwError(error)
-          })
-        )
     }
-
-
   }
 
 }
