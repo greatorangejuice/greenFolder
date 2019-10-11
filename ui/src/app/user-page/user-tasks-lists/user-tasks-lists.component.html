@@ -27,7 +27,6 @@
       <tbody *ngIf="tasks; else loading">
       <tr *ngFor="let task of tasks | searchTasks:visibleTasks:'taskStatus' ; let id = index">
         <td>{{id + 1}}</td>
-        <!--      <td>{{task.author}}</td>-->
         <td>{{task.name}}</td>
         <td>{{task.date | date:'mediumDate'}}</td>
         <td>
@@ -35,11 +34,7 @@
         </td>
       </tr>
       </tbody>
-      <ng-template #loading>Loading</ng-template>
+      <ng-template #loading><app-loader></app-loader></ng-template>
     </table>
   </div>
 </div>
-<!--<div class="tasks-list">-->
-<!--  <button class="btn btn-primary" (click)="changeOption()">Current tasks</button>-->
-<!--  <button class="btn btn-dark">Finished tasks</button>-->
-<!--</div>-->

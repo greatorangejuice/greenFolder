@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnInit {
   universityList$: Observable<any>;
   invalidMail = false;
   invalidUsername = false;
+  loaderDiameter = 50;
 
   constructor(
     private authService: AuthService,

@@ -21,18 +21,12 @@ export class AlertComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
   ) { }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
-
   ngOnInit() {
     this.alertSub$ = this.alertService.alert$
       .subscribe(alert => {
         this.text = alert.text;
         this.type = alert.type;
-        this._snackBar.open(this.text, 'close', {duration: 3000, verticalPosition: "top"});
+        this._snackBar.open(this.text, 'close', {duration: 5000, verticalPosition: "top"});
 
         const timeout = setTimeout( () => {
           clearTimeout(timeout);

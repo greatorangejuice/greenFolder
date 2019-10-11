@@ -52,7 +52,7 @@
                         [value]="university"> {{university}} </mat-option>
           </mat-select>
         </mat-form-field>
-        <ng-template #loading>Loading...</ng-template>
+        <ng-template #loading><app-loader [diameter]="loaderDiameter"></app-loader></ng-template>
         <mat-form-field class=faculty>
           <input
             matInput placeholder="Faculty"

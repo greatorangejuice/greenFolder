@@ -15,6 +15,7 @@ import {RouterModule} from '@angular/router';
 import {SearchPipe} from './pipes/search.pipe';
 import {GreencolorDirective} from "./directives/greencolor.directive";
 import { AlertComponent } from './components/alert/alert.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AlertComponent } from './components/alert/alert.component';
     SearchPipe,
     GreencolorDirective,
     AlertComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ import { AlertComponent } from './components/alert/alert.component';
     SearchPipe,
     AlertComponent,
     MatDialogModule,
+    LoaderComponent,
   ],
 })
 export class SharedModule {}
