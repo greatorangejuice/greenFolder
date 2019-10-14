@@ -11,6 +11,7 @@ export class UserPageComponent implements OnInit {
 
   user: User;
   outgoingMessages: Message[];
+  tasks: Task[];
 
   constructor(
     private userService: UserService,
@@ -22,6 +23,7 @@ export class UserPageComponent implements OnInit {
         (request: AllAccountInfo) => {
           this.user = request.user;
           this.outgoingMessages = request.outgoingMessages;
+          this.tasks = request.tasksLikeCustomer.concat(request.tasksLikeExecutor);
         }
       )
   }

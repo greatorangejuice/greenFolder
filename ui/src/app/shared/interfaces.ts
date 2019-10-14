@@ -30,8 +30,8 @@ export interface AllAccountInfo {
   inboxMessages: Message[];
   outgoingMessages: Message[];
   inboxOffers: object[];
-  tasksLikeCustomer: object[];
-  tasksLikeExecutor: object[];
+  tasksLikeCustomer: Task[];
+  tasksLikeExecutor: Task[];
   user: User;
 }
 

@@ -15,17 +15,21 @@ export class TaskService {
     return this.http.post(`${environment.fbDataBaseUrl}/tasks.json`, task);
   }
 
-  getTaskById(): Observable<any> {
-    return this.http.get<Users>(`${environment.fbDataBaseUrl}/users.json`)
-      .pipe(
-        map((response: {[key: string]:any}) => {
-          return Object
-            .keys(response)
-            .map(key => ({
-              ...response[key]
-            }))
-        })
-      )
+  getTaskById(id: string): Observable<Task> {
+      return this.http.get<Task>(`${environment.backend}/task/${id}`)
   }
+
+  // getTaskById(): Observable<any> {
+  //   return this.http.get<Users>(`${environment.fbDataBaseUrl}/users.json`)
+  //     .pipe(
+  //       map((response: {[key: string]:any}) => {
+  //         return Object
+  //           .keys(response)
+  //           .map(key => ({
+  //             ...response[key]
+  //           }))
+  //       })
+  //     )
+  // }
 
 }

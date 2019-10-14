@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {TaskService} from "../../shared/services/task.service";
 import {Observable} from "rxjs";
 import {switchMap, tap} from "rxjs/operators";
+import {Task} from '../../shared/interfaces'
 
 @Component({
   selector: 'app-task',
@@ -13,9 +14,8 @@ import {switchMap, tap} from "rxjs/operators";
 export class TaskComponent implements OnInit {
 
   // @Input() task;
-  params: Params;
   id: string;
-  task$: Observable<any>;
+  task$: Observable<Task>;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,16 +36,9 @@ export class TaskComponent implements OnInit {
     //   )
     this.task$ = this.route.params
       .pipe(
-        tap((req) => {
-          console.log(req);}),
         switchMap( (params:Params) => {
           this.id = params['id'];
-          return this.taskService.getTaskById()
-            .pipe(
-              tap((req) => {
-                console.log(req);
-              })
-            )
+          return this.taskService.getTaskById(this.id);
         } )
       )
   }
