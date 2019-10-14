@@ -24,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_ENDPOINT = "/login";
     private static final String REGISTRATION_ENDPOINT = "/registration";
     private static final String ACCOUNT_ACTIVATION_PAGE = "/activation/*";
+    private static final String ACCOUNT_ACCESS_RESTORE_CODE = "/accessrestore/*";
+    private static final String ACCOUNT_ACCESS_RESTORE = "/accessrestore";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder, JwtUserDetailsService jwtUserDetailsService) {
@@ -47,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
+                .antMatchers(ACCOUNT_ACCESS_RESTORE).permitAll()
+                .antMatchers(ACCOUNT_ACCESS_RESTORE_CODE).permitAll()
                 .antMatchers(ACCOUNT_ACTIVATION_PAGE).permitAll()
                 .antMatchers(REGISTRATION_ENDPOINT).permitAll()
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")

@@ -45,15 +45,19 @@ public class User {
     private String course;
     private University university;
     private String activationCode;
+    private String passwordRestoreLink;
     @LastModifiedDate
     private Date updated;
 
-    public User(String name, String surname, String username, String city, List<Role> roles, String email, String password, List<Task> customerTasks, List<Task> executorTasks,
-                List<Offer> executorOffers, List<Offer> customerOffers, List<Message> inboxMessages, List<Message> outgoingMessage, Faculty faculty,
-                String webMoneyAccount, String course, University university, UserStatus userStatus, Date updated, String activationCode) {
+    public User(String name, String surname, String username, UserStatus userStatus, String city, List<Role> roles,
+                String email, String password, List<Task> customerTasks, List<Task> executorTasks,
+                List<Offer> executorOffers, List<Offer> customerOffers, List<Message> inboxMessages,
+                List<Message> outgoingMessage, Faculty faculty, String webMoneyAccount, String course,
+                University university, String activationCode, String passwordRestoreLink, Date updated) {
         this.name = name;
         this.surname = surname;
         this.username = username;
+        this.userStatus = userStatus;
         this.city = city;
         this.roles = roles;
         this.email = email;
@@ -68,12 +72,20 @@ public class User {
         this.webMoneyAccount = webMoneyAccount;
         this.course = course;
         this.university = university;
-        this.userStatus = userStatus;
-        this.updated = updated;
         this.activationCode = activationCode;
+        this.passwordRestoreLink = passwordRestoreLink;
+        this.updated = updated;
     }
 
     public User() {
+    }
+
+    public String getPasswordRestoreLink() {
+        return passwordRestoreLink;
+    }
+
+    public void setPasswordRestoreLink(String passwordRestoreLink) {
+        this.passwordRestoreLink = passwordRestoreLink;
     }
 
     public String getActivationCode() {
@@ -269,12 +281,17 @@ public class User {
                 Objects.equals(course, user.course) &&
                 university == user.university &&
                 Objects.equals(activationCode, user.activationCode) &&
+                Objects.equals(passwordRestoreLink, user.passwordRestoreLink) &&
                 Objects.equals(updated, user.updated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, username, userStatus, city, roles, email, password, customerTasks, executorTasks, executorOffers, customerOffers, inboxMessages, outgoingMessage, faculty, webMoneyAccount, course, university, activationCode, updated);
+        return Objects.hash(id, name, surname, username, userStatus,
+                city, roles, email, password, customerTasks, executorTasks,
+                executorOffers, customerOffers, inboxMessages, outgoingMessage,
+                faculty, webMoneyAccount, course, university, activationCode,
+                passwordRestoreLink, updated);
     }
 
     @Override
@@ -300,6 +317,7 @@ public class User {
                 ", course='" + course + '\'' +
                 ", university=" + university +
                 ", activationCode='" + activationCode + '\'' +
+                ", passwordRestoreLink='" + passwordRestoreLink + '\'' +
                 ", updated=" + updated +
                 '}';
     }

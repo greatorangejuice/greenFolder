@@ -9,5 +9,5 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 
     List<Role> findAll();
     Role findRoleById(Long id);
-
+    Role findRoleByName(String name);
 }
