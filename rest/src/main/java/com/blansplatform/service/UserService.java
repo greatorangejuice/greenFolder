@@ -4,10 +4,12 @@
 
 package com.blansplatform.service;
 
+import com.blansplatform.dto.AccessRestoreForm;
 import com.blansplatform.dto.MailDto;
 import com.blansplatform.dto.UserDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.UserStatus;
+import com.blansplatform.repository.RoleRepository;
 import com.blansplatform.repository.UserRepository;
 import com.blansplatform.utils.converters.UserDtoFromUser;
 import com.blansplatform.utils.mailUtil.MailSenderUtil;
@@ -22,10 +24,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +33,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailSenderUtil mailSenderUtil;
+    private final RoleRepository roleRepository;
 
     private static final String IF_EMAIL_EXIST = "yes";
     private static final String IF_EMAIL_NOT_EXIST = "no";
@@ -41,10 +41,11 @@ public class UserService implements UserDetailsService {
     private static final String IF_USERNAME_ALREADY_EXIST = " username already exist";
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailSenderUtil mailSenderUtil) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailSenderUtil mailSenderUtil, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSenderUtil = mailSenderUtil;
+        this.roleRepository = roleRepository;
     }
 
     public List<UserDto> findAll(){
@@ -70,6 +71,8 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUserStatus(UserStatus.ACTIVE);
+        user.setRoles(new LinkedList<>());
+        user.getRoles().add(roleRepository.findRoleByName("USER"));
         mailSenderUtil.send(user.getEmail(), "Activation link", mailSenderUtil.activationEmailBuilder(user.getActivationCode()) );
         userRepository.save(user);
         return new ResponseEntity<HashMap>(HttpStatus.CREATED);
@@ -77,7 +80,7 @@ public class UserService implements UserDetailsService {
 
     private HashMap newUserDataValidation(User user) {
         Map<String, String> dataValidation = new HashMap<>();
-        if (userRepository.findFirstUserByEmail(user.getEmail()) != null) {
+        if (userRepository.findUserByEmail(user.getEmail()) != null) {
             dataValidation.put("email", user.getEmail() + IF_EMAIL_ALREADY_EXIST);
         }
         if (userRepository.findFirstUserByUsername(user.getUsername()) != null) {
@@ -95,7 +98,7 @@ public class UserService implements UserDetailsService {
     }
 
     public MailDto checkUserByEmail(MailDto mailDto) {
-        User user = userRepository.findFirstUserByEmail(mailDto.getEmail());
+        User user = userRepository.findUserByEmail(mailDto.getEmail());
         if(user == null){
             mailDto.setStatus(IF_EMAIL_NOT_EXIST);
             return mailDto;
@@ -105,7 +108,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User findUserByEmail (String email) {
-        return userRepository.findFirstUserByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
     public User findUserByUsername(String username) {
@@ -129,5 +132,36 @@ public class UserService implements UserDetailsService {
         userFromDB.setActivationCode(null);
         userRepository.save(userFromDB);
         return Response.status(Response.Status.OK.getStatusCode()).build();
+    }
+
+    public Response restoreAccess(MailDto mailDto) {
+       User userFromDb = userRepository.findUserByEmail(mailDto.getEmail());
+       if (userFromDb == null) {
+           return Response.status(Response.Status.CONFLICT).build();
+       }
+       userFromDb.setPasswordRestoreLink(UUID.randomUUID().toString());
+       mailSenderUtil.send(userFromDb.getEmail(), "Password restore",
+               mailSenderUtil.passwordRestoreEmailBuilder(userFromDb.getPasswordRestoreLink()));
+       userRepository.save(userFromDb);
+       return Response.status(Response.Status.OK).build();//if ok, message from user
+    }
+
+    public AccessRestoreForm userPasswordRefresh(String link) {
+        User userFromDB = userRepository.findUserByPasswordRestoreLink(link);
+        if (userFromDB == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        return new AccessRestoreForm(userFromDB.getUsername());
+    }
+
+    public Response userNewPasswordAccept(String link, AccessRestoreForm accessRestoreForm) {
+        User userFromDb = userRepository.findUserByPasswordRestoreLink(link);
+        if (userFromDb == null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        userFromDb.setPassword(passwordEncoder.encode(accessRestoreForm.getNewPassword()));
+        userFromDb.setPasswordRestoreLink(null);
+        userRepository.save(userFromDb);
+        return Response.status(Response.Status.OK).build();
     }
 }

@@ -60,6 +60,7 @@ create table usr (
   web_money_account varchar(255),
   activation_code varchar(255),
   updated date,
+  password_restore_link varchar(255),
   primary key (id)
 ) engine=InnoDB;
 
