@@ -5,6 +5,8 @@ import {AuthService} from '../../../shared/services/auth.service';
 import {User} from '../../../shared/interfaces';
 import {delay, switchMap} from 'rxjs/operators';
 import {pipe} from 'rxjs';
+import {PasswordRecoveryComponent} from "./password-recovery/password-recovery.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   // Сделать двойной запрос: сначала логин, с отдельным вытягиваением  id, после запрос на получение данных пользователя.
@@ -29,9 +32,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(
       (params: Params) => {
-        // if (params['loginAgain']) {
-        //   this.message = 'Please, login';
-        // }
        this.message =
          (params.loginAgain) ? 'Please, login' :
          (params.logout) ? 'Unlogin' :
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
        this.valueAfterRegister = params.usernameForLogin;
       }
     );
-
     this.form = new FormGroup({
       username: new FormControl(this.valueAfterRegister, [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -84,5 +83,11 @@ export class LoginComponent implements OnInit {
           }
         }
       );
+  }
+
+  openRecoveryForm() {
+    const dialogRef = this.dialog.open(PasswordRecoveryComponent);
+
+    dialogRef.afterClosed().subscribe();
   }
 }

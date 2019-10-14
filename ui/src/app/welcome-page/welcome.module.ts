@@ -7,6 +7,8 @@ import {LoginComponent} from './auth/login/login.component';
 import {RegistrationComponent} from './auth/registration/registration.component';
 import {SharedModule} from '../shared/shared.module';
 import {MatCheckboxModule, MatSelectModule} from '@angular/material';
+import { PasswordRecoveryComponent } from './auth/login/password-recovery/password-recovery.component';
+import { ChangePasswordPageComponent } from './auth/change-password-page/change-password-page.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import {MatCheckboxModule, MatSelectModule} from '@angular/material';
         path: '', component: WelcomePageComponent, children: [
           {path: '', component: LoginComponent},
           {path: 'registration', component: RegistrationComponent},
+          {path: 'changepass', component: ChangePasswordPageComponent},
         ]
       },
     ]),
@@ -31,8 +34,11 @@ import {MatCheckboxModule, MatSelectModule} from '@angular/material';
   declarations: [
     WelcomePageComponent,
     LoginComponent,
-    RegistrationComponent
-  ]
+    RegistrationComponent,
+    PasswordRecoveryComponent,
+    ChangePasswordPageComponent
+  ],
+  entryComponents: [LoginComponent, PasswordRecoveryComponent]
 })
 export class WelcomeModule {
 }

@@ -55,15 +55,18 @@ export class AuthService {
 
   logout() {
     this.setToken(null);
-    // this.route.navigate(['/welcome'], {
-    //   queryParams: {
-    //     logout: true,
-    //   }
-    // });
   }
 
   signup(user: User): Observable<any> {
     return this.httpClient.post(`${environment.backend}/registration`, user);
+  }
+
+  restorePassword(email: string): Observable<any> {
+    return this.httpClient.post(`${environment.backend}/accessrestore`, email);
+  }
+
+  setNewPassword(password: string, recoveryKey: string) {
+    return this.httpClient.post(`${environment.backend}/${recoveryKey}`, password);
   }
 
   isAuthenticated(): boolean {

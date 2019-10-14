@@ -29,13 +29,7 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   this.universityList$ =  this.authService.getUniversityList()
-     .pipe(
-       tap(
-         (req) => {
-           console.log(req);}
-       )
-     );
+   this.universityList$ =  this.authService.getUniversityList();
 
     this.form = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(2)]],
