@@ -1,5 +1,8 @@
-<div class="top">
-  <app-profile [user]="user"></app-profile>
-  <app-notification-list [messages]="outgoingMessages"></app-notification-list>
+<div *ngIf="!loading; else loading">
+  <div class="top">
+    <app-profile [user]="user"></app-profile>
+    <app-notification-list [messages]="outgoingMessages"></app-notification-list>
+  </div>
+  <app-user-tasks-lists [tasks]="tasks"></app-user-tasks-lists>
 </div>
-<app-user-tasks-lists [tasks]="tasks"></app-user-tasks-lists>
+<ng-template #loading><app-loader [diameter]="diameter"></app-loader></ng-template>

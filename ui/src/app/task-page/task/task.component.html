@@ -1,7 +1,13 @@
 <h1>TASK COMPONENT {{id}}</h1>
 <div *ngIf="task$ | async as task; else loading">
-  <div *ngFor="let task of task">
-<!--    {{}}-->
+  <div>
+    {{task.id}}
+    {{task.name}}
+    {{task.customer}}
+    {{task.executor}}
+    {{task.subject}}
+    {{task.specification}}
+    {{task.taskStatus}}
     work
   </div>
 </div>

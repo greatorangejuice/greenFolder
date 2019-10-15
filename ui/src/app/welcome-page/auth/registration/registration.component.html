@@ -39,30 +39,37 @@
         </mat-form-field>
       </div>
       <div class="otherinfo">
-        <mat-form-field class=city>
-          <input
-            matInput placeholder="City"
-            formControlName="city"
-          >
-        </mat-form-field>
 
-        <mat-form-field *ngIf="universityList$ | async as universityList; else loading">
-          <mat-select placeholder="University" formControlName="university">
-            <mat-option *ngFor="let university of universityList"
-                        [value]="university"> {{university}} </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <ng-template #loading>Loading...</ng-template>
-        <mat-form-field class=faculty>
-          <input
-            matInput placeholder="Faculty"
-            formControlName="faculty"
-          >
-        </mat-form-field>
+        <div class="university-info">
+          <mat-form-field *ngIf="universityList$ | async as universityList; else loading">
+            <mat-select placeholder="University" formControlName="university">
+              <mat-option *ngFor="let university of universityList"
+                          [value]="university"> {{university}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <ng-template #loading>
+            <app-loader [diameter]="loaderDiameter"></app-loader>
+          </ng-template>
+          <mat-form-field class=faculty>
+            <input
+              formControlName="faculty" matInput
+              placeholder="Faculty"
+            >
+          </mat-form-field>
+        </div>
+
         <mat-form-field class=course>
           <input
             matInput placeholder="Course"
             formControlName="course"
+          >
+        </mat-form-field>
+
+        <mat-form-field class=city>
+          <input
+            matInput placeholder="City"
+            formControlName="city"
           >
         </mat-form-field>
       </div>

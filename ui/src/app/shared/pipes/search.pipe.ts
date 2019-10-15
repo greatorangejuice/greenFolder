@@ -3,7 +3,6 @@ import {Task} from '../interfaces';
 
 @Pipe({
   name: 'searchTasks',
-
 })
 export class SearchPipe implements PipeTransform{
   transform(tasks: Task[], search = '', searchParam = ''): Task[] {

@@ -18,20 +18,23 @@
 
     <div class="buttons">
       <div>
-        <button
-          mat-button
-          [disabled]="form.invalid || submitted"
-          type="submit"
-          class="welcome-buttons"
-        >Login
-        </button>
-        <button
-          type="button"
-          mat-button
-          [routerLink]="'registration'"
-          class="welcome-buttons"
-        >Registration
-        </button>
+        <div>
+          <button
+            mat-button
+            [disabled]="form.invalid || submitted"
+            type="submit"
+            class="welcome-buttons"
+          >Login
+          </button>
+          <button
+            type="button"
+            mat-button
+            [routerLink]="'registration'"
+            class="welcome-buttons"
+          >Registration
+          </button>
+        </div>
+        <button mat-button type="button" (click)="openRecoveryForm()">Forgot password?</button>
       </div>
       <div class="alert">{{message}}</div>
     </div>
