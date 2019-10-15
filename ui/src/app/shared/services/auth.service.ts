@@ -58,6 +58,10 @@ export class AuthService {
     return this.httpClient.post(`${environment.backend}/registration`, user);
   }
 
+  confirmEmail(key: string): Observable<any> {
+    return this.httpClient.get(`${environment.backend}/activation${key}`)
+  }
+
   restorePassword(email: string): Observable<any> {
     return this.httpClient.post(`${environment.backend}/accessrestore`, {email: email});
   }
@@ -98,9 +102,3 @@ export class AuthService {
   }
 
 }
-
-
-
-// checkEmail(email: object): Observable<string> {
-//   return this.httpClient.post<string>(`${environment.backend}/mail/check`, email);
-// }

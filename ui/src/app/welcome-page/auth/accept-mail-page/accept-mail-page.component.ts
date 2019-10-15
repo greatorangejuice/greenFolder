@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../shared/services/auth.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -11,6 +11,8 @@ import {Subscription} from "rxjs";
 export class AcceptMailPageComponent implements OnInit {
 
   stream$: Subscription;
+  activationKey: string;
+  email: string;
 
   constructor(
     private authService: AuthService,
@@ -18,12 +20,22 @@ export class AcceptMailPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stream$ = this.authService.restorePassword(email)
-      .subscribe(
-        () => {
 
-        },
-      )
+    this.route.queryParams.subscribe(
+      (params: Params) => {
+        this.activationKey = params.activationKey;
+      }
+    );
+
+    if (this.activationKey) {
+      this.authService.restorePassword(this.activationKey)
+        .subscribe(
+        )
+    }
   }
 
+  confirmEmail() {
+    this.authService.confirmEmail(this.activationKey)
+      .subscribe();
+  }
 }

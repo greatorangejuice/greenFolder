@@ -21,6 +21,7 @@ import { AcceptMailPageComponent } from './auth/accept-mail-page/accept-mail-pag
           {path: '', component: LoginComponent},
           {path: 'registration', component: RegistrationComponent},
           {path: 'changepass', component: ChangePasswordPageComponent},
+          {path: 'acceptemail', component: AcceptMailPageComponent},
         ]
       },
     ]),
