@@ -14,6 +14,7 @@ export class ChangePasswordPageComponent implements OnInit {
   form: FormGroup;
   recoveryKey: string;
   hide = true;
+  username = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -35,10 +36,17 @@ export class ChangePasswordPageComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
 
+    this.auth.checkLink(this.recoveryKey)
+      .subscribe(
+        (response) => {
+            this.username = response.username;
+        }
+      )
+
   }
 
   setNewPassword() {
-    this.auth.setNewPassword('123', this.recoveryKey)
+    this.auth.setNewPassword('123123123', this.recoveryKey)
       .subscribe()
   }
 

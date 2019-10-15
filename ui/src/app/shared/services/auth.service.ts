@@ -62,11 +62,15 @@ export class AuthService {
   }
 
   restorePassword(email: string): Observable<any> {
-    return this.httpClient.post(`${environment.backend}/accessrestore`, email);
+    return this.httpClient.post(`${environment.backend}/accessrestore`, {email: email});
   }
 
-  setNewPassword(password: string, recoveryKey: string) {
-    return this.httpClient.post(`${environment.backend}/${recoveryKey}`, password);
+  checkLink(recoveryKey: string): Observable<any> {
+    return this.httpClient.get(`${environment.backend}/accessrestore/${recoveryKey}`);
+  }
+
+  setNewPassword(password: string, recoveryKey: string): Observable<any> {
+    return this.httpClient.post(`${environment.backend}/accessrestore/${recoveryKey}`, {newPassword: password});
   }
 
   isAuthenticated(): boolean {
