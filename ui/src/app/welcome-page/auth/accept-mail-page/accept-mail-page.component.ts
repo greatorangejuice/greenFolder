@@ -13,6 +13,8 @@ export class AcceptMailPageComponent implements OnInit {
   stream$: Subscription;
   activationKey: string;
   email: string;
+  acceptedEmail = false;
+  error = false;
 
   constructor(
     private authService: AuthService,
@@ -36,6 +38,13 @@ export class AcceptMailPageComponent implements OnInit {
 
   confirmEmail() {
     this.authService.confirmEmail(this.activationKey)
-      .subscribe();
+      .subscribe(
+        () => {
+          this.acceptedEmail = true;
+        },
+        () => {
+          this.error = true;
+        }
+      );
   }
 }
