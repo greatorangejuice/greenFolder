@@ -13,3 +13,14 @@
 .picture {
   width: 200px;
 }
+
+.order-form {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

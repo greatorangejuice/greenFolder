@@ -7,7 +7,13 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatProgressSpinnerModule, MatTableModule, MatButtonToggleModule, MatSnackBarModule, MatDialog, MatDialogModule,
+  MatProgressSpinnerModule,
+  MatTableModule,
+  MatButtonToggleModule,
+  MatSnackBarModule,
+  MatDialog,
+  MatDialogModule,
+  MatDatepickerModule, MatNativeDateModule, MatListModule,
 } from '@angular/material';
 import {MainLayoutComponent} from './components/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
@@ -41,6 +47,10 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatTableModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatListModule
   ],
   exports: [
     HttpClientModule,
@@ -60,6 +70,10 @@ import { LoaderComponent } from './components/loader/loader.component';
     AlertComponent,
     MatDialogModule,
     LoaderComponent,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatListModule
   ],
 })
 export class SharedModule {}
