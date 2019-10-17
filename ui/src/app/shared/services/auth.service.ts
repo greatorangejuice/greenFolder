@@ -1,15 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {loginResponse, Token, User} from '../interfaces';
+import {loginResponse, Token, Univers, User} from '../interfaces';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AlertService} from "./alert.service";
 
-export interface Univers {
-  allUniversityAsMap: object;
-}
 @Injectable({
   providedIn: 'root'
 })
@@ -61,6 +58,10 @@ export class AuthService {
     return this.httpClient.post(`${environment.backend}/registration`, user);
   }
 
+  confirmEmail(key: string): Observable<any> {
+    return this.httpClient.get(`${environment.backend}/activation${key}`)
+  }
+
   restorePassword(email: string): Observable<any> {
     return this.httpClient.post(`${environment.backend}/accessrestore`, {email: email});
   }
@@ -101,9 +102,3 @@ export class AuthService {
   }
 
 }
-
-
-
-// checkEmail(email: object): Observable<string> {
-//   return this.httpClient.post<string>(`${environment.backend}/mail/check`, email);
-// }

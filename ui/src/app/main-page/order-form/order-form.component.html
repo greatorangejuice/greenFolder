@@ -1,8 +1,50 @@
 <div class="welcome-title">
   <div class="image-container">
     <img src="../../../assets/images/vader.png" alt="" class="picture">
-    <form >
+  </div>
+  <div class="order-form">
+    <form [formGroup]="form">
+      <mat-form-field>
+        <input
+          matInput placeholder="Имя"
+          formControlName="name"
+        >
+      </mat-form-field>
 
+      <mat-form-field>
+        <input
+          matInput placeholder="Фамилия"
+          formControlName="surname"
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput placeholder="Место учёбы"
+          formControlName="university"
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput placeholder="Курс"
+          formControlName="course"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput [min]="currentDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Укажите дату"
+               disabled>
+        <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button (click)="picker.open()" type="button">Изменить дату</button>
+
+      <mat-form-field>
+        <input
+          matInput placeholder="Сколько готовы заплатить?"
+          formControlName="price"
+        >
+      </mat-form-field>
     </form>
-    </div>
+  </div>
 </div>

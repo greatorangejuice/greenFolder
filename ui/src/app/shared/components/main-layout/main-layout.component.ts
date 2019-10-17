@@ -47,11 +47,7 @@ export class MainLayoutComponent implements OnInit {
     this.alertService.success('unlogin');
   }
 
-  goToAccount() {
-    this.router.navigate(['/user']);
-  }
-
-  goToMain() {
-    this.router.navigate(['/tasks']);
+  goToPage(pageUrl) {
+    this.router.navigate(([`/${pageUrl}`]));
   }
 }

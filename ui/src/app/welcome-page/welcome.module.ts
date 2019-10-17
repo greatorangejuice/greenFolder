@@ -9,6 +9,7 @@ import {SharedModule} from '../shared/shared.module';
 import {MatCheckboxModule, MatSelectModule} from '@angular/material';
 import { PasswordRecoveryComponent } from './auth/login/password-recovery/password-recovery.component';
 import { ChangePasswordPageComponent } from './auth/change-password-page/change-password-page.component';
+import { AcceptMailPageComponent } from './auth/accept-mail-page/accept-mail-page.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ChangePasswordPageComponent } from './auth/change-password-page/change-
           {path: '', component: LoginComponent},
           {path: 'registration', component: RegistrationComponent},
           {path: 'changepass', component: ChangePasswordPageComponent},
+          {path: 'acceptemail', component: AcceptMailPageComponent},
         ]
       },
     ]),
@@ -36,7 +38,8 @@ import { ChangePasswordPageComponent } from './auth/change-password-page/change-
     LoginComponent,
     RegistrationComponent,
     PasswordRecoveryComponent,
-    ChangePasswordPageComponent
+    ChangePasswordPageComponent,
+    AcceptMailPageComponent
   ],
   entryComponents: [LoginComponent, PasswordRecoveryComponent]
 })

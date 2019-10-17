@@ -60,3 +60,7 @@ export interface Passwords {
   currentPassword: string;
   newPassword: string;
 }
+
+export interface Univers {
+  allUniversityAsMap: object;
+}
