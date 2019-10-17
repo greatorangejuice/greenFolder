@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class MailSenderUtil {
 
     private final JavaMailSender mailSender;
-    private static final String EMAIL_CONFIRM_MESSAGE = "Hello, Welcome to greenFolder. Please visit next link http://localhost:8080/activate/";
+    private static final String EMAIL_CONFIRM_MESSAGE = "Hello, Welcome to greenFolder. Please visit next link http://localhost:8080/activate?activationKey=";
     private static final String ACCESS_RESTORE_MESSAGE = "Hello, to restore your password visit next link http://localhost:8080/accessrestore?restoreKey=";
 
     @Value("${spring.mail.username}")

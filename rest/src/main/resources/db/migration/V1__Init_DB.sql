@@ -33,6 +33,7 @@ create table task (
   keywords varchar(255),
   name varchar(255),
   specification varchar(255),
+  description varchar(255),
   subject varchar(255),
   task_status integer,
   customer_id bigint,

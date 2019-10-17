@@ -7,6 +7,7 @@ package com.blansplatform.service;
 import com.blansplatform.dto.TaskDto;
 import com.blansplatform.entity.Task;
 import com.blansplatform.entity.User;
+import com.blansplatform.enumeration.TaskStatus;
 import com.blansplatform.repository.TaskRepository;
 import com.blansplatform.utils.converters.TaskDtoFromTask;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class TaskService {
     }
 
     public void addTask(Task task) {
+        task.setTaskStatus(TaskStatus.ACTIVE);
         taskRepository.save(task);
     }
 

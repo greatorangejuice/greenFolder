@@ -12,6 +12,7 @@ public class TaskDto {
     private Long id;
     private String name;
     private String specification;
+    private String description;
     private TaskStatus taskStatus;
     private String subject;
     private Faculty faculty;
@@ -19,10 +20,11 @@ public class TaskDto {
     private String customer;
     private String executor;
 
-    public TaskDto(Long id, String name, String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String customer, String executor) {
+    public TaskDto(Long id, String name, String specification, String description, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String customer, String executor) {
         this.id = id;
         this.name = name;
         this.specification = specification;
+        this.description = description;
         this.taskStatus = taskStatus;
         this.subject = subject;
         this.faculty = faculty;
@@ -32,6 +34,14 @@ public class TaskDto {
     }
 
     public TaskDto() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {
@@ -112,6 +122,7 @@ public class TaskDto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", specification='" + specification + '\'' +
+                ", description='" + description + '\'' +
                 ", taskStatus=" + taskStatus +
                 ", subject='" + subject + '\'' +
                 ", faculty=" + faculty +

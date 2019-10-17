@@ -14,6 +14,7 @@ public class TaskDtoFromTask {
                 task.getId(),
                 task.getName(),
                 task.getSpecification(),
+                task.getDescription(),
                 task.getTaskStatus(),
                 task.getSubject(),
                 task.getFaculty(),

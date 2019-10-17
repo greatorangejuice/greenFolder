@@ -34,8 +34,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public @ResponseBody
-    Response addNewTask(@RequestBody Task task) {
+    public @ResponseBody Response addNewTask(@RequestBody Task task) {
         taskService.addTask(task);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }

@@ -7,10 +7,7 @@ package com.blansplatform.controller;
 import com.blansplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
 
@@ -18,10 +15,14 @@ import javax.ws.rs.core.Response;
 @RequestMapping("/activation")
 public class AccountActivateController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @PostMapping("/{code}")
+    @Autowired
+    public AccountActivateController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/{code}")
     public @ResponseBody Response userActivation(@PathVariable String code) {
         return userService.activateUserByCode(code);
     }

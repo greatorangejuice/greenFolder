@@ -13,6 +13,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
     private String specification;
     private TaskStatus taskStatus;
     private String subject;
@@ -27,9 +28,10 @@ public class Task {
     private List<Offer> offers;
     private String keywords;
 
-    public Task(String name, String specification, TaskStatus taskStatus, String subject, Faculty faculty, User customer, User executor, List<Offer> offers, String keywords) {
+    public Task(String name, String specification, String description, TaskStatus taskStatus, String subject, Faculty faculty, User customer, User executor, List<Offer> offers, String keywords) {
         this.name = name;
         this.specification = specification;
+        this.description = description;
         this.taskStatus = taskStatus;
         this.subject = subject;
         this.faculty = faculty;
@@ -40,6 +42,14 @@ public class Task {
     }
 
     public Task() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Offer> getOffers() {
@@ -127,21 +137,22 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id.equals(task.id) &&
-                name.equals(task.name) &&
-                specification.equals(task.specification) &&
+        return Objects.equals(id, task.id) &&
+                Objects.equals(name, task.name) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(specification, task.specification) &&
                 taskStatus == task.taskStatus &&
-                subject.equals(task.subject) &&
+                Objects.equals(subject, task.subject) &&
                 faculty == task.faculty &&
-                customer.equals(task.customer) &&
-                executor.equals(task.executor) &&
-                offers.equals(task.offers) &&
-                keywords.equals(task.keywords);
+                Objects.equals(customer, task.customer) &&
+                Objects.equals(executor, task.executor) &&
+                Objects.equals(offers, task.offers) &&
+                Objects.equals(keywords, task.keywords);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, description, specification, taskStatus, subject, faculty, customer, executor, offers, keywords);
     }
 
     @Override
@@ -149,6 +160,7 @@ public class Task {
         return "Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", specification='" + specification + '\'' +
                 ", taskStatus=" + taskStatus +
                 ", subject='" + subject + '\'' +
