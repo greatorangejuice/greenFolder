@@ -8,7 +8,7 @@
     justify-content: center;
     flex-direction: column;
   }
-  padding: 25px;
+  padding: 10px;
 }
 .picture {
   width: 200px;
@@ -23,4 +23,18 @@ form {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  mat-radio-button {
+    padding: 5px;
+  }
+}
+
+.order-text {
+  padding: 5px;
+  font-style: italic;
+  background-color: #579d48;
 }

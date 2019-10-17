@@ -6,6 +6,7 @@ import {MainLayoutComponent} from "../shared/components/main-layout/main-layout.
 import {MainPageComponent, RulesContent} from "./main-page.component";
 import { OrderFormComponent } from './order-form/order-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatRadioModule, MatSelectModule, MatStepperModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import {ReactiveFormsModule} from "@angular/forms";
       }
     ]),
     ReactiveFormsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatRadioModule,
   ],
   exports: [
     RouterModule,
