@@ -1,0 +1,11 @@
+<div class="flex center column">
+  <p><span>Имя </span>{{data.order.name}}</p>
+  <p><span>Фамилия </span>{{data.order.surname}}</p>
+  <p><span>Курс </span>{{data.order.course}}</p>
+  <p><span>Срок сдачи </span>{{data.order.deadline}}</p>
+  <p><span>Тип работы </span>{{data.order.type}}</p>
+  <p><span>Описание </span>{{data.order.description}}</p>
+  <p><span>Откуда исполнитель </span>{{data.order.isMyUniversity}}</p>
+  <p *ngIf="data.order.price"><span>Примерный прайс </span>{{data.order.price}}</p>
+</div>
+<button mat-button class="common-butons" (click)="onNoClick()">Отправить</button>
