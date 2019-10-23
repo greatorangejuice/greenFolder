@@ -13,7 +13,6 @@ import {Task} from '../../shared/interfaces'
 })
 export class TaskComponent implements OnInit {
 
-  // @Input() task;
   id: string;
   task$: Observable<Task>;
 
@@ -23,17 +22,6 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.route.params
-    //   .subscribe((params: Params) => {
-    //     this.id = params['id'];
-    //   });
-    // Запрос на получение данных по id.
-    // this.task$ = this.taskService.getTaskById()
-    //   .subscribe(
-    //     (req) => {
-    //       console.log(req);
-    //     }
-    //   )
     this.task$ = this.route.params
       .pipe(
         switchMap( (params:Params) => {

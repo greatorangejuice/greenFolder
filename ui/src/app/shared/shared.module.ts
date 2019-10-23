@@ -27,9 +27,9 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
 @NgModule({
   declarations: [
     DropdownDirective,
+    GreencolorDirective,
     MainLayoutComponent,
     SearchPipe,
-    GreencolorDirective,
     AlertComponent,
     LoaderComponent,
     GoogleLoaderComponent,

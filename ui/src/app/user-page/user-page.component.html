@@ -1,8 +1,9 @@
-<div *ngIf="!loading; else loading">
+<div>
+<!--  Почему-то !loading не работает -->
   <div class="top">
     <app-profile [user]="user"></app-profile>
     <app-notification-list [messages]="outgoingMessages"></app-notification-list>
   </div>
-  <app-user-tasks-lists [tasks]="tasks"></app-user-tasks-lists>
+  <app-user-tasks-lists [taskLikeCustomer]="tasksLikeCustomer" [taskLikeExecutor]="tasksLikeExecutor"></app-user-tasks-lists>
 </div>
-<ng-template #loading><app-loader [diameter]="diameter"></app-loader></ng-template>
+<ng-template #loading><app-loader diameter="70"></app-loader></ng-template>

@@ -11,10 +11,9 @@ export class UserPageComponent implements OnInit {
 
   user: User;
   outgoingMessages: Message[];
-  tasks: Task[];
+  tasksLikeCustomer: Task[];
+  tasksLikeExecutor: Task[];
   loading = true;
-  diameter = 70;
-
   constructor(
     private userService: UserService,
   ) { }
@@ -24,9 +23,11 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (request: AllAccountInfo) => {
           this.loading = false;
+          console.log(this.loading);
           this.user = request.user;
           this.outgoingMessages = request.outgoingMessages;
-          this.tasks = request.tasksLikeCustomer.concat(request.tasksLikeExecutor);
+          this.tasksLikeCustomer = request.tasksLikeCustomer;
+          this.tasksLikeExecutor = request.tasksLikeExecutor;
         }
       )
   }
