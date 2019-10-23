@@ -1,14 +1,18 @@
 export interface Task {
-  id: number;
+  secretId?: number;
+  executor?: string;
   name: string;
   subject: string;
+  course: string;
   customer: string;
-  executor: string;
   specification: string;
+  description: string;
   faculty: string;
   keywords: string;
-  taskStatus: string;
-  date: Date;
+  taskStatus?: string;
+  // deadline: Date;
+  deadline: string;
+  type: string;
 }
 
 export interface User {

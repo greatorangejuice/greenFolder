@@ -58,9 +58,10 @@ export class LoginComponent implements OnInit {
 
     return this.authService.login(user)
       .subscribe(
-        () => {
+        (response) => {
         this.submitted = false;
         this.router.navigate(['/main']);
+        localStorage.setItem('username', response.username);
         },
         (error) => {
           if (error.name === 'HttpErrorResponse') {

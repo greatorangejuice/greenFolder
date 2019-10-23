@@ -17,7 +17,8 @@ export class UserService {
   }
 
   getProfile():Observable<AllAccountInfo> {
-    return this.http.get<AllAccountInfo>(`${environment.backend}/profile/1`)
+    const username = localStorage.getItem('username');
+    return this.http.get<AllAccountInfo>(`${environment.backend}/profile/username/${username}`)
       .pipe(
         tap(
           (res) => {

@@ -7,7 +7,7 @@ import {MainLayoutComponent} from '../shared/components/main-layout/main-layout.
 import {ProfileComponent} from './profile/profile.component';
 import {NotificationListComponent, NotificationModal} from './notification-list/notification-list.component';
 import { UserTasksListsComponent } from './user-tasks-lists/user-tasks-lists.component';
-import {MatDialogModule} from "@angular/material";
+import {MatDialogModule, MatRadioModule} from "@angular/material";
 import {UserService} from "../shared/services/user.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
@@ -38,6 +38,7 @@ import {AuthGuard} from "../shared/services/auth.guard";
     ]),
     MatDialogModule,
     ReactiveFormsModule,
+    MatRadioModule,
   ],
   exports: [RouterModule],
   providers: [UserService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}]

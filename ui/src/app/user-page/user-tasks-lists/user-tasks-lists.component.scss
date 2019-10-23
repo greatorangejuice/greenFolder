@@ -1,8 +1,26 @@
-.tasks-list {
-  overflow: auto;
-  max-width: 500px;
-}
 .container {
   overflow: auto;
   max-height: 500px;
+}
+ul {
+  li {
+    padding: 0.5rem;
+    text-align: center;
+  }
+}
+.active {
+  background-color: #4285F4;
+  color: #f4f4f4;
+}
+.inactive {
+  background-color: #666666;
+  color: #f4f4f4;
+}
+.inprogress {
+  background-color: #F4B400;
+  color: #f4f4f4;
+}
+.done {
+  background-color: #0F9D58;
+  color: #f4f4f4;
 }
