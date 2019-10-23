@@ -19,6 +19,10 @@ export class TaskService {
       return this.http.get<Task>(`${environment.backend}/task/${id}`)
   }
 
+  createOrder(order): Observable<any> {
+    return this.http.post(`${environment.backend}/task`, order);
+  }
+
   // getTaskById(): Observable<any> {
   //   return this.http.get<Users>(`${environment.fbDataBaseUrl}/users.json`)
   //     .pipe(

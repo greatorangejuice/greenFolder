@@ -22,6 +22,7 @@ import {SearchPipe} from './pipes/search.pipe';
 import {GreencolorDirective} from "./directives/greencolor.directive";
 import { AlertComponent } from './components/alert/alert.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     GreencolorDirective,
     AlertComponent,
     LoaderComponent,
+    GoogleLoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    GoogleLoaderComponent
   ],
 })
 export class SharedModule {}
