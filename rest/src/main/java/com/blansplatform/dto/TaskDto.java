@@ -9,8 +9,10 @@ import com.blansplatform.enumeration.TaskStatus;
 
 public class TaskDto {
 
-    private Long id;
+    private String secretId;
     private String name;
+    private String deadline;
+    private String type;
     private String specification;
     private String description;
     private TaskStatus taskStatus;
@@ -19,10 +21,15 @@ public class TaskDto {
     private String keywords;
     private String customer;
     private String executor;
+    private String course;
 
-    public TaskDto(Long id, String name, String specification, String description, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String customer, String executor) {
-        this.id = id;
+    public TaskDto(String secretId, String name, String deadline, String type, String specification,
+                   String description, TaskStatus taskStatus, String subject, Faculty faculty,
+                   String keywords, String customer, String executor, String course) {
+        this.secretId = secretId;
         this.name = name;
+        this.deadline = deadline;
+        this.type = type;
         this.specification = specification;
         this.description = description;
         this.taskStatus = taskStatus;
@@ -31,25 +38,26 @@ public class TaskDto {
         this.keywords = keywords;
         this.customer = customer;
         this.executor = executor;
+        this.course = course;
     }
 
     public TaskDto() {
     }
 
-    public String getDescription() {
-        return description;
+    public String getCourse() {
+        return course;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
-    public Long getId() {
-        return id;
+    public String getSecretId() {
+        return secretId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSecretId(String secretId) {
+        this.secretId = secretId;
     }
 
     public String getName() {
@@ -60,12 +68,36 @@ public class TaskDto {
         this.name = name;
     }
 
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getSpecification() {
         return specification;
     }
 
     public void setSpecification(String specification) {
         this.specification = specification;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public TaskStatus getTaskStatus() {
@@ -114,21 +146,5 @@ public class TaskDto {
 
     public void setExecutor(String executor) {
         this.executor = executor;
-    }
-
-    @Override
-    public String toString() {
-        return "TaskDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", specification='" + specification + '\'' +
-                ", description='" + description + '\'' +
-                ", taskStatus=" + taskStatus +
-                ", subject='" + subject + '\'' +
-                ", faculty=" + faculty +
-                ", keywords='" + keywords + '\'' +
-                ", customer='" + customer + '\'' +
-                ", executor='" + executor + '\'' +
-                '}';
     }
 }

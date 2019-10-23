@@ -33,9 +33,14 @@ public class TaskController {
         return taskService.findTaskById(id);
     }
 
+    @GetMapping(path = "/{secretId}")
+    public TaskDto findTaskBySecretId(@PathVariable String secretId) {
+        return taskService.findTaskBySecretId(secretId);
+    }
+
     @PostMapping
-    public @ResponseBody Response addNewTask(@RequestBody Task task) {
-        taskService.addTask(task);
+    public @ResponseBody Response addNewTask(@RequestBody TaskDto taskDto) {
+        taskService.addTask(taskDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 

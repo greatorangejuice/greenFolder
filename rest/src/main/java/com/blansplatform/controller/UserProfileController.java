@@ -24,10 +24,14 @@ public class UserProfileController {
         this.userProfileService = userProfileService;
     }
 
-
     @GetMapping(path = "/{id}")
-    public @ResponseBody UserProfileDto userProfileDto(@PathVariable Long id) {
-        return userProfileService.userProfile(id);
+    public @ResponseBody UserProfileDto userProfileDtoById(@PathVariable Long id) {
+        return userProfileService.userProfileById(id);
+    }
+
+    @GetMapping(path = "/username/{username}")
+    public @ResponseBody UserProfileDto userProfileDtoByUsername(@PathVariable String username) {
+        return userProfileService.userProfileByUsername(username);
     }
 
 

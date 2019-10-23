@@ -15,5 +15,5 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> findTaskByCustomerId(@Param("customer_id") Long id);
     @Query(value = "select * from task where executor_id = ?1", nativeQuery = true)
     List<Task> findTaskByExecutorId(@Param("customer_id") Long id);
-
+    Task findTaskBySecretId(String secretId);
 }

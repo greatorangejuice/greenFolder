@@ -29,6 +29,10 @@ create table role (
 
 create table task (
   id bigint not null auto_increment,
+  secret_id varchar(255),
+  deadline varchar(255),
+  type varchar(255),
+  course varchar(255),
   faculty integer,
   keywords varchar(255),
   name varchar(255),

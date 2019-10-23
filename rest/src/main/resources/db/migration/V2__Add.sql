@@ -40,11 +40,11 @@ insert into message (id, message_body, message_head, sender_user_id, recipient_u
 insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
             values (2, 'ok', 'for task', 2, 1);
 
-insert into task (id, faculty, keywords, name, specification, subject, task_status, customer_id, executor_id)
-            values (1, 0, 'java, lab', 'sessionTask', 'need some rest service', 'java', 0, 2, 1);
+insert into task (id, secret_id, course, deadline, type, faculty, keywords, name, specification, subject, task_status, customer_id, executor_id)
+            values (1, 'secretId1', '3', '31.12.2019', 'course project', 0, 'java, lab', 'sessionTask', 'need some rest service', 'java', 0, 2, 1);
 
-insert into task (id, faculty, keywords, name, specification, subject, task_status, customer_id, executor_id)
-            values (2, 0, 'python', 'python course project', 'neural network', 'python', 0, 1, 2);
+insert into task (id, secret_id, course, deadline, type, faculty, keywords, name, specification, subject, task_status, customer_id, executor_id)
+            values (2, 'secretId2', '2', '22.11.2019', 'lab', 0, 'python', 'python course project', 'neural network', 'python', 0, 1, 2);
 
 insert into offer (id, bid, offer_status, customer_id, executor_id, task_id)
             values (1, '300', 2, 2, 1, 1);

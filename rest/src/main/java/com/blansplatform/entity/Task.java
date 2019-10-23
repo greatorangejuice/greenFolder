@@ -12,6 +12,9 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String deadline;
+    private String type;
+    private String secretId;
     private String name;
     private String description;
     private String specification;
@@ -27,11 +30,17 @@ public class Task {
     @OneToMany(targetEntity = Offer.class, mappedBy = "task", fetch = FetchType.LAZY)
     private List<Offer> offers;
     private String keywords;
+    private String course;
 
-    public Task(String name, String specification, String description, TaskStatus taskStatus, String subject, Faculty faculty, User customer, User executor, List<Offer> offers, String keywords) {
+    public Task(String deadline, String type, String secretId, String name, String description,
+                String specification, TaskStatus taskStatus, String subject, Faculty faculty,
+                User customer, User executor, List<Offer> offers, String keywords, String course) {
+        this.deadline = deadline;
+        this.type = type;
+        this.secretId = secretId;
         this.name = name;
-        this.specification = specification;
         this.description = description;
+        this.specification = specification;
         this.taskStatus = taskStatus;
         this.subject = subject;
         this.faculty = faculty;
@@ -39,9 +48,57 @@ public class Task {
         this.executor = executor;
         this.offers = offers;
         this.keywords = keywords;
+        this.course = course;
+    }
+
+    public Task(String deadline, String type, String secretId, String name, String description,
+                String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String course) {
+        this.deadline = deadline;
+        this.type = type;
+        this.secretId = secretId;
+        this.name = name;
+        this.description = description;
+        this.specification = specification;
+        this.taskStatus = taskStatus;
+        this.subject = subject;
+        this.faculty = faculty;
+        this.keywords = keywords;
+        this.course = course;
     }
 
     public Task() {
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSecretId() {
+        return secretId;
+    }
+
+    public void setSecretId(String secretId) {
+        this.secretId = secretId;
     }
 
     public String getDescription() {
@@ -138,6 +195,9 @@ public class Task {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
         return Objects.equals(id, task.id) &&
+                Objects.equals(deadline, task.deadline) &&
+                Objects.equals(type, task.type) &&
+                Objects.equals(secretId, task.secretId) &&
                 Objects.equals(name, task.name) &&
                 Objects.equals(description, task.description) &&
                 Objects.equals(specification, task.specification) &&
@@ -152,13 +212,16 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, specification, taskStatus, subject, faculty, customer, executor, offers, keywords);
+        return Objects.hash(id, deadline, type, secretId, name, description, specification, taskStatus, subject, faculty, customer, executor, offers, keywords);
     }
 
     @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +
+                ", deadline='" + deadline + '\'' +
+                ", type='" + type + '\'' +
+                ", secretId='" + secretId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", specification='" + specification + '\'' +

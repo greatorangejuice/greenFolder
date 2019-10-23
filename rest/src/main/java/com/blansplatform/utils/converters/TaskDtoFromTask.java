@@ -11,8 +11,10 @@ public class TaskDtoFromTask {
 
     public static TaskDto taskConverter(Task task) {
         return new TaskDto(
-                task.getId(),
+                task.getSecretId(),
                 task.getName(),
+                task.getDeadline(),
+                task.getType(),
                 task.getSpecification(),
                 task.getDescription(),
                 task.getTaskStatus(),
@@ -20,7 +22,8 @@ public class TaskDtoFromTask {
                 task.getFaculty(),
                 task.getKeywords(),
                 task.getCustomer().getUsername(),
-                task.getExecutor().getUsername()
+                task.getExecutor().getUsername(),
+                task.getCourse()
         );
     }
 }
