@@ -1,15 +1,42 @@
 .container {
   overflow: auto;
   max-height: 500px;
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
+
+.filter-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
 ul {
   li {
     padding: 0.5rem;
     text-align: center;
+    margin-bottom: 3px;
   }
 }
+
+.task-description {
+  justify-content: space-around;
+  flex: 1;
+}
+
+.active,
+.inactive,
+.inprogress,
+.done {
+  opacity: 1;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 .active {
-  background-color: #4285F4;
+  background-color: #1e90ff;
   color: #f4f4f4;
 }
 .inactive {
@@ -17,7 +44,7 @@ ul {
   color: #f4f4f4;
 }
 .inprogress {
-  background-color: #F4B400;
+  background-color: #247c6e;
   color: #f4f4f4;
 }
 .done {

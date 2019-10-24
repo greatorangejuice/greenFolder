@@ -1,7 +1,10 @@
 <div class="card">
-  <h2>{{task.title}}</h2>
+  <h2>Name: {{task.name}}</h2>
   <div class="card-bottom">
-    <small>{{task.date | date:'MMM d, y'}}</small>
-    <button mat-stroked-button [routerLink]="['task', task.id]">Перейти</button>
+    <div>
+      <div>Description: {{task.description}}</div>
+      <!--    <small>{{task.date | date:'MMM d, y'}}</small>-->
+      <small>Deadline: {{task.deadline}}</small></div>
+    <button mat-stroked-button [routerLink]="['task', task.secretId]">Перейти</button>
   </div>
 </div>

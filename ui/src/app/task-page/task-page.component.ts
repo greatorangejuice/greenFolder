@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../shared/interfaces';
 import {AuthService} from '../shared/services/auth.service';
+import {TaskService} from "../shared/services/task.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-task-page',
@@ -10,16 +12,20 @@ import {AuthService} from '../shared/services/auth.service';
 export class TaskPageComponent implements OnInit {
 
   searchValue: string;
-
-  tasks = [
-
-  ];
+  // tasksStream$: Observable<Task[]>;
+  tasks: Task[];
 
   constructor(
-    private auth: AuthService,
+    private taskService: TaskService,
   ) { }
 
   ngOnInit() {
+    this.taskService.getAllTasks()
+      .subscribe(
+        (response) => {
+          this.tasks = response;
+        }
+      )
   }
 
 }

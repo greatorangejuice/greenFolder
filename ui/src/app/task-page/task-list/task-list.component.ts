@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Task} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-task-list',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TaskListComponent implements OnInit {
 
-  @Input() task;
+  @Input() task: Task;
 
   constructor() { }
 
