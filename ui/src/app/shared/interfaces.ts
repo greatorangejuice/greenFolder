@@ -1,6 +1,8 @@
 export interface Task {
   secretId?: number;
   executor?: string;
+  university?: string;
+  taskStatus?: string;
   name: string;
   subject: string;
   course: string;
@@ -9,7 +11,6 @@ export interface Task {
   description: string;
   faculty: string;
   keywords: string;
-  taskStatus?: string;
   // deadline: Date;
   deadline: string;
   type: string;

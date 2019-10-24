@@ -1,15 +1,17 @@
-<h1>TASK COMPONENT {{id}}</h1>
+<h1>Очередное дело</h1>
 <div *ngIf="task$ | async as task; else loading">
-  <div>
-    {{task.id}}
-    {{task.name}}
-    {{task.customer}}
-    {{task.executor}}
-    {{task.subject}}
-    {{task.specification}}
-    {{task.taskStatus}}
-    work
+  <div class="flex column">
+    <div>Статус: {{task.taskStatus}}</div>
+    <div>Имя: {{task.name}}</div>
+    <div>Предмет: {{task.subject}}</div>
+    <div>Описание задания: {{task.specification}}</div>
+    <div>Заказчик: {{task.customer}}</div>
   </div>
+  <div *ngIf="task.executor">Исполнитель: {{task.executor}}</div>
+</div>
+<!--Если исполнитель, то виден следующий блок: -->
+<div class="offer">
+  Сделать оффер!
 </div>
 <ng-template #loading>
   <p>loading</p>

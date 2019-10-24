@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Task} from "../../shared/interfaces";
+import {TaskService} from "../../shared/services/task.service";
 
 @Component({
   selector: 'app-user-tasks-lists',
@@ -12,11 +13,17 @@ export class UserTasksListsComponent implements OnInit {
   @Input() taskLikeExecutor: Task[];
   visibleTasks = 'ALLTASKS';
 
-  constructor() { }
+  constructor(
+    private taskService: TaskService,
+  ) { }
 
   ngOnInit() {
-    console.log(this.taskLikeCustomer);
-    console.log(this.taskLikeExecutor);
+    this.taskService.getAllTasks()
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      )
   }
 
   changeStatus(status: string) {

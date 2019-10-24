@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {SearchPipe} from '../shared/pipes/search.pipe';
 import {SharedModule} from '../shared/shared.module';
 import {TaskService} from "../shared/services/task.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../shared/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import {TaskService} from "../shared/services/task.service";
     FormsModule,
   ],
   exports: [RouterModule, SearchPipe],
-  providers: [TaskService]
+  providers: [TaskService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}]
 })
 export class TaskModule {
 }
