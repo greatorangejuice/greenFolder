@@ -1,31 +1,40 @@
 <div class="welcome-title">
+
   <mat-vertical-stepper linear="false">
+
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Ваши данные</ng-template>
+
         <mat-form-field>
-          <input matInput placeholder="First name" formControlName="name">
+          <input matInput placeholder="Username" formControlName="customer">
         </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Last name" formControlName="surname">
-        </mat-form-field>
+
 <!--        <mat-form-field *ngIf="universityList$ | async as universityList; else loading">-->
 <!--          <mat-select placeholder="University" formControlName="university">-->
 <!--            <mat-option *ngFor="let university of universityList"-->
 <!--                        [value]="university"> {{university}} </mat-option>-->
 <!--          </mat-select>-->
 <!--        </mat-form-field>-->
+
 <!--        <ng-template #loading>-->
 <!--          <app-loader diameter="30"></app-loader>-->
 <!--        </ng-template>-->
+
         <mat-form-field>
-          <input matInput placeholder="Курс" formControlName="course">
+        <input matInput placeholder="Курс" formControlName="course">
+      </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Факультет" formControlName="faculty">
         </mat-form-field>
+
         <div>
           <button mat-button matStepperNext class="common-buttons">Следующий шаг</button>
         </div>
       </form>
     </mat-step>
+
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Описание работы</ng-template>
@@ -44,10 +53,10 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput placeholder="Краткое описание задания" formControlName="smallDescription" required>
+          <input matInput placeholder="Краткое описание задания" formControlName="description" required>
         </mat-form-field>
         <mat-form-field>
-          <textarea matInput placeholder="Полное описание задания" formControlName="fullDescription" required></textarea>
+          <textarea matInput placeholder="Полное описание задания" formControlName="specification" required></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <input matInput [matDatepicker]="picker" [min]="currentDate" [max]="maxDate"  placeholder="Choose a date" disabled>
@@ -55,26 +64,6 @@
           <mat-datepicker #picker disabled="false"></mat-datepicker>
         </mat-form-field>
           <div>
-          <button mat-button matStepperPrevious class="common-buttons lite">Предыдущий шаг</button>
-          <button mat-button matStepperNext class="common-buttons">Следующий шаг</button>
-        </div>
-      </form>
-    </mat-step>
-
-    <mat-step [stepControl]="thirdFormGroup">
-      <form [formGroup]="thirdFormGroup">
-        <ng-template matStepLabel>Детали выполнения</ng-template>
-        <p class="order-text">Можно выбрать "происхождение" исполнителя. Но помните: чем больше ограничений, тем меньше шанс на отклик.</p>
-        <mat-radio-group aria-label="Select an option" value="1" formControlName="isMyUniversity">
-          <div class="radio-group">
-            <mat-radio-button value="1">Исполнитель только из моего университета</mat-radio-button>
-            <mat-radio-button value="2">Исполнитель из любого университета</mat-radio-button>
-          </div>
-        </mat-radio-group>
-        <mat-form-field>
-          <input matInput placeholder="Примерная оценка стоимости" formControlName="price" required>
-        </mat-form-field>
-        <div>
           <button mat-button matStepperPrevious class="common-buttons lite">Предыдущий шаг</button>
           <button mat-button matStepperNext class="common-buttons">Следующий шаг</button>
         </div>

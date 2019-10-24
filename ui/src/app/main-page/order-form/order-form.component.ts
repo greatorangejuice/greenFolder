@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {AuthService} from "../../shared/services/auth.service";
 import {TaskService} from "../../shared/services/task.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
+import {Task} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-order-form',
@@ -14,12 +15,11 @@ export class OrderFormComponent implements OnInit {
   currentDate: Date;
   maxDate = new Date();
   form: FormGroup;
-  order: object;
+  order: Task;
 
   universityList$: Observable<any>;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,23 +33,17 @@ export class OrderFormComponent implements OnInit {
     this.currentDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate() + 90);
 
-    // localStorage.getItem()
     this.firstFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      // university: ['', Validators.required],
+      customer: ['', Validators.required],
+      faculty: ['', Validators.required],
       course: ['', Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
       subject: ['', Validators.required],
       type: ['', Validators.required],
-      smallDescription: ['', Validators.required],
-      fullDescription: ['', Validators.required],
+      description: ['', Validators.required],
+      specification: ['', Validators.required],
       deadline: ['', Validators.required],
-    });
-    this.thirdFormGroup = this.formBuilder.group({
-      isMyUniversity: [true, Validators.required],
-      price: ['', Validators.required],
     });
   }
 
@@ -71,31 +65,38 @@ export class OrderFormComponent implements OnInit {
 
   submit() {
     this.order = {
-      name: this.firstFormGroup.value.name,
-      surname: this.firstFormGroup.value.surname,
+      customer: this.firstFormGroup.value.customer,
       course: this.firstFormGroup.value.course,
-      deadline: this.secondFormGroup.value.deadline,
+      // deadline: this.secondFormGroup.value.deadline,
+      deadline: 'time',
       type: this.secondFormGroup.value.type,
-      smallDescription: this.secondFormGroup.value.smallDescription,
-      fullDescription: this.secondFormGroup.value.fullDescription,
-      isMyUniversity: this.thirdFormGroup.value.isMyUniversity,
-      price: this.thirdFormGroup.value.price,
+      description: this.secondFormGroup.value.description,
+      specification: this.secondFormGroup.value.specification,
+      name: this.secondFormGroup.value.name,
+      subject: this.secondFormGroup.value.subject,
+      faculty: this.firstFormGroup.value.faculty,
+      keywords: 'test',
     };
     this.taskService.createOrder(this.order)
-      .subscribe();
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      );
   }
 
   showOrder(): void {
     this.order = {
-      name: this.firstFormGroup.value.name,
-      surname: this.firstFormGroup.value.surname,
+      customer: this.firstFormGroup.value.customer,
       course: this.firstFormGroup.value.course,
       deadline: this.secondFormGroup.value.deadline,
       type: this.secondFormGroup.value.type,
-      smallDescription: this.secondFormGroup.value.smallDescription,
-      fullDescription: this.secondFormGroup.value.fullDescription,
-      isMyUniversity: this.thirdFormGroup.value.isMyUniversity,
-      price: this.thirdFormGroup.value.price,
+      description: this.secondFormGroup.value.description,
+      specification: this.secondFormGroup.value.specification,
+      name: this.secondFormGroup.value.name,
+      subject: this.secondFormGroup.value.subject,
+      faculty: this.firstFormGroup.value.faculty,
+      keywords: 'test',
     };
     const dialogRef = this.dialog.open(PreSubmitForm, {
       width: '250px',

@@ -8,15 +8,15 @@ import {Task} from "../../shared/interfaces";
 })
 export class UserTasksListsComponent implements OnInit {
 
-  @Input() tasks: Task[];
-  visibleTasks = 'ACTIVE';
-  // ACTIVE, INACTIVE, INPROGRESS, DONE
+  @Input() taskLikeCustomer: Task[];
+  @Input() taskLikeExecutor: Task[];
+  visibleTasks = 'ALLTASKS';
 
-  // @ViewChild('aria', {static: false}) elemAria: ElementRef;
   constructor() { }
 
   ngOnInit() {
-    // console.log(this.elemAria);
+    console.log(this.taskLikeCustomer);
+    console.log(this.taskLikeExecutor);
   }
 
   changeStatus(status: string) {

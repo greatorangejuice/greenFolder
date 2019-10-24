@@ -9,6 +9,9 @@ export class SearchPipe implements PipeTransform{
     if (!search.trim()) {
       return tasks;
     }
+    if (search === 'ALLTASKS') {
+      return tasks;
+    }
 
     return tasks.filter( task => {
       return task[searchParam].toLocaleLowerCase().includes(search.toLocaleLowerCase());
