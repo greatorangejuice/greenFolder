@@ -2,6 +2,7 @@ package com.blansplatform.entity;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
+import com.blansplatform.enumeration.University;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Task {
     private String specification;
     private TaskStatus taskStatus;
     private String subject;
+    private University university;
     private Faculty faculty;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
@@ -34,7 +36,7 @@ public class Task {
 
     public Task(String deadline, String type, String secretId, String name, String description,
                 String specification, TaskStatus taskStatus, String subject, Faculty faculty,
-                User customer, User executor, List<Offer> offers, String keywords, String course) {
+                User customer, User executor, List<Offer> offers, String keywords, String course, University university) {
         this.deadline = deadline;
         this.type = type;
         this.secretId = secretId;
@@ -49,10 +51,11 @@ public class Task {
         this.offers = offers;
         this.keywords = keywords;
         this.course = course;
+        this.university = university;
     }
 
     public Task(String deadline, String type, String secretId, String name, String description,
-                String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String course) {
+                String specification, TaskStatus taskStatus, String subject, Faculty faculty, String keywords, String course, University university) {
         this.deadline = deadline;
         this.type = type;
         this.secretId = secretId;
@@ -64,9 +67,18 @@ public class Task {
         this.faculty = faculty;
         this.keywords = keywords;
         this.course = course;
+        this.university = university;
     }
 
     public Task() {
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     public String getCourse() {
@@ -203,16 +215,18 @@ public class Task {
                 Objects.equals(specification, task.specification) &&
                 taskStatus == task.taskStatus &&
                 Objects.equals(subject, task.subject) &&
+                university == task.university &&
                 faculty == task.faculty &&
                 Objects.equals(customer, task.customer) &&
                 Objects.equals(executor, task.executor) &&
                 Objects.equals(offers, task.offers) &&
-                Objects.equals(keywords, task.keywords);
+                Objects.equals(keywords, task.keywords) &&
+                Objects.equals(course, task.course);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, deadline, type, secretId, name, description, specification, taskStatus, subject, faculty, customer, executor, offers, keywords);
+        return Objects.hash(id, deadline, type, secretId, name, description, specification, taskStatus, subject, university, faculty, customer, executor, offers, keywords, course);
     }
 
     @Override
@@ -227,11 +241,13 @@ public class Task {
                 ", specification='" + specification + '\'' +
                 ", taskStatus=" + taskStatus +
                 ", subject='" + subject + '\'' +
+                ", university=" + university +
                 ", faculty=" + faculty +
                 ", customer=" + customer +
                 ", executor=" + executor +
                 ", offers=" + offers +
                 ", keywords='" + keywords + '\'' +
+                ", course='" + course + '\'' +
                 '}';
     }
 }

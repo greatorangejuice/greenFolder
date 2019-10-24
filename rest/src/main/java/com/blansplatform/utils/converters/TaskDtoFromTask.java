@@ -6,6 +6,7 @@ package com.blansplatform.utils.converters;
 
 import com.blansplatform.dto.TaskDto;
 import com.blansplatform.entity.Task;
+import com.blansplatform.entity.User;
 
 public class TaskDtoFromTask {
 
@@ -22,8 +23,15 @@ public class TaskDtoFromTask {
                 task.getFaculty(),
                 task.getKeywords(),
                 task.getCustomer().getUsername(),
-                task.getExecutor().getUsername(),
-                task.getCourse()
+                userNameNullPointer(task.getExecutor()),
+                task.getCourse(),
+                task.getUniversity()
         );
+    }
+
+    private static String userNameNullPointer(User user) {
+        if (user == null) {
+            return "no executor";
+        } else return user.getUsername();
     }
 }

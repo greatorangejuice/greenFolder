@@ -6,6 +6,7 @@ package com.blansplatform.dto;
 
 import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
+import com.blansplatform.enumeration.University;
 
 public class TaskDto {
 
@@ -22,10 +23,11 @@ public class TaskDto {
     private String customer;
     private String executor;
     private String course;
+    private University university;
 
     public TaskDto(String secretId, String name, String deadline, String type, String specification,
                    String description, TaskStatus taskStatus, String subject, Faculty faculty,
-                   String keywords, String customer, String executor, String course) {
+                   String keywords, String customer, String executor, String course, University university) {
         this.secretId = secretId;
         this.name = name;
         this.deadline = deadline;
@@ -39,9 +41,18 @@ public class TaskDto {
         this.customer = customer;
         this.executor = executor;
         this.course = course;
+        this.university = university;
     }
 
     public TaskDto() {
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     public String getCourse() {

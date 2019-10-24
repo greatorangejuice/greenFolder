@@ -12,6 +12,7 @@ import com.blansplatform.repository.TaskRepository;
 import com.blansplatform.repository.UserRepository;
 import com.blansplatform.utils.converters.TaskDtoFromTask;
 import com.blansplatform.utils.converters.TaskFromTaskDto;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +69,12 @@ public class TaskService {
 
     public void updateTask(Task task) {
         taskRepository.save(task);
+    }
+
+    public List<TaskDto> findAllActiveTasks() {
+        List<Task> tasks = taskRepository.findAllActiveTasks();
+        return  tasks.stream()
+                .map(TaskDtoFromTask::taskConverter)
+                .collect(Collectors.toList());
     }
 }

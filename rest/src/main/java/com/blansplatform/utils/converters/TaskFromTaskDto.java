@@ -21,7 +21,8 @@ public class TaskFromTaskDto {
                 taskDto.getSubject(),
                 taskDto.getFaculty(),
                 taskDto.getKeywords(),
-                taskDto.getCourse()
+                taskDto.getCourse(),
+                taskDto.getUniversity()
         );
     }
 

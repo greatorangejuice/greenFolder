@@ -33,6 +33,7 @@ create table task (
   deadline varchar(255),
   type varchar(255),
   course varchar(255),
+  university integer,
   faculty integer,
   keywords varchar(255),
   name varchar(255),

@@ -1,5 +1,6 @@
 package com.blansplatform.repository;
 
+import com.blansplatform.dto.TaskDto;
 import com.blansplatform.entity.Task;
 import com.blansplatform.entity.User;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,6 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     @Query(value = "select * from task where executor_id = ?1", nativeQuery = true)
     List<Task> findTaskByExecutorId(@Param("customer_id") Long id);
     Task findTaskBySecretId(String secretId);
+    @Query(value = "select * from task where task_status = 0", nativeQuery = true)
+    List<Task> findAllActiveTasks();
 }

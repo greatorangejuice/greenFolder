@@ -28,14 +28,14 @@ public class TaskController {
         return taskService.findAll();
     }
 
-    @GetMapping(path = "/{id}")
-    public TaskDto findTaskById(@PathVariable Long id) {
-        return taskService.findTaskById(id);
-    }
-
     @GetMapping(path = "/{secretId}")
     public TaskDto findTaskBySecretId(@PathVariable String secretId) {
         return taskService.findTaskBySecretId(secretId);
+    }
+
+    @GetMapping("/active")
+    public List<TaskDto> findAllActiveTasks() {
+        return taskService.findAllActiveTasks();
     }
 
     @PostMapping
