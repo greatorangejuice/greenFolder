@@ -13,11 +13,12 @@ create table message (
 
 create table offer (
   id bigint not null auto_increment,
-  bid varchar(255),
+  bid integer,
   offer_status integer,
   customer_id bigint,
   executor_id bigint,
   task_id bigint,
+  comment varchar(255),
   primary key (id)
 ) engine=InnoDB;
 

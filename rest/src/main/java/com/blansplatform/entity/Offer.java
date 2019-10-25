@@ -20,27 +20,43 @@ public class Offer {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private User customer;
-    private String bid;
+    private int bid;
     private OfferStatus offerStatus;
+    private String comment;
 
-    public Offer(Task task, User executor, User customer, String bid, OfferStatus offerStatus) {
+    public Offer(Task task, User executor, User customer, int bid, OfferStatus offerStatus, String comment) {
         this.task = task;
         this.executor = executor;
         this.customer = customer;
         this.bid = bid;
         this.offerStatus = offerStatus;
+        this.comment = comment;
     }
 
-    public Offer(Long id, Task task, User executor, User customer, String bid, OfferStatus offerStatus) {
+    public Offer(Long id, Task task, User executor, User customer, int bid, OfferStatus offerStatus, String comment) {
         this.id = id;
         this.task = task;
         this.executor = executor;
         this.customer = customer;
         this.bid = bid;
         this.offerStatus = offerStatus;
+        this.comment = comment;
+    }
+
+    public Offer(int bid, String comment) {
+        this.bid = bid;
+        this.comment = comment;
     }
 
     public Offer() {
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Long getId() {
@@ -75,11 +91,11 @@ public class Offer {
         this.customer = customer;
     }
 
-    public String getBid() {
+    public int getBid() {
         return bid;
     }
 
-    public void setBid(String bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
 
@@ -96,17 +112,18 @@ public class Offer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Offer offer = (Offer) o;
-        return id.equals(offer.id) &&
-                task.equals(offer.task) &&
-                executor.equals(offer.executor) &&
-                customer.equals(offer.customer) &&
-                bid.equals(offer.bid) &&
-                offerStatus == offer.offerStatus;
+        return Objects.equals(id, offer.id) &&
+                Objects.equals(task, offer.task) &&
+                Objects.equals(executor, offer.executor) &&
+                Objects.equals(customer, offer.customer) &&
+                Objects.equals(bid, offer.bid) &&
+                offerStatus == offer.offerStatus &&
+                Objects.equals(comment, offer.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, task, executor, customer, bid, offerStatus, comment);
     }
 
     @Override
@@ -118,6 +135,7 @@ public class Offer {
                 ", customer=" + customer +
                 ", bid='" + bid + '\'' +
                 ", offerStatus=" + offerStatus +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 }

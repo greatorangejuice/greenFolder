@@ -4,25 +4,26 @@
 
 package com.blansplatform.dto;
 
-import com.blansplatform.entity.Task;
-import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.OfferStatus;
 
 public class OfferDto {
 
     private Long id;
-    private String bid;
+    private String secretId;
+    private int bid;
     private OfferStatus offerStatus;
     private String executor;
     private String customer;
+    private String comment;
 
-
-    public OfferDto(Long id, String bid, OfferStatus offerStatus, String executor, String customer) {
+    public OfferDto(Long id, String secretId, int bid, OfferStatus offerStatus, String executor, String customer, String comment) {
         this.id = id;
+        this.secretId = secretId;
         this.bid = bid;
         this.offerStatus = offerStatus;
         this.executor = executor;
         this.customer = customer;
+        this.comment = comment;
     }
 
     public OfferDto() {
@@ -36,11 +37,19 @@ public class OfferDto {
         this.id = id;
     }
 
-    public String getBid() {
+    public String getSecretId() {
+        return secretId;
+    }
+
+    public void setSecretId(String secretId) {
+        this.secretId = secretId;
+    }
+
+    public int getBid() {
         return bid;
     }
 
-    public void setBid(String bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
 
@@ -68,14 +77,11 @@ public class OfferDto {
         this.customer = customer;
     }
 
-    @Override
-    public String toString() {
-        return "OfferDto{" +
-                "id=" + id +
-                ", bid='" + bid + '\'' +
-                ", offerStatus=" + offerStatus +
-                ", executor='" + executor + '\'' +
-                ", customer='" + customer + '\'' +
-                '}';
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

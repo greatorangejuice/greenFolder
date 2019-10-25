@@ -4,6 +4,7 @@
 
 package com.blansplatform.controller;
 
+import com.blansplatform.dto.AcceptOrDeclineOfferDto;
 import com.blansplatform.dto.OfferDto;
 import com.blansplatform.entity.Offer;
 import com.blansplatform.service.OfferService;
@@ -34,9 +35,14 @@ public class OfferController {
     }
 
     @PostMapping
-    public @ResponseBody Response addNewOffer(@RequestBody Offer offer) {
-        offerService.addOffer(offer);
+    public @ResponseBody Response addNewOffer(@RequestBody OfferDto offerDto) {
+        offerService.addOffer(offerDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
+    }
+
+    @PostMapping("/response")
+    public @ResponseBody Response acceptOrDeclineOffer(@RequestBody AcceptOrDeclineOfferDto acceptOrDeclineOfferDto) {
+        return offerService.acceptOrDecline(acceptOrDeclineOfferDto);
     }
 
     @DeleteMapping

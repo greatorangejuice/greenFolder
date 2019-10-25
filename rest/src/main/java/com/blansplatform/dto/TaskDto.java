@@ -8,6 +8,8 @@ import com.blansplatform.enumeration.Faculty;
 import com.blansplatform.enumeration.TaskStatus;
 import com.blansplatform.enumeration.University;
 
+import java.util.List;
+
 public class TaskDto {
 
     private String secretId;
@@ -24,10 +26,11 @@ public class TaskDto {
     private String executor;
     private String course;
     private University university;
+    private List<OfferDto> offers;
 
     public TaskDto(String secretId, String name, String deadline, String type, String specification,
                    String description, TaskStatus taskStatus, String subject, Faculty faculty,
-                   String keywords, String customer, String executor, String course, University university) {
+                   String keywords, String customer, String executor, String course, University university, List<OfferDto> offers) {
         this.secretId = secretId;
         this.name = name;
         this.deadline = deadline;
@@ -42,9 +45,18 @@ public class TaskDto {
         this.executor = executor;
         this.course = course;
         this.university = university;
+        this.offers = offers;
     }
 
     public TaskDto() {
+    }
+
+    public List<OfferDto> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<OfferDto> offers) {
+        this.offers = offers;
     }
 
     public University getUniversity() {

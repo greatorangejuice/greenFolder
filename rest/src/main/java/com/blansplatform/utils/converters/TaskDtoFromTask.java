@@ -4,9 +4,14 @@
 
 package com.blansplatform.utils.converters;
 
+import com.blansplatform.dto.OfferDto;
 import com.blansplatform.dto.TaskDto;
+import com.blansplatform.entity.Offer;
 import com.blansplatform.entity.Task;
 import com.blansplatform.entity.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskDtoFromTask {
 
@@ -25,7 +30,8 @@ public class TaskDtoFromTask {
                 task.getCustomer().getUsername(),
                 userNameNullPointer(task.getExecutor()),
                 task.getCourse(),
-                task.getUniversity()
+                task.getUniversity(),
+                offerDtoFromOffers(task.getOffers())
         );
     }
 
@@ -33,5 +39,11 @@ public class TaskDtoFromTask {
         if (user == null) {
             return "no executor";
         } else return user.getUsername();
+    }
+
+    private static List<OfferDto> offerDtoFromOffers(List<Offer> offers) {
+        return offers.stream()
+                .map(OfferDtoFromOffer::offerConverter)
+                .collect(Collectors.toList());
     }
 }

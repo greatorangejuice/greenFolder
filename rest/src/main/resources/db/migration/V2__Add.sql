@@ -106,10 +106,16 @@ insert into task (id, secret_id, course, university, deadline, type, faculty, ke
 insert into task (id, secret_id, course, university, deadline, type, faculty, keywords, name, specification, description, subject, task_status, customer_id, executor_id)
             values (17, 'secretId117', '3', 0, '17.12.2019', 'course project', 0, 'java, lab', 'sessionTask', 'need some rest service', 'rest', 'java', 2, 2, 1);
 
-insert into offer (id, bid, offer_status, customer_id, executor_id, task_id)
-            values (1, '300', 2, 2, 1, 1);
+insert into offer (id, bid, offer_status, comment, customer_id, executor_id, task_id)
+            values (1, 300, 2, 'i need 2 days', 2, 1, 1);
 
-insert into offer (id, bid, offer_status, customer_id, executor_id, task_id)
-            values (2, '450', 2, 1, 2, 2);
+insert into offer (id, bid, offer_status, comment, customer_id, executor_id, task_id)
+            values (2, 450, 2, 'can you give me more information', 1, 2, 2);
+
+insert into offer (id, bid, offer_status, comment, customer_id, task_id)
+            values (3, 600, 2, 'go go go', 3, 1);
+
+insert into offer (id, bid, offer_status, comment, customer_id, task_id)
+            values (4, 750, 2, 'some message', 2, 1);
 
 
