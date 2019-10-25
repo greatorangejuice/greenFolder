@@ -8,7 +8,7 @@
   *ngIf="tasks; else loading"
 >
   <app-task-list
-    *ngFor="let task of tasks | searchTasks:searchValue:'title'"
+    *ngFor="let task of tasks | searchTasks:searchValue:'name'"
     [task]=task
   ></app-task-list>
 </div>

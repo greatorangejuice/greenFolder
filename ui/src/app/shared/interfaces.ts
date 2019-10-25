@@ -14,6 +14,23 @@ export interface Task {
   // deadline: Date;
   deadline: string;
   type: string;
+  offers?: Offer[];
+}
+
+export interface Offer {
+  executor: string;
+  secretId: string;
+  bid: number;
+  comment: string;
+  id?: number;
+  offerStatus?: string;
+}
+
+export interface CustomerResponse {
+  customerResponse: 'string';
+  offerId?: number;
+  executor: string;
+  taskSecretId: string;
 }
 
 export interface User {

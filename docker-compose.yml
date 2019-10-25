@@ -24,18 +24,18 @@ services:
     restart: on-failure
 
 
-  ui:
-    container_name: userInterface
-    build:
-      context: ./ui
-      dockerfile: Dockerfile
-    volumes:
-      - ./app
-      - /app/node_modules
-    ports:
-      - 8000:80
-    networks:
-      - application
+#  ui:
+#    container_name: userInterface
+#    build:
+#      context: ./ui
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./app
+#      - /app/node_modules
+#    ports:
+#      - 8000:80
+#    networks:
+#      - application
 
 
 networks:

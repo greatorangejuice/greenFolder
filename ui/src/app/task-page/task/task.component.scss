@@ -1,0 +1,48 @@
+form {
+  max-width: 500px;
+  margin: 5px auto;
+}
+
+hr {
+  margin: 1rem 0;
+}
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+.offer-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  .card {
+    padding: 0.5rem;
+  }
+}
+
+button {
+  margin: 3px;
+}
+
+.accept {
+  background-color: #0F9D58;
+}
+.decline {
+  background-color: #DB4437;
+}
+
+.accept,
+.decline {
+  opacity: 1;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 420px) {
+  .card {
+    width: 100%;
+  }
+}
