@@ -6,10 +6,6 @@
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Ваши данные</ng-template>
 
-        <mat-form-field>
-          <input matInput placeholder="Username" formControlName="customer">
-        </mat-form-field>
-
         <mat-form-field *ngIf="universityList$ | async as universityList; else loading">
           <mat-select placeholder="University" formControlName="university">
             <mat-option *ngFor="let university of universityList"
@@ -38,6 +34,9 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Описание работы</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Краткое название задания" formControlName="name" required>
+        </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Название предмета" formControlName="subject" required>
         </mat-form-field>

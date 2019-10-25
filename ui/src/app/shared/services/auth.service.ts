@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AlertService} from "./alert.service";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,15 @@ export class AuthService {
     private route: Router,
     private alertService: AlertService,
   ) {}
+
+  permissions() {
+    const myRawToken = localStorage.getItem('idToken');
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(myRawToken);
+    // const expirationDate = helper.getTokenExpirationDate(myRawToken);
+    // const isExpired = helper.isTokenExpired(myRawToken);
+    return decodedToken.roles;
+  }
 
   get token(): string {
     console.log('Запрос на get token');
@@ -32,6 +42,22 @@ export class AuthService {
         )
     }
     return localStorage.getItem('idToken');
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.token;
+  }
+
+  private setToken(response: loginResponse | null) {
+    console.log('Устанавливаю токен');
+    console.log(response);
+    if (response) {
+      const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime * 1000);
+      localStorage.setItem('idToken', response.token);
+      localStorage.setItem('idToken-expires', expiresDate.toString());
+    } else {
+      localStorage.clear();
+    }
   }
 
   refreshToken(): Observable<any> {
@@ -74,21 +100,7 @@ export class AuthService {
     return this.httpClient.post(`${environment.backend}/accessrestore/${recoveryKey}`, {newPassword: password});
   }
 
-  isAuthenticated(): boolean {
-    return !!this.token;
-  }
 
-  private setToken(response: loginResponse | null) {
-    console.log('Устанавливаю токен');
-    console.log(response);
-    if (response) {
-      const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime * 1000);
-      localStorage.setItem('idToken', response.token);
-      localStorage.setItem('idToken-expires', expiresDate.toString());
-    } else {
-      localStorage.clear();
-    }
-  }
 
   getUniversityList():Observable<any> {
     return this.httpClient.get(`${environment.backend}/registration`)

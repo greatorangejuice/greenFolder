@@ -46,8 +46,14 @@ export class ChangePasswordPageComponent implements OnInit {
   }
 
   setNewPassword() {
-    this.auth.setNewPassword('123123123', this.recoveryKey)
-      .subscribe()
+    const newPassword = this.form.value.password;
+    this.auth.setNewPassword(newPassword, this.recoveryKey)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          console.log('Пароль изменён');
+        }
+      )
   }
 
 }

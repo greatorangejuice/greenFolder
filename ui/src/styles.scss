@@ -114,6 +114,12 @@ body {
 .column {
   flex-direction: column;
 }
+.space-between {
+  justify-content: space-between;
+}
+.align-items-center {
+  align-items: center;
+}
 
 @import '~@angular/material/theming';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";

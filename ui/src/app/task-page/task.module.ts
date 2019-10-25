@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import { TaskListComponent } from './task-list/task-list.component';
 import {MainLayoutComponent} from '../shared/components/main-layout/main-layout.component';
 import {AuthGuard} from '../shared/services/auth.guard';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SearchPipe} from '../shared/pipes/search.pipe';
 import {SharedModule} from '../shared/shared.module';
 import {TaskService} from "../shared/services/task.service";
@@ -31,6 +31,7 @@ import {AuthInterceptor} from "../shared/auth.interceptor";
       }
     ]),
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [RouterModule, SearchPipe],
   providers: [TaskService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}]
