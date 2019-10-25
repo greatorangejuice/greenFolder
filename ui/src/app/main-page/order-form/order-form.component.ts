@@ -35,6 +35,7 @@ export class OrderFormComponent implements OnInit {
 
     this.firstFormGroup = this.formBuilder.group({
       customer: ['', Validators.required],
+      university: ['', Validators.required],
       faculty: ['', Validators.required],
       course: ['', Validators.required],
     });
@@ -67,6 +68,7 @@ export class OrderFormComponent implements OnInit {
     this.order = {
       customer: this.firstFormGroup.value.customer,
       course: this.firstFormGroup.value.course,
+      university: this.firstFormGroup.value.university,
       // deadline: this.secondFormGroup.value.deadline,
       deadline: 'time',
       type: this.secondFormGroup.value.type,
@@ -89,6 +91,7 @@ export class OrderFormComponent implements OnInit {
     this.order = {
       customer: this.firstFormGroup.value.customer,
       course: this.firstFormGroup.value.course,
+      university: this.firstFormGroup.value.university,
       deadline: this.secondFormGroup.value.deadline,
       type: this.secondFormGroup.value.type,
       description: this.secondFormGroup.value.description,

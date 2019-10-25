@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
           if (error.name === 'HttpErrorResponse') {
             console.log('Ошибка в логине');
             console.log(error);
-            console.log(error.error.error.message);
+            console.log(error.message);
             const errMessage: string = error.error.error.message;
             this.message =
               'EMAIL_NOT_FOUND' ? 'Email or Password is not correct' : '';

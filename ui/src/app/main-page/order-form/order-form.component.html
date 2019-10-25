@@ -10,16 +10,16 @@
           <input matInput placeholder="Username" formControlName="customer">
         </mat-form-field>
 
-<!--        <mat-form-field *ngIf="universityList$ | async as universityList; else loading">-->
-<!--          <mat-select placeholder="University" formControlName="university">-->
-<!--            <mat-option *ngFor="let university of universityList"-->
-<!--                        [value]="university"> {{university}} </mat-option>-->
-<!--          </mat-select>-->
-<!--        </mat-form-field>-->
+        <mat-form-field *ngIf="universityList$ | async as universityList; else loading">
+          <mat-select placeholder="University" formControlName="university">
+            <mat-option *ngFor="let university of universityList"
+                        [value]="university"> {{university}} </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-<!--        <ng-template #loading>-->
-<!--          <app-loader diameter="30"></app-loader>-->
-<!--        </ng-template>-->
+        <ng-template #loading>
+          <app-loader diameter="30"></app-loader>
+        </ng-template>
 
         <mat-form-field>
         <input matInput placeholder="Курс" formControlName="course">

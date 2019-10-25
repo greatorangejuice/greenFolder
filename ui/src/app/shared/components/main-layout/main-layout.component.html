@@ -35,7 +35,17 @@
           <div>
             <button
               mat-menu-item
+              class="burger-button"
+              [routerLink]="['/tasks']"
+            >
+              <mat-icon>list_alt</mat-icon>
+              Tasks
+            </button>
+          </div>
 
+          <div>
+            <button
+              mat-menu-item
               class="burger-button"
             >
               <mat-icon>bug_report</mat-icon>
