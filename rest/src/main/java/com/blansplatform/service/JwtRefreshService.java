@@ -27,7 +27,7 @@ public class JwtRefreshService {
         String token = tokenDto.getToken();
         if (token != null && user != null && jwtTokenProvider.validateToken(token)) {
             String refreshedToken = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-            return new TokenDto(refreshedToken, user.getName(), tokenTimeForExpired, user.getRoles());
+            return new TokenDto(refreshedToken, user.getName(), tokenTimeForExpired);
         }
         throw new BadCredentialsException("Invalid username or token");
     }

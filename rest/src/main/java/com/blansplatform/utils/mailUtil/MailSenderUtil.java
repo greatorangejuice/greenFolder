@@ -15,7 +15,7 @@ public class MailSenderUtil {
 
     private final JavaMailSender mailSender;
     private static final String EMAIL_CONFIRM_MESSAGE = "Hello, Welcome to greenFolder. Please visit next link http://localhost:8080/activate?activationKey=";
-    private static final String ACCESS_RESTORE_MESSAGE = "Hello, to restore your password visit next link http://http://localhost:4200/welcome/changepass?restoreKey=";
+    private static final String ACCESS_RESTORE_MESSAGE = "Hello, to restore your password visit next link http://localhost:4200/welcome/changepass?restoreKey=";
 
     @Value("${spring.mail.username}")
     private String username;
