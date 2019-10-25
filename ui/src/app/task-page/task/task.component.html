@@ -1,4 +1,4 @@
-<h1>Очередное дело</h1>
+<h3>Очередное дело</h3>
 <div *ngIf="task$ | async as task; else loading">
   <div class="flex column">
     <div>Статус: {{task.taskStatus}}</div>
@@ -6,32 +6,58 @@
     <div>Предмет: {{task.subject}}</div>
     <div>Описание задания: {{task.specification}}</div>
     <div>Заказчик: {{task.customer}}</div>
+    <div>Теги: {{task.keywords}}</div>
   </div>
   <div *ngIf="task.executor">Исполнитель: {{task.executor}}</div>
+<!--  <h4>Предложения:</h4>-->
+  <hr>
+  <div *ngIf="username === task.customer" class="offer-cards">
+    <div *ngIf="task.offers.length === 0">Пока нет новых откликов на ваше задание</div>
+    <div *ngFor="let offer of task.offers let idx = index" class="card">
+      <div class="flex space-between align-items-center">
+        <h4>Предложение номер {{idx + 1}}</h4>
+        <mat-icon>reorder</mat-icon>
+      </div>
+      <div>Исполнитель: {{offer.executor}}</div>
+      <div>Предложенная цена: {{offer.bid}}</div>
+      <div>Комментарий: {{offer.comment}}</div>
+      <div>OfferID {{offer.id}}</div>
+      <div>{{offer.offerStatus}}</div>
+      <div class="flex">
+          <button mat-raised-button class="decline" (click)="submitCustomerResponse({offerId: offer.id, answer: 'decline', executor: offer.executor})">Отклонить</button>
+          <button mat-raised-button class="accept" (click)="submitCustomerResponse({offerId: offer.id, answer: 'accept', executor: offer.executor})">Принять</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isCustomer && task.customer !== username">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="offer">
+        <mat-form-field>
+          <input
+            type="number"
+            matInput placeholder="Ценовое предложение"
+            formControlName="bid"
+            autocomplete="off"
+          >
+          <span matSuffix>BYN</span>
+        </mat-form-field>
+
+        <mat-form-field>
+        <textarea
+          matInput placeholder="Дополнительный комментарий к предложению"
+          formControlName="comment"
+          autocomplete="off"
+        ></textarea>
+        </mat-form-field>
+      </div>
+      <button mat-button type="submit" class="common-buttons">Отправить предложение</button>
+    </form>
+  </div>
 </div>
+
 <!--Если исполнитель, то виден следующий блок: -->
-<div class="offer">
-  Сделать оффер!
-</div>
+
 <ng-template #loading>
-  <p>loading</p>
+  <app-loader diameter="30"></app-loader>
 </ng-template>
-
-<!--<div *ngIf="posts$ | async as post">-->
-<!--  <div class="post">-->
-<!--    <div class="header">-->
-<!--      <h1>{{post.title}}</h1>-->
-
-<!--      <button-->
-<!--        routerLink="/"-->
-<!--        class="btn btn-link">На главную-->
-<!--      </button>-->
-<!--    </div>-->
-<!--    <div class="info">-->
-<!--      <strong>{{post.author}}</strong>-->
-<!--      <small>{{post.date | date:'medium'}}</small>-->
-<!--    </div>-->
-<!--    <quill-view-html [content]="post.text">-->
-<!--    </quill-view-html>-->
-<!--  </div>-->
-<!--</div>-->

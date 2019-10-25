@@ -15,7 +15,7 @@ export class OrderFormComponent implements OnInit {
   currentDate: Date;
   maxDate = new Date();
   form: FormGroup;
-  order: Task;
+  task: Task;
 
   universityList$: Observable<any>;
   firstFormGroup: FormGroup;
@@ -34,12 +34,12 @@ export class OrderFormComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate() + 90);
 
     this.firstFormGroup = this.formBuilder.group({
-      customer: ['', Validators.required],
       university: ['', Validators.required],
       faculty: ['', Validators.required],
       course: ['', Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
       subject: ['', Validators.required],
       type: ['', Validators.required],
       description: ['', Validators.required],
@@ -65,8 +65,8 @@ export class OrderFormComponent implements OnInit {
   // }
 
   submit() {
-    this.order = {
-      customer: this.firstFormGroup.value.customer,
+    this.task = {
+      customer: localStorage.getItem('username'),
       course: this.firstFormGroup.value.course,
       university: this.firstFormGroup.value.university,
       // deadline: this.secondFormGroup.value.deadline,
@@ -79,7 +79,7 @@ export class OrderFormComponent implements OnInit {
       faculty: this.firstFormGroup.value.faculty,
       keywords: 'test',
     };
-    this.taskService.createOrder(this.order)
+    this.taskService.createTask(this.task)
       .subscribe(
         (response) => {
           console.log(response);
@@ -88,8 +88,8 @@ export class OrderFormComponent implements OnInit {
   }
 
   showOrder(): void {
-    this.order = {
-      customer: this.firstFormGroup.value.customer,
+    this.task = {
+      customer: localStorage.getItem('username'),
       course: this.firstFormGroup.value.course,
       university: this.firstFormGroup.value.university,
       deadline: this.secondFormGroup.value.deadline,
@@ -103,7 +103,7 @@ export class OrderFormComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(PreSubmitForm, {
       width: '250px',
-      data: {order: this.order}
+      data: {order: this.task}
     });
 
     dialogRef.afterClosed().subscribe(() => {
