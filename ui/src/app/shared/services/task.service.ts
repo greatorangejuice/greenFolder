@@ -18,8 +18,8 @@ export class TaskService {
       return this.http.get<Task>(`${environment.backend}/task/${id}`)
   }
 
-  createTask(task: Task): Observable<any> {
-    return this.http.post(`${environment.backend}/task`, task);
+  createTask(task: Task): Observable<Task> {
+    return this.http.post<Task>(`${environment.backend}/task`, task);
   }
 
   createOrder(offer: Offer): Observable<any> {

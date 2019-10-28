@@ -16,6 +16,8 @@ export class OrderFormComponent implements OnInit {
   maxDate = new Date();
   form: FormGroup;
   task: Task;
+  isCreatedTask = false;
+  taskId: string;
 
   universityList$: Observable<any>;
   firstFormGroup: FormGroup;
@@ -34,17 +36,17 @@ export class OrderFormComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate() + 90);
 
     this.firstFormGroup = this.formBuilder.group({
-      university: ['', Validators.required],
-      faculty: ['', Validators.required],
-      course: ['', Validators.required],
+      university: ['BSUIR', Validators.required],
+      faculty: ['KSIS', Validators.required],
+      course: ['1', Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      subject: ['', Validators.required],
-      type: ['', Validators.required],
-      description: ['', Validators.required],
-      specification: ['', Validators.required],
-      deadline: ['', Validators.required],
+      name: ['TestUsername', Validators.required],
+      subject: ['Java', Validators.required],
+      type: ['lab', Validators.required],
+      description: ['Good Descr', Validators.required],
+      specification: ['Specification', Validators.required],
+      deadline: ['11', Validators.required],
     });
   }
 
@@ -69,8 +71,8 @@ export class OrderFormComponent implements OnInit {
       customer: localStorage.getItem('username'),
       course: this.firstFormGroup.value.course,
       university: this.firstFormGroup.value.university,
-      // deadline: this.secondFormGroup.value.deadline,
-      deadline: 'time',
+      deadline: this.secondFormGroup.value.deadline + '',
+      // deadline: 'time',
       type: this.secondFormGroup.value.type,
       description: this.secondFormGroup.value.description,
       specification: this.secondFormGroup.value.specification,
@@ -81,8 +83,10 @@ export class OrderFormComponent implements OnInit {
     };
     this.taskService.createTask(this.task)
       .subscribe(
-        (response) => {
+        (response: Task) => {
           console.log(response);
+          this.taskId = response.secretId;
+          this.isCreatedTask = true;
         }
       );
   }

@@ -3,7 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {TaskService} from "../../shared/services/task.service";
 import {Observable} from "rxjs";
 import {switchMap, tap} from "rxjs/operators";
-import {CustomerResponse, Offer, Task} from '../../shared/interfaces'
+import {Offer, Task} from '../../shared/interfaces'
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 

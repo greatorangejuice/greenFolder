@@ -1,6 +1,6 @@
-<div class="welcome-title">
+<div *ngIf="!isCreatedTask" class="welcome-title">
 
-  <mat-vertical-stepper linear="false">
+  <mat-vertical-stepper linear="true">
 
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -79,4 +79,11 @@
       </div>
     </mat-step>
   </mat-vertical-stepper>
+</div>
+
+<div *ngIf="isCreatedTask" class="flex center column createdTask">
+  <p>Задание успешно создано!</p>
+  <div *ngIf="taskId">
+    Теперь можно зайти на страницу <a [routerLink]="['/tasks/task', taskId]"><strong class="italic">задания</strong></a>
+  </div>
 </div>

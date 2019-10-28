@@ -1,12 +1,12 @@
 <h3>Очередное дело</h3>
 <div *ngIf="task$ | async as task; else loading">
-  <div class="flex column">
-    <div>Статус: {{task.taskStatus}}</div>
-    <div>Имя: {{task.name}}</div>
-    <div>Предмет: {{task.subject}}</div>
-    <div>Описание задания: {{task.specification}}</div>
-    <div>Заказчик: {{task.customer}}</div>
-    <div>Теги: {{task.keywords}}</div>
+  <div class="flex column task-params">
+    <div class="flex align-items-center">Статус: {{task.taskStatus}}</div>
+    <div class="flex align-items-center"><mat-icon>person</mat-icon>Имя: {{task.name}}</div>
+    <div class="flex align-items-center">Предмет: {{task.subject}}</div>
+    <div class="flex align-items-center">Описание задания: {{task.specification}}</div>
+    <div class="flex align-items-center">Заказчик: {{task.customer}}</div>
+    <div class="flex align-items-center">Теги: {{task.keywords}}</div>
   </div>
   <div *ngIf="task.executor">Исполнитель: {{task.executor}}</div>
 <!--  <h4>Предложения:</h4>-->
@@ -30,29 +30,37 @@
     </div>
   </div>
 
-  <div *ngIf="isCustomer && task.customer !== username">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="offer">
-        <mat-form-field>
-          <input
-            type="number"
-            matInput placeholder="Ценовое предложение"
-            formControlName="bid"
-            autocomplete="off"
-          >
-          <span matSuffix>BYN</span>
-        </mat-form-field>
+  <div *ngIf="isCustomer">
+    <div *ngIf="task.customer !== username && task.executor !== username">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="offer">
+          <mat-form-field>
+            <input
+              type="number"
+              matInput placeholder="Ценовое предложение"
+              formControlName="bid"
+              autocomplete="off"
+            >
+            <span matSuffix>BYN</span>
+          </mat-form-field>
 
-        <mat-form-field>
+          <mat-form-field>
         <textarea
           matInput placeholder="Дополнительный комментарий к предложению"
           formControlName="comment"
           autocomplete="off"
         ></textarea>
-        </mat-form-field>
+          </mat-form-field>
+        </div>
+        <button mat-button type="submit" class="common-buttons">Отправить предложение</button>
+      </form>
+    </div>
+    <div *ngIf="task.executor === username" class="flex center">
+      <div *ngIf="task.taskStatus === 'DONE' else taskFinish">
+        Задание завершено!
       </div>
-      <button mat-button type="submit" class="common-buttons">Отправить предложение</button>
-    </form>
+      <ng-template #taskFinish><p>Вы уже выполняете это задание!</p></ng-template>
+    </div>
   </div>
 </div>
 

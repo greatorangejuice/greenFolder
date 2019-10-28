@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   message: string;
-  valueAfterRegister = '';
+  username = '';
   hide = true;
 
   constructor(
@@ -35,13 +35,17 @@ export class LoginComponent implements OnInit {
        this.message =
          (params.loginAgain) ? 'Please, login' :
          (params.logout) ? 'Unlogin' :
-           (params.authFailed) ? 'Session is finished. Please, login again.' :
-             (params.authSuccessful) ? 'Now you can use your new account' : '';
-       this.valueAfterRegister = params.usernameForLogin;
+         (params.authFailed) ? 'Session is finished. Please, login again.' :
+         (params.authSuccessful) ? 'Now you can use your new account' :
+         (params.isChangedPassword) ? 'Welcome back :) ' : '';
+       this.username = params.usernameForLogin;
+       if (params.username) {
+         this.username = params.username;
+       }
       }
     );
     this.form = new FormGroup({
-      username: new FormControl(this.valueAfterRegister, [Validators.required]),
+      username: new FormControl(this.username, [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
   }
@@ -88,7 +92,6 @@ export class LoginComponent implements OnInit {
 
   openRecoveryForm() {
     const dialogRef = this.dialog.open(PasswordRecoveryComponent);
-
     dialogRef.afterClosed().subscribe();
   }
 }

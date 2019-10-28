@@ -1,5 +1,8 @@
-<div>
-  <ul *ngFor="let message of messages">
-    <li><p class="notification-title" (click)="openNoti(message.messageHead, message.messageBody)">{{message.messageHead}} from {{message.userFrom}}</p></li>
-  </ul>
+<div class="notofications">
+  <div *ngFor="let message of messages"  class="notification-title" >
+    <div (click)="openNoti(message.messageHead, message.messageBody, message.userFrom)">
+      <p>Сообщение от <strong>{{message.userFrom}} </strong></p>
+      <p>Тема: {{message.messageHead}}</p>
+    </div>
+  </div>
 </div>
