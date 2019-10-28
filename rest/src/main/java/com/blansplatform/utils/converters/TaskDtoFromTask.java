@@ -10,6 +10,8 @@ import com.blansplatform.entity.Offer;
 import com.blansplatform.entity.Task;
 import com.blansplatform.entity.User;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +44,9 @@ public class TaskDtoFromTask {
     }
 
     private static List<OfferDto> offerDtoFromOffers(List<Offer> offers) {
+        if (offers == null) {
+            return new ArrayList<>();
+        }
         return offers.stream()
                 .map(OfferDtoFromOffer::offerConverter)
                 .collect(Collectors.toList());
