@@ -83,7 +83,8 @@ public class OfferService {
             offerRepository.save(offer);
             declineOffersIfOneApproved(acceptOrDeclineOfferDto.getTaskSecretId());
             return Response.status(Response.Status.OK).build();
-        } else if (acceptOrDeclineOfferDto.getCustomerResponse().equals("decline")) {
+        }
+        if (acceptOrDeclineOfferDto.getCustomerResponse().equals("decline")) {
             offer.setOfferStatus(OfferStatus.REJECTED);
             offerRepository.save(offer);
             return Response.status(Response.Status.OK).build();

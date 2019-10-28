@@ -55,12 +55,12 @@ public class TaskService {
         return TaskDtoFromTask.taskConverter(task);
     }
 
-    public void addTask(TaskDto taskDto) {
+    public TaskDto addTask(TaskDto taskDto) {
         Task task = TaskFromTaskDto.taskConverter(taskDto);
         task.setTaskStatus(TaskStatus.ACTIVE);
         task.setSecretId(UUID.randomUUID().toString());
         task.setCustomer(userRepository.findFirstUserByUsername(taskDto.getCustomer()));
-        taskRepository.save(task);
+        return TaskDtoFromTask.taskConverter(taskRepository.save(task));
     }
 
     public void deleteTask(Task task) {
