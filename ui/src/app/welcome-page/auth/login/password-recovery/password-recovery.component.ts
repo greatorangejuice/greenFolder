@@ -40,7 +40,7 @@ export class PasswordRecoveryComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.disabled = false;
-          this.alertService.success(`На ящик ${email} была отправлена инструкция по восстановлению доступа!`)
+          this.alertService.success(`На ящик ${email} была отправлена инструкция по восстановлению доступа!`);
         },
       )
   }

@@ -1,3 +1,13 @@
+.notofications {
+  width: 300px;
+  border-bottom: 2px solid #333333;
+}
+
 .notification-title {
   cursor: pointer;
+  //border: #333333 dashed 2px;
+  padding: 3px;
+}
+.notification-title:nth-child(2n) {
+  background-color: #f0f8ff;
 }

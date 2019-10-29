@@ -20,10 +20,10 @@ export class NotificationListComponent implements OnInit {
   ngOnInit() {
   }
 
-  openNoti(title, text) {
+  openNoti(title, text, sender) {
     const dialogRef = this.dialog.open(NotificationModal, {
       width: '250px',
-      data: {title: title, text: text}
+      data: {title: title, text: text, sender: sender}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -41,7 +41,7 @@ export class NotificationListComponent implements OnInit {
 export class NotificationModal {
   constructor(
     public dialogRef: MatDialogRef<NotificationModal>,
-    @Inject(MAT_DIALOG_DATA) public data: Message) {}
+    @Inject(MAT_DIALOG_DATA) public data) {}
 
   onNoClick(): void {
     this.dialogRef.close();

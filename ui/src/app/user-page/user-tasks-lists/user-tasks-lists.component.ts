@@ -11,6 +11,7 @@ export class UserTasksListsComponent implements OnInit {
   @Input() taskLikeCustomer: Task[];
   @Input() taskLikeExecutor: Task[];
   visibleTasks = 'ALLTASKS';
+  checkedList = 'EXECUTOR';
 
   constructor() { }
 
@@ -20,4 +21,7 @@ export class UserTasksListsComponent implements OnInit {
     this.visibleTasks = status;
   }
 
+  changeList(status: string) {
+    this.checkedList = status;
+  }
 }

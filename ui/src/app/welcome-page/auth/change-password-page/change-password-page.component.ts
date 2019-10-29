@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AuthService} from "../../../shared/services/auth.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MustMatch} from "../../../shared/forms-validators/same-fileds-values";
@@ -20,6 +20,7 @@ export class ChangePasswordPageComponent implements OnInit {
     private route: ActivatedRoute,
     private auth: AuthService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -50,8 +51,12 @@ export class ChangePasswordPageComponent implements OnInit {
     this.auth.setNewPassword(newPassword, this.recoveryKey)
       .subscribe(
         (response) => {
-          console.log(response);
-          console.log('Пароль изменён');
+         this.router.navigate(['welcome'], {
+           queryParams: {
+             isChangedPassword: true,
+             username: this.username,
+           }
+           });
         }
       )
   }

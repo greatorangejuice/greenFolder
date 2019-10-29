@@ -10,11 +10,11 @@ import {Subscription} from "rxjs";
 })
 export class AcceptMailPageComponent implements OnInit {
 
-  stream$: Subscription;
   activationKey: string;
   email: string;
   acceptedEmail = false;
   error = false;
+  errorMessage = '';
 
   constructor(
     private authService: AuthService,
@@ -42,8 +42,9 @@ export class AcceptMailPageComponent implements OnInit {
         () => {
           this.acceptedEmail = true;
         },
-        () => {
+        (error) => {
           this.error = true;
+          this.errorMessage = error.message;
         }
       );
   }

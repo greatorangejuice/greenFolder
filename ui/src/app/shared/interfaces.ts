@@ -1,5 +1,5 @@
 export interface Task {
-  secretId?: number;
+  secretId?: string;
   executor?: string;
   university?: string;
   taskStatus?: string;

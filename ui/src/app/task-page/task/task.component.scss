@@ -7,6 +7,12 @@ hr {
   margin: 1rem 0;
 }
 
+.task-params {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
 .offer {
   display: flex;
   flex-direction: column;

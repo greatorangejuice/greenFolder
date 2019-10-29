@@ -85,7 +85,7 @@ export class AuthService {
   }
 
   confirmEmail(key: string): Observable<any> {
-    return this.httpClient.get(`${environment.backend}/activation${key}`)
+    return this.httpClient.get(`${environment.backend}/activation/${key}`)
   }
 
   restorePassword(email: string): Observable<any> {

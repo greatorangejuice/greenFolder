@@ -1,3 +1,17 @@
+* {
+  font-family: 'Roboto Mono', monospace;
+  //text-shadow: 1px 1px 2px black, 0 0 1em #4f24a4;
+  //font-family: 'Inconsolata', monospace;
+  //font-family: 'Indie Flower', cursive;
+  //font-family: 'Josefin Sans', sans-serif;
+  //font-family: 'Poppins', sans-serif;
+  //font-family: 'Slabo 27px', serif;
+}
+
+.mat-radio-button {
+  //width: 100px;
+}
+
 .container {
   overflow: auto;
   max-height: 500px;
@@ -10,6 +24,18 @@
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 1rem;
+}
+
+.open-button {
+  display: inline-block;
+  background: #333333;
+  color: #f4f4f4;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin: 5px 0.5rem 5px 0;
+  transition: opacity 0.2s ease-in;
+  outline: none;
 }
 
 ul {
@@ -36,7 +62,7 @@ ul {
 }
 
 .active {
-  background-color: #1e90ff;
+  background-color: #2e6ba7;
   color: #f4f4f4;
 }
 .inactive {
