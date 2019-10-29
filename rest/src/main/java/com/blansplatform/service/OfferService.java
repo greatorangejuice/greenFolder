@@ -29,6 +29,8 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private static final String POSITIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "accept";
+    private static final String NEGATIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "decline";
 
     @Autowired
     public OfferService(OfferRepository offerRepository, UserRepository userRepository, TaskRepository taskRepository) {
@@ -74,17 +76,17 @@ public class OfferService {
         if (offer == null) {
             throw new EntityNotFoundException("offer not found");
         }
-        if (acceptOrDeclineOfferDto.getCustomerResponse().equals("accept")){
+        if (acceptOrDeclineOfferDto.getCustomerResponse().equals(POSITIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER)){
             offer.setOfferStatus(OfferStatus.APPROVED);
             Task taskFromDb = taskRepository.findTaskBySecretId(acceptOrDeclineOfferDto.getTaskSecretId());
             taskFromDb.setExecutor(userRepository.findFirstUserByUsername(acceptOrDeclineOfferDto.getExecutor()));
             taskFromDb.setTaskStatus(TaskStatus.INPROGRESS);
             taskRepository.save(taskFromDb);
             offerRepository.save(offer);
-            declineOffersIfOneApproved(acceptOrDeclineOfferDto.getTaskSecretId());
+            declineOtherOffersIfOneApproved(acceptOrDeclineOfferDto.getTaskSecretId());
             return Response.status(Response.Status.OK).build();
         }
-        if (acceptOrDeclineOfferDto.getCustomerResponse().equals("decline")) {
+        if (acceptOrDeclineOfferDto.getCustomerResponse().equals(NEGATIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER)) {
             offer.setOfferStatus(OfferStatus.REJECTED);
             offerRepository.save(offer);
             return Response.status(Response.Status.OK).build();
@@ -92,7 +94,7 @@ public class OfferService {
         return Response.status(Response.Status.CONFLICT).build();
     }
 
-    private void declineOffersIfOneApproved(String taskSecretId) {
+    private void declineOtherOffersIfOneApproved(String taskSecretId) {
         List<Offer> offersFromTask = offerRepository.findAllActiveOffersFromTask(
                 taskRepository.findTaskBySecretId(taskSecretId).getId());
         for (Offer offer: offersFromTask) {

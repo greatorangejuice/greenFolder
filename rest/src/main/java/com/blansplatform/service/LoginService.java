@@ -4,16 +4,12 @@ import com.blansplatform.dto.AuthenticationRequestDto;
 import com.blansplatform.dto.TokenDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.security.jwt.JwtTokenProvider;
-import com.blansplatform.security.jwt.JwtUser;
-import com.blansplatform.security.jwt.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +45,7 @@ public class LoginService {
         }
     }
 
-    public boolean checkIsAccountActivated(User user){
+    private boolean checkIsAccountActivated(User user){
         return user.getActivationCode() == null;
     }
 }
