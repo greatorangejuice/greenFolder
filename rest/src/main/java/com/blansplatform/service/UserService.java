@@ -41,7 +41,8 @@ public class UserService implements UserDetailsService {
     private static final String IF_USERNAME_ALREADY_EXIST = " username already exist";
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailSenderUtil mailSenderUtil, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       MailSenderUtil mailSenderUtil, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailSenderUtil = mailSenderUtil;
@@ -105,10 +106,6 @@ public class UserService implements UserDetailsService {
         }
         mailDto.setStatus(IF_EMAIL_EXIST);
         return mailDto;
-    }
-
-    public User findUserByEmail (String email) {
-        return userRepository.findUserByEmail(email);
     }
 
     public User findUserByUsername(String username) {
