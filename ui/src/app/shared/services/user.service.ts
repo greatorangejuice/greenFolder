@@ -23,7 +23,7 @@ export class UserService {
     const username = localStorage.getItem('username');
     return this.http.get<AllAccountInfo>(`${environment.backend}/profile/username/${username}`)
       .pipe(
-        // delayedRetry(1000, 3),
+        delayedRetry(1000, 3),
         catchError(error => {
           console.log(error);
           return EMPTY;

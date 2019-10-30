@@ -32,7 +32,20 @@ export class AuthService {
   get token(): string {
     console.log('Запрос на get token');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
+    // console.log(expireDate);
+    // console.log('======================')
+    // const myRawToken = localStorage.getItem('idToken');
+    // const helper = new JwtHelperService();
+    // const decodedToken = helper.decodeToken(myRawToken);
+    // const expirationDate = helper.getTokenExpirationDate(myRawToken);
+    // const isExpired = helper.isTokenExpired(myRawToken);
+    // console.log(decodedToken);
+    // console.log(expireDate);
+    // console.log(isExpired);
+    // console.log(expirationDate);
+    // console.log('======================')
     if (new Date() > expireDate) {
+      console.log('Зашло в условие new Date > expireDate');
       this.logout();
       return null;
     }
@@ -53,7 +66,7 @@ export class AuthService {
     console.log('Устанавливаю токен');
     console.log(response);
     if (response) {
-      const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime * 1000);
+      const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime);
       localStorage.setItem('idToken', response.token);
       localStorage.setItem('idToken-expires', expiresDate.toString());
     } else {
@@ -62,6 +75,7 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
+    console.log('REFRESH TOKEN');
     const token = localStorage.getItem('idToken');
     const username = localStorage.getItem('username');
     const request = { token: token, username: username };
@@ -106,14 +120,12 @@ export class AuthService {
   getUniversityList():Observable<any> {
     return this.httpClient.get(`${environment.backend}/registration`)
       .pipe(
-        // delayedRetry(1000, 3),
+        delayedRetry(1000, 3),
         map(
           (res: Univers) => {
               return Object.keys(res.allUniversityAsMap)
           }
         ),
-        // catchError( (err) => {
-        //   console.log(err);} )
       )
   }
 

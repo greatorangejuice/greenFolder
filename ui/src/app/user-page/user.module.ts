@@ -14,6 +14,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../shared/auth.interceptor";
 import {AuthGuard} from "../shared/services/auth.guard";
+import {CatchErrorInterceptor} from "../shared/interceptors/catch-error.interceptor";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,6 @@ import {AuthGuard} from "../shared/services/auth.guard";
     MatRadioModule,
   ],
   exports: [RouterModule],
-  providers: [UserService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}]
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}, {provide: HTTP_INTERCEPTORS, multi: true, useClass: CatchErrorInterceptor}]
 })
 export class UserModule {}
