@@ -34,6 +34,11 @@ public class OfferController {
         return offerService.findOfferById(id);
     }
 
+    @GetMapping(path = "/active/{id}")
+    public List<OfferDto> findExecutorsActiveOffers(@PathVariable Long id) {
+        return offerService.geExecutorsActiveOffers(id);
+    }
+
     @PostMapping
     public @ResponseBody Response addNewOffer(@RequestBody OfferDto offerDto) {
         offerService.addOffer(offerDto);
