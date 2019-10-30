@@ -3,10 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {loginResponse, Token, Univers, User} from '../interfaces';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {map, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AlertService} from "./alert.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import {delayedRetry} from "../customOperators/retryFailedRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -105,11 +106,14 @@ export class AuthService {
   getUniversityList():Observable<any> {
     return this.httpClient.get(`${environment.backend}/registration`)
       .pipe(
+        // delayedRetry(1000, 3),
         map(
           (res: Univers) => {
               return Object.keys(res.allUniversityAsMap)
           }
-        )
+        ),
+        // catchError( (err) => {
+        //   console.log(err);} )
       )
   }
 
