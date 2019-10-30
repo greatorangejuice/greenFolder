@@ -1,9 +1,9 @@
 FROM node:10.16.3-alpine as build-step
 WORKDIR /app
 COPY package.json ./
-RUN npm install
+RUN sudo npm install
 COPY . .
-RUN npm run build
+RUN sudo npm run build
 
 FROM nginx:1.16.1-alpine as prod-stage
 COPY --from=build-step app/dist/* /usr/share/nginx/html
