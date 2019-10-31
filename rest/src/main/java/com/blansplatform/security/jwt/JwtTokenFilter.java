@@ -10,7 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 
 public class JwtTokenFilter extends GenericFilterBean {
@@ -35,7 +34,7 @@ public class JwtTokenFilter extends GenericFilterBean {
             }
         } catch (JwtAuthenticationException jae) {
             HttpServletResponse response = (HttpServletResponse) res;
-            response.setHeader("Error", "JWT token is expired or invalid");
+            response.setHeader("exception", "JWT token is expired or invalid");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
         filterChain.doFilter(req, res);
