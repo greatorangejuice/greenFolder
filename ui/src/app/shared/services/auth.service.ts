@@ -30,10 +30,10 @@ export class AuthService {
   }
 
   get token(): string {
-    console.log('Запрос на get token');
+    console.log('Проверка токена');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
     // console.log(expireDate);
-    // console.log('======================')
+    // console.log('======================');
     // const myRawToken = localStorage.getItem('idToken');
     // const helper = new JwtHelperService();
     // const decodedToken = helper.decodeToken(myRawToken);
@@ -43,7 +43,7 @@ export class AuthService {
     // console.log(expireDate);
     // console.log(isExpired);
     // console.log(expirationDate);
-    // console.log('======================')
+    // console.log('======================');
     if (new Date() > expireDate) {
       console.log('Зашло в условие new Date > expireDate');
       this.logout();

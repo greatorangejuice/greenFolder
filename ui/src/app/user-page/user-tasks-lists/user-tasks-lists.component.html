@@ -31,7 +31,7 @@
 <div *ngIf="taskLikeCustomer || taskLikeExecutor else tasks">
   <div *ngIf="checkedList === 'CUSTOMER'" class="container">
     <ul *ngFor="let task of taskLikeCustomer | searchTasks:visibleTasks:'taskStatus' " class="tasks-list">
-      <li appDropdown
+      <li
           [ngClass]="{active: task.taskStatus === 'ACTIVE', done: task.taskStatus === 'DONE', inactive: task.taskStatus === 'INACTIVE', inprogress: task.taskStatus === 'INPROGRESS'}"
       >
         <div>
@@ -48,11 +48,11 @@
     <li
       [ngClass]="{active: task.taskStatus === 'ACTIVE', done: task.taskStatus === 'DONE', inactive: task.taskStatus === 'INACTIVE', inprogress: task.taskStatus === 'INPROGRESS'}"
     >
-      <div class="flex task-description">
-        <p>{{task.name}}({{task.taskStatus | lowercase}})</p>
-        <p>Task description: {{task.description}}</p>
+      <div>
+        <p><span class="italic">Название задания </span> <strong>{{task.name}}</strong></p>
+        <p>Краткое описание <strong>{{task.description}}</strong></p>
       </div>
-      <button mat-button [routerLink]="['/task', task.secretId]">Открыть</button>
+      <button class="open-button" mat-raised-button [routerLink]="['/task', task.secretId]">Открыть</button>
     </li>
   </ul>
 </div>
