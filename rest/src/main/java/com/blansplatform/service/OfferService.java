@@ -83,7 +83,7 @@ public class OfferService {
             taskFromDb.setTaskStatus(TaskStatus.INPROGRESS);
             taskRepository.save(taskFromDb);
             offerRepository.save(offer);
-            declineOtherOffersIfOneApproved(acceptOrDeclineOfferDto.getTaskSecretId());
+            declineOtherOffersForTaskIfOneApproved(acceptOrDeclineOfferDto.getTaskSecretId());
             return Response.status(Response.Status.OK).build();
         }
         if (acceptOrDeclineOfferDto.getCustomerResponse().equals(NEGATIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER)) {
@@ -94,12 +94,19 @@ public class OfferService {
         return Response.status(Response.Status.CONFLICT).build();
     }
 
-    private void declineOtherOffersIfOneApproved(String taskSecretId) {
+    private void declineOtherOffersForTaskIfOneApproved(String taskSecretId) {
         List<Offer> offersFromTask = offerRepository.findAllActiveOffersFromTask(
                 taskRepository.findTaskBySecretId(taskSecretId).getId());
         for (Offer offer: offersFromTask) {
             offer.setOfferStatus(OfferStatus.REJECTED);
             offerRepository.save(offer);
         }
+    }
+
+    public List<OfferDto> geExecutorsActiveOffers(Long id) {
+        List<Offer> offers =  offerRepository.findActiveOffersForExecutor(id);
+        return offers.stream()
+                .map(OfferDtoFromOffer::offerConverter)
+                .collect(Collectors.toList());
     }
 }
