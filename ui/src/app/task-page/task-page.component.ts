@@ -26,6 +26,8 @@ export class TaskPageComponent implements OnInit {
           this.tasks = response;
         }
       )
+
+
   }
 
 }

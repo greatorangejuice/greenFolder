@@ -15,17 +15,17 @@ import {AlertService} from "./shared/services/alert.service";
 import {MainPageModule} from "./main-page/main-page.module";
 import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.interceptor";
 
-const INTERCEPTOR: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: AuthInterceptor,
-};
-
-const ERRINTERCEPTOR: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: CatchErrorInterceptor,
-};
+// const INTERCEPTOR: Provider = {
+//   provide: HTTP_INTERCEPTORS,
+//   multi: true,
+//   useClass: AuthInterceptor,
+// };
+//
+// const ERRINTERCEPTOR: Provider = {
+//   provide: HTTP_INTERCEPTORS,
+//   multi: true,
+//   useClass: CatchErrorInterceptor,
+// };
 
 @NgModule({
   declarations: [
@@ -41,7 +41,12 @@ const ERRINTERCEPTOR: Provider = {
     BrowserAnimationsModule,
     MainPageModule,
   ],
-  providers: [AuthGuard, INTERCEPTOR, AlertService, ERRINTERCEPTOR],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor},
+    {provide: HTTP_INTERCEPTORS, multi: true, useClass: CatchErrorInterceptor},
+    AlertService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

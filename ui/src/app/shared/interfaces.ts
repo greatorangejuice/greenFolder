@@ -1,3 +1,5 @@
+import {Role} from "./_models/role";
+
 export interface Task {
   secretId?: string;
   executor?: string;
@@ -24,6 +26,7 @@ export interface Offer {
   comment: string;
   id?: number;
   offerStatus?: string;
+  customer?: string;
 }
 
 export interface CustomerResponse {
@@ -34,7 +37,7 @@ export interface CustomerResponse {
 }
 
 export interface User {
-  username: string;
+  username?: string;
   email?: string;
   password?: string;
   name?: string;
@@ -45,7 +48,7 @@ export interface User {
   course?: string;
   userStatus?: string;
   webMoneyAccount?: string;
-  roles?: object[];
+  role?: Role;
 }
 
 export interface AllAccountInfo {
@@ -85,4 +88,12 @@ export interface Passwords {
 
 export interface Univers {
   allUniversityAsMap: object;
+}
+
+export interface Permissions {
+  exp: number;
+  iat: number;
+  roles: Role[];
+  sub: string;
+  // sub === username;
 }

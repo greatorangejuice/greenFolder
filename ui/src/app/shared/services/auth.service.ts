@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {loginResponse, Token, Univers, User} from '../interfaces';
+import {loginResponse, Univers, User} from '../interfaces';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {catchError, map, tap} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {AlertService} from "./alert.service";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import {map, tap} from 'rxjs/operators';
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {delayedRetry} from "../customOperators/retryFailedRequest";
 
 @Injectable({
@@ -14,19 +12,34 @@ import {delayedRetry} from "../customOperators/retryFailedRequest";
 })
 export class AuthService {
 
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
   constructor(
     private httpClient: HttpClient,
-    private route: Router,
-    private alertService: AlertService,
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('username'));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   permissions() {
     const myRawToken = localStorage.getItem('idToken');
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(myRawToken);
+    console.log(decodedToken);
     // const expirationDate = helper.getTokenExpirationDate(myRawToken);
     // const isExpired = helper.isTokenExpired(myRawToken);
     return decodedToken.roles;
+  }
+
+  testPermissions() {
+    const myRawToken = localStorage.getItem('idToken');
+    const helper = new JwtHelperService();
+    return helper.decodeToken(myRawToken);
   }
 
   get token(): string {
@@ -90,6 +103,19 @@ export class AuthService {
         )
       );
   }
+
+  // login(user: User): Observable<any> {
+  //   return this.httpClient.post(`${environment.backend}/login`, user)
+  //     .pipe(
+  //       tap(
+  //         (user) => {
+  //           console.log('test!!!');
+  //           console.log(user.username);
+  //           this.currentUserSubject.next(user);
+  //         }
+  //       )
+  //     );
+  // }
 
   logout() {
     this.setToken(null);
