@@ -45,22 +45,12 @@ export class AuthService {
   get token(): string {
     console.log('Проверка токена');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
-    // console.log(expireDate);
-    // console.log('======================');
-    // const myRawToken = localStorage.getItem('idToken');
-    // const helper = new JwtHelperService();
-    // const decodedToken = helper.decodeToken(myRawToken);
-    // const expirationDate = helper.getTokenExpirationDate(myRawToken);
-    // const isExpired = helper.isTokenExpired(myRawToken);
-    // console.log(decodedToken);
-    // console.log(expireDate);
-    // console.log(isExpired);
-    // console.log(expirationDate);
-    // console.log('======================');
+
     if (new Date() > expireDate) {
       console.log('Зашло в условие new Date > expireDate');
       this.logout();
-      return null;
+      return
+      // this.setToken(null);
     }
     if (expireDate.getTime() - new Date().getTime() <= 300000) {
       this.refreshToken()
@@ -95,31 +85,37 @@ export class AuthService {
     return this.httpClient.post(`${environment.backend}/token/refresh`, request);
   }
 
-  login(user: User): Observable<any> {
-    return this.httpClient.post(`${environment.backend}/login`, user)
-      .pipe(
-        tap(
-            this.setToken,
-        )
-      );
-  }
-
   // login(user: User): Observable<any> {
   //   return this.httpClient.post(`${environment.backend}/login`, user)
   //     .pipe(
   //       tap(
-  //         (user) => {
-  //           console.log('test!!!');
-  //           console.log(user.username);
-  //           this.currentUserSubject.next(user);
-  //         }
+  //           this.setToken,
   //       )
   //     );
   // }
 
-  logout() {
-    this.setToken(null);
+  login(user: User): Observable<any> {
+    return this.httpClient.post(`${environment.backend}/login`, user)
+      .pipe(
+        tap(
+          (user) => {
+            localStorage.setItem('idToken', user.token);
+            const expiresDate = new Date(new Date().getTime() + +user.tokenLifeTime);
+            localStorage.setItem('idToken-expires', expiresDate.toString());
+            this.currentUserSubject.next(user);
+          }
+        )
+      );
   }
+
+  logout() {
+    localStorage.clear();
+    this.currentUserSubject.next(null);
+  }
+
+  // logout() {
+  //   this.setToken(null);
+  // }
 
   signup(user: User): Observable<any> {
     return this.httpClient.post(`${environment.backend}/registration`, user);
@@ -156,3 +152,18 @@ export class AuthService {
   }
 
 }
+
+
+
+// console.log(expireDate);
+// console.log('======================');
+// const myRawToken = localStorage.getItem('idToken');
+// const helper = new JwtHelperService();
+// const decodedToken = helper.decodeToken(myRawToken);
+// const expirationDate = helper.getTokenExpirationDate(myRawToken);
+// const isExpired = helper.isTokenExpired(myRawToken);
+// console.log(decodedToken);
+// console.log(expireDate);
+// console.log(isExpired);
+// console.log(expirationDate);
+// console.log('======================');
