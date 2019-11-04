@@ -12,8 +12,9 @@ import {Observable} from "rxjs";
 export class MainLayoutComponent implements OnInit {
 
   title =  '';
+  roles = [];
   isLoggedIn$: Observable<boolean>;
-
+  isLogged = false;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -30,6 +31,10 @@ export class MainLayoutComponent implements OnInit {
     } else if(this.router.url === '/user') {
       this.title = ' / Account';
     }
+    console.log(this.isLogged);
+    this.isLogged = !this.authService.testPermissions();
+    console.log(this.isLogged);
+
     // this.route.parent.url.subscribe((urlPath) => {
     //   // console.log(urlPath[0].path);
     //   const currentUrl = this.router.url;
@@ -39,6 +44,8 @@ export class MainLayoutComponent implements OnInit {
     //     this.title = currentUrl;
     //   }
     // });
+    this.roles = this.authService.permissions();
+    console.log(this.roles);
   }
 
   logout() {

@@ -7,11 +7,10 @@
         </button>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
           <div
-            *ngIf="!title; else main"
+            *ngIf="!title && isLogged; else main"
           >
             <button
               mat-menu-item
-              color="black"
               class="burger-button"
               (click)="goToPage('user')"
             >
@@ -20,10 +19,11 @@
             </button>
           </div>
 
-          <ng-template #main>
+          <ng-template
+              *ngIf="isLogged"
+              #main>
             <button
               mat-menu-item
-              color="black"
               class="burger-button"
               (click)="goToPage('main')"
             >
@@ -32,7 +32,9 @@
             </button>
           </ng-template>
 
-          <div>
+          <div
+            *ngIf="roles.includes('EXECUTOR') || roles.includes('ADMIN')"
+          >
             <button
               mat-menu-item
               class="burger-button"

@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  // Сделать двойной запрос: сначала логин, с отдельным вытягиваением  id, после запрос на получение данных пользователя.
-
   ngOnInit() {
     this.route.queryParams.subscribe(
       (params: Params) => {

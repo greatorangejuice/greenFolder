@@ -33,13 +33,17 @@ export class AuthService {
     console.log(decodedToken);
     // const expirationDate = helper.getTokenExpirationDate(myRawToken);
     // const isExpired = helper.isTokenExpired(myRawToken);
-    return decodedToken.roles;
+   if (decodedToken) {
+     return decodedToken.roles
+   }
+   return [];
   }
 
   testPermissions() {
     const myRawToken = localStorage.getItem('idToken');
     const helper = new JwtHelperService();
-    return helper.decodeToken(myRawToken);
+    const isExpired = helper.isTokenExpired(myRawToken);
+    return isExpired;
   }
 
   get token(): string {
