@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('Заходит в Guard');
 
     const myRawToken = localStorage.getItem('idToken');
     if (!myRawToken) {
@@ -26,7 +25,6 @@ export class AuthGuard implements CanActivate {
         return false;
     }
     const currentUser = this.authService.currentUserValue;
-    console.log('ТЕКУЩИЙ ЮЗЕР ', currentUser);
 
     const helper = new JwtHelperService();
     const decodedToken: Permissions = helper.decodeToken(myRawToken);
@@ -41,14 +39,14 @@ export class AuthGuard implements CanActivate {
     };
 
     if (currentUser && helper.isTokenExpired()) {
-      console.log('Роли пользователя:',  decodedToken.roles);
-      console.log('Роли гварда:', route.data.roles);
+      // console.log('Роли пользователя:',  decodedToken.roles);
+      // console.log('Роли гварда:', route.data.roles);
       if (route.data.roles && contains(decodedToken.roles, route.data.roles)) {
-        console.log('Работает');
+        console.log('Вернуло true');
         return true
       }
 
-      if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
+      if (helper.isTokenExpired() && route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
         console.log('Доступ закрыт');
         this.router.navigate(['/welcome']);
         return false;
@@ -66,25 +64,3 @@ export class AuthGuard implements CanActivate {
   }
 
 }
-
-
-// permissions() {
-//   const myRawToken = localStorage.getItem('idToken');
-//   const helper = new JwtHelperService();
-//   const decodedToken = helper.decodeToken(myRawToken);
-//   console.log(decodedToken);
-//   // const expirationDate = helper.getTokenExpirationDate(myRawToken);
-//   // const isExpired = helper.isTokenExpired(myRawToken);
-//   return decodedToken.roles;
-// }
-
-// if (this.authService.isAuthenticated()) {
-//   return true;
-// } else {
-//   this.authService.logout();
-//   this.router.navigate(['/welcome'], {
-//     queryParams: {
-//       loginAgain: true,
-//     }
-//   });
-// }

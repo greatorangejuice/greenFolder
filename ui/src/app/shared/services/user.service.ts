@@ -28,11 +28,6 @@ export class UserService {
           console.log(error);
           return EMPTY;
           }),
-        tap(
-          (res) => {
-            console.log(res);
-          }
-        ),
       )
   }
 

@@ -30,7 +30,6 @@ export class AuthService {
     const myRawToken = localStorage.getItem('idToken');
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(myRawToken);
-    console.log(decodedToken);
     // const expirationDate = helper.getTokenExpirationDate(myRawToken);
     // const isExpired = helper.isTokenExpired(myRawToken);
    if (decodedToken) {
@@ -39,7 +38,7 @@ export class AuthService {
    return [];
   }
 
-  testPermissions() {
+  isExpired() {
     const myRawToken = localStorage.getItem('idToken');
     const helper = new JwtHelperService();
     const isExpired = helper.isTokenExpired(myRawToken);
@@ -47,14 +46,11 @@ export class AuthService {
   }
 
   get token(): string {
-    console.log('Проверка токена');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
 
     if (new Date() > expireDate) {
-      console.log('Зашло в условие new Date > expireDate');
       this.logout();
       return
-      // this.setToken(null);
     }
     if (expireDate.getTime() - new Date().getTime() <= 300000) {
       this.refreshToken()
@@ -70,8 +66,6 @@ export class AuthService {
   }
 
   private setToken(response: loginResponse | null) {
-    console.log('Устанавливаю токен');
-    console.log(response);
     if (response) {
       const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime);
       localStorage.setItem('idToken', response.token);
@@ -82,21 +76,11 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    console.log('REFRESH TOKEN');
     const token = localStorage.getItem('idToken');
     const username = localStorage.getItem('username');
     const request = { token: token, username: username };
     return this.httpClient.post(`${environment.backend}/token/refresh`, request);
   }
-
-  // login(user: User): Observable<any> {
-  //   return this.httpClient.post(`${environment.backend}/login`, user)
-  //     .pipe(
-  //       tap(
-  //           this.setToken,
-  //       )
-  //     );
-  // }
 
   login(user: User): Observable<any> {
     return this.httpClient.post(`${environment.backend}/login`, user)
@@ -116,10 +100,6 @@ export class AuthService {
     localStorage.clear();
     this.currentUserSubject.next(null);
   }
-
-  // logout() {
-  //   this.setToken(null);
-  // }
 
   signup(user: User): Observable<any> {
     return this.httpClient.post(`${environment.backend}/registration`, user);

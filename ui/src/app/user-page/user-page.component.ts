@@ -15,6 +15,7 @@ export class UserPageComponent implements OnInit {
   tasksLikeExecutor: Task[];
   offers: Offer[];
   loading = true;
+  currentComponent = 'tasks';
   constructor(
     private userService: UserService,
   ) { }
@@ -24,7 +25,6 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (request: AllAccountInfo) => {
           this.loading = false;
-          console.log(this.loading);
           this.user = request.user;
           this.outgoingMessages = request.outgoingMessages;
           this.tasksLikeCustomer = request.tasksLikeCustomer;

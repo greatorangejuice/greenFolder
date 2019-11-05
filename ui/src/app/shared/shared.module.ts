@@ -76,7 +76,8 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
     MatNativeDateModule,
     MatDialogModule,
     MatListModule,
-    GoogleLoaderComponent
+    GoogleLoaderComponent,
+    GreencolorDirective
   ],
 })
 export class SharedModule {}

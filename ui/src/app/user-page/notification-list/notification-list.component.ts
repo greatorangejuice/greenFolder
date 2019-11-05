@@ -12,13 +12,14 @@ import {Message} from "../../shared/interfaces";
 export class NotificationListComponent implements OnInit {
 
   @Input() messages: Message[];
+  inputMsg: Message[];
 
   constructor(
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
+
 
   openNoti(title, text, sender) {
     const dialogRef = this.dialog.open(NotificationModal, {
@@ -46,5 +47,4 @@ export class NotificationModal {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

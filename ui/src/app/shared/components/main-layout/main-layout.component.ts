@@ -13,8 +13,8 @@ export class MainLayoutComponent implements OnInit {
 
   title =  '';
   roles = [];
-  isLoggedIn$: Observable<boolean>;
   isLogged = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -23,29 +23,17 @@ export class MainLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.isLoggedIn$ = this.authService.isLoggedIn();
-    // console.log('logged?');
-    // console.log(this.isLoggedIn$);
     if (this.router.url === '/tasks') {
       this.title = '';
     } else if(this.router.url === '/user') {
       this.title = ' / Account';
     }
-    console.log(this.isLogged);
-    this.isLogged = !this.authService.testPermissions();
-    console.log(this.isLogged);
+    // console.log(this.isLogged);
+    this.isLogged = !this.authService.isExpired();
+    // console.log(this.isLogged);
 
-    // this.route.parent.url.subscribe((urlPath) => {
-    //   // console.log(urlPath[0].path);
-    //   const currentUrl = this.router.url;
-    //   const currentParentUrl = urlPath[0].path;
-    //   if (currentParentUrl !== 'tasks') {
-    //     this.title = ' / Account';
-    //     this.title = currentUrl;
-    //   }
-    // });
     this.roles = this.authService.permissions();
-    console.log(this.roles);
+    // console.log(this.roles);
   }
 
   logout() {
