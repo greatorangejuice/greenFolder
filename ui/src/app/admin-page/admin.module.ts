@@ -4,18 +4,28 @@ import {RouterModule} from '@angular/router';
 import {AdminPageComponent} from './admin-page.component';
 import {MainLayoutComponent} from '../shared/components/main-layout/main-layout.component';
 import {SharedModule} from '../shared/shared.module';
+import { AllUsersComponent } from './all-users/all-users.component';
+import {AdminService} from "../shared/services/admin.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../shared/auth.interceptor";
+import {CatchErrorInterceptor} from "../shared/interceptors/catch-error.interceptor";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
-  declarations: [AdminPageComponent],
+  declarations: [AdminPageComponent, AllUsersComponent],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      {path: '', component: MainLayoutComponent, children: [
+      {
+        path: '', component: MainLayoutComponent, children: [
           {path: '', component: AdminPageComponent}
-        ]}
-    ])
+        ]
+      }
+    ]),
+    FormsModule
   ],
   exports: [],
+  providers: [AdminService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}, {provide: HTTP_INTERCEPTORS, multi: true, useClass: CatchErrorInterceptor}],
 })
 export class AdminModule {}
