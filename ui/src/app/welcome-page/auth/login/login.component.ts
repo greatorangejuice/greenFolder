@@ -68,13 +68,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', response.username);
         },
         (error) => {
-          if (error.name === 'HttpErrorResponse') {
-            console.log('Ошибка в логине');
-            console.log(error);
-            console.log(error.message);
-            const errMessage: string = error.error.error.message;
+          console.log(error);
+          if (error.name === 'HttpErrorResponse' && error.status === 403) {
+            // console.log('Ошибка в логине');
+            // console.log(error);
+            // console.log(error.message);
             this.message =
-              'EMAIL_NOT_FOUND' ? 'Email or Password is not correct' : '';
+              'TEST' ? 'Username or Password is not correct' : '';
               // 'EMAIL_NOT_FOUND' ? 'Email or Password is not correct' : ''
             // this.message = 'Connection error. Please, check your internet connection.';
             // if (!this.message) {
