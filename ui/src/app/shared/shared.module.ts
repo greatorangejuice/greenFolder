@@ -13,7 +13,7 @@ import {
   MatSnackBarModule,
   MatDialog,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule, MatListModule,
+  MatDatepickerModule, MatNativeDateModule, MatListModule, MatBadgeModule,
 } from '@angular/material';
 import {MainLayoutComponent} from './components/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
@@ -24,6 +24,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
 import { SmallProfileComponent } from './components/small-profile/small-profile.component';
+import { MessageListComponent } from './components/small-profile/message-list/message-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SmallProfileComponent } from './components/small-profile/small-profile.
     LoaderComponent,
     GoogleLoaderComponent,
     SmallProfileComponent,
+    MessageListComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { SmallProfileComponent } from './components/small-profile/small-profile.
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatBadgeModule
   ],
   exports: [
     HttpClientModule,

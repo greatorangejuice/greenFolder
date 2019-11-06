@@ -2,7 +2,7 @@
     <header class="navbar">
       <h3 class="unselectable"><a [routerLink]="['/main']"><span greencolor>GREEN</span> FOLDER</a>{{title}}</h3>
       <div class="flex">
-        <div *ngIf="isLogged">
+        <div >
           <app-small-profile></app-small-profile>
         </div>
         <button mat-icon-button [matMenuTriggerFor]="beforeMenu">

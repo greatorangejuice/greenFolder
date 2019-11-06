@@ -1,9 +1,12 @@
 <div class="flex align-items-center small-profile">
   <img src="../../../../assets/images/user.png" alt="avatar" class="mini-avatar">
-  <button mat-icon-button>
-    <mat-icon>chat_bubble_outline</mat-icon>
+  <button mat-icon-button appDropdown>
+    <mat-icon matBadge="15" matBadgeColor="warn">chat_bubble_outline</mat-icon>
   </button>
-  <button mat-icon-button>
-    <mat-icon>notifications_none</mat-icon>
+  <button mat-icon-button appDropdown>
+    <mat-icon matBadge="15" matBadgeColor="warn">notifications_none</mat-icon>
   </button>
+</div>
+<div class="">
+  <app-message-list></app-message-list>
 </div>
