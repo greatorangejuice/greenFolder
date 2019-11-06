@@ -1,0 +1,17 @@
+.mini-avatar {
+  width: 40px;
+  margin-right: 5px;
+}
+
+.small-profile {
+}
+.mat-icon {
+  cursor: pointer;
+  &hover {
+    background-color: rgba(102, 102, 102, 0.42);
+  }
+}
+.mat-button {
+  padding: 0;
+  width: 10px;
+}

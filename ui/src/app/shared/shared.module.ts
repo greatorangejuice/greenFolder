@@ -23,6 +23,7 @@ import {GreencolorDirective} from "./directives/greencolor.directive";
 import { AlertComponent } from './components/alert/alert.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
+import { SmallProfileComponent } from './components/small-profile/small-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
     AlertComponent,
     LoaderComponent,
     GoogleLoaderComponent,
+    SmallProfileComponent,
   ],
   imports: [
     CommonModule,
