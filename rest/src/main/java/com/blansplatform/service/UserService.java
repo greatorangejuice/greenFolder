@@ -79,7 +79,7 @@ public class UserService implements UserDetailsService {
         return new ResponseEntity<HashMap>(HttpStatus.CREATED);
     }
 
-    private HashMap newUserDataValidation(User user) {
+    public HashMap newUserDataValidation(User user) {
         Map<String, String> dataValidation = new HashMap<>();
         if (userRepository.findUserByEmail(user.getEmail()) != null) {
             dataValidation.put("email", user.getEmail() + IF_EMAIL_ALREADY_EXIST);
@@ -160,5 +160,58 @@ public class UserService implements UserDetailsService {
         userFromDb.setPasswordRestoreLink(null);
         userRepository.save(userFromDb);
         return Response.status(Response.Status.OK).build();
+    }
+
+    public void banUser(String username) {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new EntityNotFoundException("user not found");
+        }
+        userFromDb.setUserStatus(UserStatus.BANNED);
+        userRepository.save(userFromDb);
+    }
+
+    public void unbanUser(String username) {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new EntityNotFoundException("user not found");
+        }
+        userFromDb.setUserStatus(UserStatus.ACTIVE);
+        userRepository.save(userFromDb);
+    }
+
+    public void disableUser(String username) {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new EntityNotFoundException("user not found");
+        }
+        userFromDb.setUserStatus(UserStatus.INACTIVE);
+        userRepository.save(userFromDb);
+    }
+
+    public void restoreUser(String username) {
+        unbanUser(username);
+    }
+
+    public void setUserRoles(String username, List<String> roles) {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new EntityNotFoundException("user not found");
+        }
+        for (String role: roles) {
+            userFromDb.getRoles().add(roleRepository.findRoleByName(role));
+        }
+        userRepository.save(userFromDb);
+    }
+
+    public void deleteUserRoles(String username, List<String> roles) {
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new EntityNotFoundException("user not found");
+        }
+        for (String role: roles) {
+            userFromDb.getRoles().remove(roleRepository.findRoleByName(role));
+        }
+        userRepository.save(userFromDb);
     }
 }

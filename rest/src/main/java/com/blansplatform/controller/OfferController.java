@@ -34,9 +34,9 @@ public class OfferController {
         return offerService.findOfferById(id);
     }
 
-    @GetMapping(path = "/active/{id}")
-    public List<OfferDto> findExecutorsActiveOffers(@PathVariable Long id) {
-        return offerService.geExecutorsActiveOffers(id);
+    @GetMapping(path = "/executor/{username}/active")
+    public List<OfferDto> findExecutorsActiveOffers(@PathVariable String username) {
+        return offerService.geExecutorsActiveOffers(username);
     }
 
     @PostMapping
@@ -57,8 +57,8 @@ public class OfferController {
     }
 
     @PutMapping
-    public @ResponseBody Response updateOffer(@RequestBody Offer offer) {
-        offerService.updateOffer(offer);
+    public @ResponseBody Response updateOffer(@RequestBody OfferDto offerDto) {
+        offerService.updateOffer(offerDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 }

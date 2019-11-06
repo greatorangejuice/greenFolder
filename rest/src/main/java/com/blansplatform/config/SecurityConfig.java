@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ACCOUNT_ACCESS_RESTORE_CODE).permitAll()
                 .antMatchers(ACCOUNT_ACTIVATION_PAGE).permitAll()
                 .antMatchers(REGISTRATION_ENDPOINT).permitAll()
-                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                .antMatchers(ADMIN_ENDPOINT).hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));

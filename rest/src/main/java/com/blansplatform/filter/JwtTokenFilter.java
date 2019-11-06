@@ -1,5 +1,11 @@
-package com.blansplatform.security.jwt;
+/*
+ * Copyright (c) GreenFolder
+ */
 
+package com.blansplatform.filter;
+
+import com.blansplatform.security.jwt.JwtAuthenticationException;
+import com.blansplatform.security.jwt.JwtTokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

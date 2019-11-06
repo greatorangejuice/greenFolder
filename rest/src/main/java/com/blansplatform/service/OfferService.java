@@ -8,6 +8,7 @@ import com.blansplatform.dto.AcceptOrDeclineOfferDto;
 import com.blansplatform.dto.OfferDto;
 import com.blansplatform.entity.Offer;
 import com.blansplatform.entity.Task;
+import com.blansplatform.entity.User;
 import com.blansplatform.enumeration.OfferStatus;
 import com.blansplatform.enumeration.TaskStatus;
 import com.blansplatform.repository.OfferRepository;
@@ -29,14 +30,16 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final UserService userService;
     private static final String POSITIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "accept";
     private static final String NEGATIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "decline";
 
     @Autowired
-    public OfferService(OfferRepository offerRepository, UserRepository userRepository, TaskRepository taskRepository) {
+    public OfferService(OfferRepository offerRepository, UserRepository userRepository, TaskRepository taskRepository, UserService userService) {
         this.offerRepository = offerRepository;
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.userService = userService;
     }
 
     public List<OfferDto> findAll() {
@@ -67,7 +70,13 @@ public class OfferService {
         offerRepository.delete(offer);
     }
 
-    public void updateOffer(Offer offer) {
+    public void deleteOfferById(Long id) {
+        Offer offerFromDb = OfferFromOfferDto.offerConverter(findOfferById(id));
+        deleteOffer(offerFromDb);
+    }
+
+    public void updateOffer(OfferDto offerDto) {
+        Offer offer = OfferFromOfferDto.offerConverter(offerDto);
         offerRepository.save(offer);
     }
 
@@ -103,8 +112,9 @@ public class OfferService {
         }
     }
 
-    public List<OfferDto> geExecutorsActiveOffers(Long id) {
-        List<Offer> offers =  offerRepository.findActiveOffersForExecutor(id);
+    public List<OfferDto> geExecutorsActiveOffers(String username) {
+        User user = userService.findUserByUsername(username);
+        List<Offer> offers =  offerRepository.findActiveOffersForExecutor(user.getId());
         return offers.stream()
                 .map(OfferDtoFromOffer::offerConverter)
                 .collect(Collectors.toList());

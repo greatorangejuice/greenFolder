@@ -5,7 +5,6 @@
 package com.blansplatform.controller;
 
 import com.blansplatform.dto.TaskDto;
-import com.blansplatform.entity.Task;
 import com.blansplatform.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,14 +43,14 @@ public class TaskController {
     }
 
     @DeleteMapping
-    public @ResponseBody Response deleteTask(@RequestBody Task task) {
-        taskService.deleteTask(task);
+    public @ResponseBody Response deleteTask(@RequestBody TaskDto taskDto) {
+        taskService.deleteTask(taskDto);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 
     @PutMapping
-    public @ResponseBody Response updateTask(@RequestBody Task task) {
-        taskService.updateTask(task);
+    public @ResponseBody Response updateTask(@RequestBody TaskDto taskDto) {
+        taskService.updateTask(taskDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 }

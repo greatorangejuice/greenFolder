@@ -29,7 +29,7 @@ public class Task {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "executorId")
     private User executor;
-    @OneToMany(targetEntity = Offer.class, mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Offer.class, mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Offer> offers;
     private String keywords;
     private String course;

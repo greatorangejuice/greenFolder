@@ -63,11 +63,13 @@ public class TaskService {
         return TaskDtoFromTask.taskConverter(taskRepository.save(task));
     }
 
-    public void deleteTask(Task task) {
+    public void deleteTask(TaskDto taskDto) {
+        Task task = TaskFromTaskDto.taskConverter(taskDto);
         taskRepository.delete(task);
     }
 
-    public void updateTask(Task task) {
+    public void updateTask(TaskDto taskDto) {
+        Task task = TaskFromTaskDto.taskConverter(taskDto);
         taskRepository.save(task);
     }
 
@@ -76,5 +78,13 @@ public class TaskService {
         return  tasks.stream()
                 .map(TaskDtoFromTask::taskConverter)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteTaskBySecretId(String secretId) {
+        Task taskFromDb = taskRepository.findTaskBySecretId(secretId);
+        if (taskFromDb == null) {
+            throw new EntityNotFoundException("task not found");
+        }
+        taskRepository.delete(taskFromDb);
     }
 }
