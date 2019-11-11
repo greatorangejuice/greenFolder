@@ -10,43 +10,52 @@
         </button>
 
         <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <div
-            *ngIf="!title && isLogged"
-          >
-            <button
-              mat-menu-item
-              class="burger-button"
-              (click)="goToPage('user')"
+          <div *ngIf="isLogged">
+            <div
+              *ngIf="!title"
             >
-              <mat-icon>account_circle</mat-icon>
-              Account
-            </button>
-          </div>
+              <button
+                mat-menu-item
+                class="burger-button"
+                (click)="goToPage('user')"
+              >
+                <mat-icon>account_circle</mat-icon>
+                Account
+              </button>
+            </div>
 
-          <div
-              *ngIf="isLogged"
-          >
-            <button
-              *ngIf="title"
-              mat-menu-item
-              class="burger-button"
-              (click)="goToPage('main')"
-            >
-              <mat-icon>home</mat-icon>
-              Main Page
-            </button>
-          </div>
 
-          <div
-            *ngIf="roles.includes('EXECUTOR') || roles.includes('ADMIN')"
-          >
+              <button
+                *ngIf="title"
+                mat-menu-item
+                class="burger-button"
+                (click)="goToPage('main')"
+              >
+                <mat-icon>home</mat-icon>
+                Main Page
+              </button>
+
+            <div
+              *ngIf="roles.includes('EXECUTOR') || roles.includes('ADMIN')"
+            >
+              <button
+                mat-menu-item
+                class="burger-button"
+                [routerLink]="['/tasks']"
+              >
+                <mat-icon>list_alt</mat-icon>
+                Tasks
+              </button>
+            </div>
+
             <button
+              *ngIf="roles.includes('ADMIN')"
               mat-menu-item
               class="burger-button"
-              [routerLink]="['/tasks']"
+              [routerLink]="['/shuffle']"
             >
-              <mat-icon>list_alt</mat-icon>
-              Tasks
+              <mat-icon>security</mat-icon>
+              Admin Page
             </button>
           </div>
 

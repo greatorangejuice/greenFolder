@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {Permissions} from "../interfaces";
+import {Role} from "../_models/role";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -41,10 +42,16 @@ export class AuthGuard implements CanActivate {
     if (currentUser && helper.isTokenExpired()) {
       // console.log('Роли пользователя:',  decodedToken.roles);
       // console.log('Роли гварда:', route.data.roles);
+
+      if (decodedToken.roles.includes(<Role>'ADMIN')) {
+        console.log('ADMIN');
+        return true;
+      }
+
       if (route.data.roles && contains(decodedToken.roles, route.data.roles)) {
-        console.log('Вернуло true');
         return true
       }
+
 
       if (helper.isTokenExpired() && route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
         console.log('Доступ закрыт');

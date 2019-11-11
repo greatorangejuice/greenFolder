@@ -10,22 +10,28 @@
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef> Username</th>
       <td mat-cell *matCellDef="let element"> {{element.username}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef> Email</th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status</th>
       <td mat-cell *matCellDef="let element"> {{element.userStatus}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="openUserEditor(element.username, element.role, element.userStatus)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="money">

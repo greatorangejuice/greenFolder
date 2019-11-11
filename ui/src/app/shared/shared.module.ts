@@ -25,11 +25,13 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
 import { SmallProfileComponent } from './components/small-profile/small-profile.component';
 import { MessageListComponent } from './components/small-profile/message-list/message-list.component';
+import {BoldDirective} from "./directives/bold.directive";
 
 @NgModule({
   declarations: [
     DropdownDirective,
     GreencolorDirective,
+    BoldDirective,
     MainLayoutComponent,
     SearchPipe,
     AlertComponent,
@@ -62,6 +64,7 @@ import { MessageListComponent } from './components/small-profile/message-list/me
   exports: [
     HttpClientModule,
     DropdownDirective,
+    BoldDirective,
     _MatMenuDirectivesModule,
     MatButtonModule,
     MatIconModule,
