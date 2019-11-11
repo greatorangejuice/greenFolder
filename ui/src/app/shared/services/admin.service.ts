@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {tap} from "rxjs/operators";
+import {User} from "../interfaces";
 
 @Injectable()
 export class AdminService {
@@ -19,5 +20,8 @@ export class AdminService {
         )
       )
   }
-}
 
+  editUser(user: User):Observable<void> {
+    return this.http.put<void>(`${environment.backend}/edit-user`, user)
+  }
+}

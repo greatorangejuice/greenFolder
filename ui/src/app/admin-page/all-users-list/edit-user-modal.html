@@ -1,4 +1,39 @@
-<div>
-  {{data.username}}
-</div>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="edit-user-page">
+    <mat-form-field>
+      <input
+        matInput placeholder="Username"
+        formControlName="username"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Name"
+             formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Surname"
+             formControlName="surname">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [value]="data.userStatus" placeholder="Status" formControlName="status">
+        <mat-option value="ACTIVE">ACTIVE</mat-option>
+        <mat-option value="INACTIVE">BANNED</mat-option>
+      </mat-select>
+    </mat-form-field>
 
+  </div>
+
+  <div class="buttons">
+    <div>
+      <div>
+        <button
+          mat-button
+          type="submit"
+          class="welcome-buttons"
+        >Login
+        </button>
+      </div>
+    </div>
+    <div class="alert">{{message}}</div>
+  </div>
+</form>

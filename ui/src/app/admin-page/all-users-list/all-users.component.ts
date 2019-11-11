@@ -2,12 +2,13 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AdminService} from "../../shared/services/admin.service";
 import {User} from "../../shared/interfaces";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator} from "@angular/material";
-import {FormControl} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Role} from "../../shared/_models/role";
 
 export class EditUserData {
   username: string;
   roles: Role;
+  city: string;
 }
 
 @Component({
@@ -64,10 +65,10 @@ export class AllUsersComponent implements OnInit {
       );
   }
 
-  openUserEditor(username, roles, status): void {
+  openUserEditor(username, roles, userStatus, city, webMoneyAccount, faculty, id, university, name, surname): void {
     const dialogRef = this.dialog.open(EditUserModal, {
-      width: '250px',
-      data: {username, roles, status}
+      width: '500px',
+      data: {username, roles, userStatus, city, webMoneyAccount, faculty, id, surname, university, name}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -84,6 +85,9 @@ export class AllUsersComponent implements OnInit {
 })
 export class EditUserModal implements OnInit{
 
+  form: FormGroup;
+  message = '';
+
   constructor(
     public dialogRef: MatDialogRef<EditUserModal>,
     @Inject(MAT_DIALOG_DATA) public data: User) {}
@@ -94,6 +98,15 @@ export class EditUserModal implements OnInit{
 
   ngOnInit(): void {
     console.log(this.data);
+    this.form = new FormGroup({
+      username: new FormControl({value: this.data.username, disabled: true}),
+      name: new FormControl(this.data.name, [Validators.required]),
+      surname: new FormControl(this.data.surname, [Validators.required]),
+      status: new FormControl(this.data.userStatus, [Validators.required]),
+    });
   }
 
+  submit() {
+
+  }
 }
