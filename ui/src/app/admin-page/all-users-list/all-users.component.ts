@@ -4,6 +4,7 @@ import {User} from "../../shared/interfaces";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator} from "@angular/material";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Role} from "../../shared/_models/role";
+import {tap} from "rxjs/operators";
 
 export class EditUserData {
   username: string;
@@ -65,10 +66,10 @@ export class AllUsersComponent implements OnInit {
       );
   }
 
-  openUserEditor(username, roles, userStatus, city, webMoneyAccount, faculty, id, university, name, surname): void {
+  openUserEditor(username, role, userStatus, city, webMoneyAccount, faculty, id, university, name, surname): void {
     const dialogRef = this.dialog.open(EditUserModal, {
       width: '500px',
-      data: {username, roles, userStatus, city, webMoneyAccount, faculty, id, surname, university, name}
+      data: {username, role, userStatus, city, webMoneyAccount, faculty, id, surname, university, name}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,15 +83,18 @@ export class AllUsersComponent implements OnInit {
 @Component({
   selector: 'edit-user-modal',
   templateUrl: 'edit-user-modal.html',
+  styleUrls: ['./all-users.component.scss']
 })
 export class EditUserModal implements OnInit{
 
   form: FormGroup;
   message = '';
+  rolesList = ['USER', 'ADMIN', 'CUSTOMER', 'EXECUTOR'];
 
   constructor(
+    private adminService: AdminService,
     public dialogRef: MatDialogRef<EditUserModal>,
-    @Inject(MAT_DIALOG_DATA) public data: User) {}
+    @Inject(MAT_DIALOG_DATA) public data) {}
 
   closeUserEditor(): void {
     this.dialogRef.close();
@@ -98,15 +102,39 @@ export class EditUserModal implements OnInit{
 
   ngOnInit(): void {
     console.log(this.data);
+    this.data.role.map((role) => { role.checked = this.rolesList.includes(role.name)});
+    console.log(this.data.role);
+
     this.form = new FormGroup({
       username: new FormControl({value: this.data.username, disabled: true}),
       name: new FormControl(this.data.name, [Validators.required]),
       surname: new FormControl(this.data.surname, [Validators.required]),
       status: new FormControl(this.data.userStatus, [Validators.required]),
+      // roles: new FormControl('', [Validators.required]),
     });
+
   }
 
   submit() {
+    const changedUser = {
+    username: this.data.username,
+    email: this.data.email,
+    name: this.form.value.name,
+    surname: this.form.value.surname,
+    city: this.data.city,
+    university: this.data.university,
+    faculty: this.data.faculty,
+    course: this.data.course,
+    userStatus: this.form.value.status,
+    webMoneyAccount: this.data.webMoneyAccount,
+    role: this.data.role,
+    };
 
+    this.adminService.editUser(changedUser)
+      .subscribe(
+          (req) => {
+            console.log(req);
+          }
+      )
   }
 }

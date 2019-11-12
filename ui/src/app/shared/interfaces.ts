@@ -48,7 +48,7 @@ export interface User {
   course?: string;
   userStatus?: string;
   webMoneyAccount?: string;
-  role?: Role;
+  role?: Role[];
 }
 
 export interface AllAccountInfo {

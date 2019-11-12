@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../shared/auth.interceptor";
 import {CatchErrorInterceptor} from "../shared/interceptors/catch-error.interceptor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatOptionModule, MatSelectModule} from "@angular/material";
+import {MatCardModule, MatCheckboxModule, MatOptionModule, MatSelectModule} from "@angular/material";
 
 @NgModule({
   declarations: [AdminPageComponent, AllUsersComponent, EditUserModal],
@@ -29,6 +29,8 @@ import {MatOptionModule, MatSelectModule} from "@angular/material";
     ReactiveFormsModule,
     MatOptionModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatCardModule,
   ],
   exports: [],
   providers: [AdminService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}, {provide: HTTP_INTERCEPTORS, multi: true, useClass: CatchErrorInterceptor}],

@@ -28,12 +28,8 @@ export class MainLayoutComponent implements OnInit {
     } else if(this.router.url === '/user') {
       this.title = ' / Account';
     }
-    // console.log(this.isLogged);
     this.isLogged = !this.authService.isExpired();
-    // console.log(this.isLogged);
-
     this.roles = this.authService.permissions();
-    // console.log(this.roles);
   }
 
   logout() {
