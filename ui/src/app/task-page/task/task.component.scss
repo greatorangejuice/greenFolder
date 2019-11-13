@@ -10,7 +10,7 @@ hr {
 .task-params {
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 1rem;
 }
 
 .offer {
@@ -28,7 +28,8 @@ hr {
   }
 }
 
-button {
+.decline,
+.accept {
   margin: 3px;
 }
 

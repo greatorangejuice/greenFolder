@@ -5,7 +5,7 @@
   </label>
 </mat-form-field>
 <div
-  *ngIf="tasks; else loading"
+  *ngIf="tasks$ | async as tasks; else loading"
 >
   <app-task-list
     *ngFor="let task of tasks | searchTasks:searchValue:'name'"
