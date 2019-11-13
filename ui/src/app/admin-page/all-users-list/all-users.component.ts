@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator} from "@angular/m
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Role} from "../../shared/_models/role";
 import {tap} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 export class EditUserData {
   username: string;
@@ -19,7 +20,8 @@ export class EditUserData {
 })
 export class AllUsersComponent implements OnInit {
 
-  users: User[];
+  usersStream$: Observable<User[]>;
+
   errorMessage = '';
   displayedColumns = [
     'id',
@@ -29,7 +31,7 @@ export class AllUsersComponent implements OnInit {
     'actions',
   ];
   paginator: MatPaginator;
-  dataSource: User[];
+  // dataSource: User[];
   filterList = [
     'id',
     'username',
@@ -51,19 +53,7 @@ export class AllUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.adminService.getAllUsers()
-      .subscribe(
-        (users) => {
-          this.dataSource = users;
-        },
-      (error) => {
-          if (error.status === 403) {
-            this.errorMessage = 'Access запрещен'
-          } else {
-            this.errorMessage = 'Ошибка'
-          }
-      }
-      );
+    this.usersStream$ = this.adminService.getAllUsers()
   }
 
   openUserEditor(username, role, userStatus, city, webMoneyAccount, faculty, id, university, name, surname): void {
@@ -132,9 +122,22 @@ export class EditUserModal implements OnInit{
 
     this.adminService.editUser(changedUser)
       .subscribe(
-          (req) => {
-            console.log(req);
-          }
+        (req) => {
+          console.log(req);
+        }
       )
   }
+
+  banUser(username: string) {
+    this.adminService.banUser(username)
+      .subscribe(
+        () => {}
+      )
+  }
+
+  unbanUser(username:string) {
+    this.adminService.unbanUser(username)
+      .subscribe()
+  }
+
 }

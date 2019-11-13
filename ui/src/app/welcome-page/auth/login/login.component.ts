@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', response.username);
         },
         (error) => {
+          this.submitted = false;
           console.log(error);
           if (error.name === 'HttpErrorResponse' && error.status === 403) {
             // console.log('Ошибка в логине');
@@ -78,11 +79,11 @@ export class LoginComponent implements OnInit {
             // if (!this.message) {
             //   this.message = 'Connection error. Please, check your internet connection.';
             // }
-            setTimeout(
-              () => {
-                this.submitted = false;
-              }, 2000
-            );
+            // setTimeout(
+            //   () => {
+            //     this.submitted = false;
+            //   }, 2000
+            // );
           }
         }
       );
