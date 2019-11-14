@@ -11,13 +11,12 @@ import com.blansplatform.entity.Task;
 import com.blansplatform.entity.User;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskDtoFromTask {
 
-    public static TaskDto taskConverter(Task task) {
+    public static TaskDto convert(Task task) {
         return new TaskDto(
                 task.getSecretId(),
                 task.getName(),
@@ -48,7 +47,7 @@ public class TaskDtoFromTask {
             return new ArrayList<>();
         }
         return offers.stream()
-                .map(OfferDtoFromOffer::offerConverter)
+                .map(OfferDtoFromOffer::convert)
                 .collect(Collectors.toList());
     }
 }

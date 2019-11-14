@@ -31,21 +31,23 @@ public class OfferService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
     private final UserService userService;
+    private final OfferFromOfferDto offerFromOfferDto;
     private static final String POSITIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "accept";
     private static final String NEGATIVE_ANSWER_FOR_OFFER_FROM_CUSTOMER = "decline";
 
     @Autowired
-    public OfferService(OfferRepository offerRepository, UserRepository userRepository, TaskRepository taskRepository, UserService userService) {
+    public OfferService(OfferRepository offerRepository, UserRepository userRepository, TaskRepository taskRepository, UserService userService, OfferFromOfferDto offerFromOfferDto) {
         this.offerRepository = offerRepository;
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
         this.userService = userService;
+        this.offerFromOfferDto = offerFromOfferDto;
     }
 
     public List<OfferDto> findAll() {
         List<Offer> offers = offerRepository.findAll();
         return offers.stream()
-                .map(OfferDtoFromOffer::offerConverter)
+                .map(OfferDtoFromOffer::convert)
                 .collect(Collectors.toList());
     }
 
@@ -54,11 +56,11 @@ public class OfferService {
         if (offer == null) {
             throw new EntityNotFoundException("Offer not found");
         }
-        return OfferDtoFromOffer.offerConverter(offer);
+        return OfferDtoFromOffer.convert(offer);
     }
 
     public void addOffer(OfferDto offerDto) {
-        Offer offer = OfferFromOfferDto.offerConverter(offerDto);
+        Offer offer = offerFromOfferDto.convert(offerDto);
         offer.setTask(taskRepository.findTaskBySecretId(offerDto.getSecretId()));
         offer.setOfferStatus(OfferStatus.PROCESSING);
         offer.setCustomer(taskRepository.findTaskBySecretId(offerDto.getSecretId()).getCustomer());
@@ -71,13 +73,13 @@ public class OfferService {
     }
 
     public void deleteOfferById(Long id) {
-        Offer offerFromDb = OfferFromOfferDto.offerConverter(findOfferById(id));
+        Offer offerFromDb = offerFromOfferDto.convert(findOfferById(id));
         deleteOffer(offerFromDb);
     }
 
     public void updateOffer(OfferDto offerDto) {
-        Offer offer = OfferFromOfferDto.offerConverter(offerDto);
-        offerRepository.save(offer);
+       Offer offer = offerFromOfferDto.convert(offerDto);
+       offerRepository.save(offer);
     }
 
     public Response acceptOrDecline(AcceptOrDeclineOfferDto acceptOrDeclineOfferDto) {
@@ -116,7 +118,7 @@ public class OfferService {
         User user = userService.findUserByUsername(username);
         List<Offer> offers =  offerRepository.findActiveOffersForExecutor(user.getId());
         return offers.stream()
-                .map(OfferDtoFromOffer::offerConverter)
+                .map(OfferDtoFromOffer::convert)
                 .collect(Collectors.toList());
     }
 }

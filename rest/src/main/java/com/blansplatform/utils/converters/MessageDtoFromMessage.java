@@ -9,9 +9,10 @@ import com.blansplatform.entity.Message;
 
 public class MessageDtoFromMessage {
 
-    public static MessageDto MessageConverter(Message message) {
+    public static MessageDto convert(Message message) {
         return new MessageDto(
                 message.getId(),
+                message.isViewed(),
                 message.getUserFrom().getUsername(),
                 message.getUserTo().getUsername(),
                 message.getMessageHead(),

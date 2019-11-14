@@ -4,27 +4,33 @@
 
 package com.blansplatform.dto;
 
-import com.blansplatform.entity.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class MessageDto {
 
     private Long id;
-//    @JsonIgnore
-//    private User userFrom;
-//    @JsonIgnore
-//    private User userTo;
+    boolean isViewed;
     private String messageHead;
     private String messageBody;
     private String userFrom;
     private String userTo;
 
-    public MessageDto(Long id, String userFrom, String userTo, String messageHead, String messageBody) {
+    public MessageDto(Long id, boolean isViewed, String userFrom, String userTo, String messageHead, String messageBody) {
         this.id = id;
+        this.isViewed = isViewed;
         this.userFrom = userFrom;
         this.userTo = userTo;
         this.messageHead = messageHead;
         this.messageBody = messageBody;
+    }
+
+    public MessageDto() {
+    }
+
+    public boolean isViewed() {
+        return isViewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        isViewed = viewed;
     }
 
     public Long getId() {
@@ -71,6 +77,7 @@ public class MessageDto {
     public String toString() {
         return "MessageDto{" +
                 "id=" + id +
+                ", isViewed=" + isViewed +
                 ", messageHead='" + messageHead + '\'' +
                 ", messageBody='" + messageBody + '\'' +
                 ", userFrom='" + userFrom + '\'' +

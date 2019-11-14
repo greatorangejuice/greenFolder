@@ -48,8 +48,8 @@ public class UserController {
     }
 
     @PutMapping
-    public @ResponseBody Response updateUser(@RequestBody User user) {
-        userService.updateUser(user);
+    public @ResponseBody Response updateUser(@RequestBody UserDto userDto) {
+        userService.updateUser(userDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 

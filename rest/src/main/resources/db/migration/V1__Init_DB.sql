@@ -8,6 +8,7 @@ create table message (
   message_head varchar(255),
   sender_user_id bigint,
   recipient_user_id bigint,
+  is_viewed boolean,
   primary key (id)
 ) engine=InnoDB;
 

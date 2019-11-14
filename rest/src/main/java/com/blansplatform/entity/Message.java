@@ -8,6 +8,7 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    boolean isViewed;
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "senderUserId")
     private User userFrom;
@@ -17,22 +18,32 @@ public class Message {
     private String messageHead;
     private String messageBody;
 
-    public Message(Long id, User userFrom, User userTo, String messageHead, String messageBody) {
+    public Message(Long id, User userFrom, User userTo, String messageHead, String messageBody, boolean isViewed) {
         this.id = id;
         this.userFrom = userFrom;
         this.userTo = userTo;
         this.messageHead = messageHead;
         this.messageBody = messageBody;
+        this.isViewed = isViewed;
     }
 
-    public Message(User userFrom, User userTo, String messageHead, String messageBody) {
+    public Message(User userFrom, User userTo, String messageHead, String messageBody, boolean isViewed) {
         this.userFrom = userFrom;
         this.userTo = userTo;
         this.messageHead = messageHead;
         this.messageBody = messageBody;
+        this.isViewed = isViewed;
     }
 
     public Message() {
+    }
+
+    public boolean isViewed() {
+        return isViewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        isViewed = viewed;
     }
 
     public Long getId() {
@@ -80,22 +91,24 @@ public class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return id.equals(message.id) &&
-                userFrom.equals(message.userFrom) &&
-                userTo.equals(message.userTo) &&
-                messageHead.equals(message.messageHead) &&
-                messageBody.equals(message.messageBody);
+        return isViewed == message.isViewed &&
+                Objects.equals(id, message.id) &&
+                Objects.equals(userFrom, message.userFrom) &&
+                Objects.equals(userTo, message.userTo) &&
+                Objects.equals(messageHead, message.messageHead) &&
+                Objects.equals(messageBody, message.messageBody);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, isViewed, userFrom, userTo, messageHead, messageBody);
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
+                ", isViewed=" + isViewed +
                 ", userFrom=" + userFrom +
                 ", userTo=" + userTo +
                 ", messageHead='" + messageHead + '\'' +

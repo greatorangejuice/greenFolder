@@ -10,7 +10,7 @@ import com.blansplatform.entity.User;
 
 public class OfferDtoFromOffer {
 
-    public static OfferDto offerConverter(Offer offer) {
+    public static OfferDto convert(Offer offer) {
         return new OfferDto(
                 offer.getId(),
                 offer.getTask().getSecretId(),

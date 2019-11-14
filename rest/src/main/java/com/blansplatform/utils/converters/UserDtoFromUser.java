@@ -8,7 +8,7 @@ import com.blansplatform.dto.UserDto;
 import com.blansplatform.entity.User;
 
 public class UserDtoFromUser {
-    public static UserDto userDtoConverter(User user){
+    public static UserDto convert(User user){
         return new UserDto(
                 user.getId(),
                 user.getName(),

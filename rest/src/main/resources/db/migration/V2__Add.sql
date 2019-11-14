@@ -34,23 +34,23 @@ insert  into user_roles (user_id, role_id) values (3, 3);
 
 insert  into user_roles (user_id, role_id) values (4, 2);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (1, 'i can do it', 'for task', 1, 2);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (1, 'i can do it', 'for task', 1, 2, false);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (2, 'ok', 'for task', 2, 1);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (2, 'ok', 'for task', 2, 1, false);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (3, 'i need more money', 'pay', 2, 1);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (3, 'i need more money', 'pay', 2, 1, false);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (4, 'fuck you', 'hello mr.customer', 1, 2);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (4, 'fuck you', 'hello mr.customer', 1, 2, false);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (5, 'ok', 'changes', 2, 1);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (5, 'ok', 'changes', 2, 1, false);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id)
-            values (6, 'where my task?', 'for task', 1, 2);
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (6, 'where my task?', 'for task', 1, 2, false);
 
 insert into task (id, secret_id, course, university, deadline, type, faculty, keywords, name, specification, description, subject, task_status, customer_id)
             values (1, 'secretId1', '3', 0, '31.12.2019', 'course project', 0, 'java, lab', 'sessionTask', 'need some rest service', 'rest', 'java', 0, 2);

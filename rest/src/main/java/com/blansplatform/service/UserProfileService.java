@@ -37,24 +37,24 @@ public class UserProfileService {
 
     private UserProfileDto userProfileDtoBuilder(User user) {
         UserProfileDto userProfileDto = new UserProfileDto();
-        userProfileDto.setUser(UserDtoFromUser.userDtoConverter(user));
+        userProfileDto.setUser(UserDtoFromUser.convert(user));
         userProfileDto.setTasksLikeExecutor(user.getExecutorTasks().stream()
-                .map(TaskDtoFromTask::taskConverter)
+                .map(TaskDtoFromTask::convert)
                 .collect(Collectors.toList()));
         userProfileDto.setTasksLikeCustomer(user.getCustomerTasks()
-                .stream().map(TaskDtoFromTask::taskConverter)
+                .stream().map(TaskDtoFromTask::convert)
                 .collect(Collectors.toList()));
         userProfileDto.setInboxMessages(user.getInboxMessages().stream()
-                .map(MessageDtoFromMessage::MessageConverter)
+                .map(MessageDtoFromMessage::convert)
                 .collect(Collectors.toList()));
         userProfileDto.setOutgoingMessages(user.getOutgoingMessage().stream()
-                .map(MessageDtoFromMessage::MessageConverter)
+                .map(MessageDtoFromMessage::convert)
                 .collect(Collectors.toList()));
         userProfileDto.setInboxOffers(user.getCustomerOffers().stream()
-                .map(OfferDtoFromOffer::offerConverter)
+                .map(OfferDtoFromOffer::convert)
                 .collect(Collectors.toList()));
         userProfileDto.setOutgoingOffers(user.getExecutorOffers().stream()
-                .map(OfferDtoFromOffer::offerConverter)
+                .map(OfferDtoFromOffer::convert)
                 .collect(Collectors.toList()));
         return userProfileDto;
 

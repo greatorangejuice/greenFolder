@@ -7,6 +7,7 @@ package com.blansplatform.controller;
 import com.blansplatform.dto.OfferDto;
 import com.blansplatform.dto.TaskDto;
 import com.blansplatform.dto.UserDto;
+import com.blansplatform.entity.User;
 import com.blansplatform.service.OfferService;
 import com.blansplatform.service.TaskService;
 import com.blansplatform.service.UserService;
@@ -46,25 +47,25 @@ public class AdminController {
         return offerService.findAll();
     }
 
-    @PostMapping(path = "/user/ban/{username}")
+    @GetMapping(path = "/user/ban/{username}")
     public Response banUserFromAdmin(@PathVariable String username) {
         userService.banUser(username);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 
-    @PostMapping(path = "/user/unban/{username}")
+    @GetMapping(path = "/user/unban/{username}")
     public Response unbanUserFromAdmin(@PathVariable String username) {
         userService.unbanUser(username);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 
-    @PostMapping(path = "/user/disable/{username}")
+    @GetMapping(path = "/user/disable/{username}")
     public Response disableUserFromAdmin(@PathVariable String username) {
         userService.disableUser(username);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 
-    @PostMapping(path = "/user/restore/{username}")
+    @GetMapping(path = "/user/restore/{username}")
     public Response restoreUserFromAdmin(@PathVariable String username) {
         userService.restoreUser(username);
         return Response.status(Response.Status.OK.getStatusCode()).build();
@@ -103,6 +104,12 @@ public class AdminController {
     @DeleteMapping(path = "/delete-offer/{id}")
     public Response deleteTaskFromAdmin(@PathVariable Long id) {
         offerService.deleteOfferById(id);
+        return Response.status(Response.Status.OK.getStatusCode()).build();
+    }
+
+    @PutMapping(path = "/edit-user")
+    public Response editUserFromAdmin(@RequestBody UserDto userDto) {
+        userService.updateUser(userDto);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 }

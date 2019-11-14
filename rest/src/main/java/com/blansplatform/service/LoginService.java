@@ -3,6 +3,8 @@ package com.blansplatform.service;
 import com.blansplatform.dto.AuthenticationRequestDto;
 import com.blansplatform.dto.TokenDto;
 import com.blansplatform.entity.User;
+import com.blansplatform.enumeration.UserStatus;
+import com.blansplatform.exception.UserBannedException;
 import com.blansplatform.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +43,7 @@ public class LoginService {
             String token = jwtTokenProvider.createToken(username, user.getRoles());
             return new TokenDto(token, username, tokenTimeForExpired);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException(e.getLocalizedMessage());
         }
     }
 

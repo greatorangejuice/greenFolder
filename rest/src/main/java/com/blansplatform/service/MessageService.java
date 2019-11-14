@@ -8,27 +8,31 @@ import com.blansplatform.dto.MessageDto;
 import com.blansplatform.entity.Message;
 import com.blansplatform.repository.MessageRepository;
 import com.blansplatform.utils.converters.MessageDtoFromMessage;
+import com.blansplatform.utils.converters.MessageFromMessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
 
-    final private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+    private final MessageFromMessageDto messageFromMessageDto;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository) {
+    public MessageService(MessageRepository messageRepository, MessageFromMessageDto messageFromMessageDto) {
         this.messageRepository = messageRepository;
+        this.messageFromMessageDto = messageFromMessageDto;
     }
 
     public List<MessageDto> findAll() {
         List<Message> messages = messageRepository.findAll();
         return messages.stream()
-                .map(MessageDtoFromMessage::MessageConverter)
+                .map(MessageDtoFromMessage::convert)
                 .collect(Collectors.toList());
     }
 
@@ -37,7 +41,7 @@ public class MessageService {
         if (message == null){
             throw new EntityNotFoundException("Message not found");
         }
-        return MessageDtoFromMessage.MessageConverter(message);
+        return MessageDtoFromMessage.convert(message);
     }
 
     public void addMessage(Message message) {
@@ -50,5 +54,15 @@ public class MessageService {
 
     public void updateMessage(Message message) {
         messageRepository.save(message);
+    }
+
+    public void setMessageViewStatusTrue(LinkedList<MessageDto> messagesDto) {
+        List<Message> messages = messagesDto.stream()
+                .map(messageFromMessageDto::convert)
+                .collect(Collectors.toList());
+        for (Message m: messages) {
+            m.setViewed(true);
+        }
+        messageRepository.saveAll(messages);
     }
 }

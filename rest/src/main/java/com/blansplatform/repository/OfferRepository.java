@@ -14,4 +14,6 @@ public interface OfferRepository extends CrudRepository<Offer, Long> {
     List<Offer> findAllActiveOffersFromTask(@Param("task_id") Long id);
     @Query(value = "select * from offer where executor_id = ?1 and offer_status = 2", nativeQuery = true)
     List<Offer> findActiveOffersForExecutor(@Param("executor_id") Long id);
+    @Query(value = "select * from offer where task_id = ?1", nativeQuery = true)
+    List<Offer> findAllOffersForTask(@Param("task_id") Long taskId);
 }

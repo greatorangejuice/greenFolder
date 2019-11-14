@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -48,6 +49,12 @@ public class MessageController {
     @PutMapping
     public @ResponseBody Response updateMessage(@RequestBody Message message) {
         messageService.updateMessage(message);
+        return Response.status(Response.Status.CREATED.getStatusCode()).build();
+    }
+
+    @PutMapping(path = "/set-as-viewed")
+    public @ResponseBody Response setMessagesAsViewed(@RequestBody LinkedList<MessageDto> messagesDto) {
+        messageService.setMessageViewStatusTrue(messagesDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 }

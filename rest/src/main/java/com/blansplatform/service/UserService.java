@@ -13,6 +13,7 @@ import com.blansplatform.repository.RoleRepository;
 import com.blansplatform.repository.UserRepository;
 import com.blansplatform.utils.converters.UserDtoFromUser;
 import com.blansplatform.utils.mailUtil.MailSenderUtil;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class UserService implements UserDetailsService {
     public List<UserDto> findAll(){
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map(UserDtoFromUser::userDtoConverter)
+                .map(UserDtoFromUser::convert)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +62,7 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new EntityNotFoundException("user not found");
         }
-       return UserDtoFromUser.userDtoConverter(user);
+        return UserDtoFromUser.convert(user);
     }
 
     public ResponseEntity<HashMap> addUser(User user) {
@@ -94,8 +95,11 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public void updateUser(UserDto userDto) {
+        User userFromDb = userRepository.findUserById(userDto.getId());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(userDto, userFromDb);
+        userRepository.save(userFromDb);
     }
 
     public MailDto checkUserByEmail(MailDto mailDto) {
