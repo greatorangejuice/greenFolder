@@ -26,6 +26,7 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
 import { SmallProfileComponent } from './components/small-profile/small-profile.component';
 import { MessageListComponent } from './components/small-profile/message-list/message-list.component';
 import {BoldDirective} from "./directives/bold.directive";
+import { DialogListComponent } from './components/small-profile/dialog-list/dialog-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {BoldDirective} from "./directives/bold.directive";
     GoogleLoaderComponent,
     SmallProfileComponent,
     MessageListComponent,
+    DialogListComponent,
   ],
   imports: [
     CommonModule,

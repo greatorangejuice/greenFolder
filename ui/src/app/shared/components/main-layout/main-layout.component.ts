@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from "../../services/alert.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-main-layout',
