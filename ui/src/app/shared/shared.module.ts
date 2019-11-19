@@ -24,9 +24,9 @@ import { AlertComponent } from './components/alert/alert.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
 import { SmallProfileComponent } from './components/small-profile/small-profile.component';
-import { MessageListComponent } from './components/small-profile/message-list/message-list.component';
 import {BoldDirective} from "./directives/bold.directive";
 import { DialogListComponent } from './components/small-profile/dialog-list/dialog-list.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { DialogListComponent } from './components/small-profile/dialog-list/dial
     LoaderComponent,
     GoogleLoaderComponent,
     SmallProfileComponent,
-    MessageListComponent,
     DialogListComponent,
   ],
   imports: [
@@ -61,7 +60,8 @@ import { DialogListComponent } from './components/small-profile/dialog-list/dial
     MatNativeDateModule,
     MatDialogModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ReactiveFormsModule
   ],
   exports: [
     HttpClientModule,

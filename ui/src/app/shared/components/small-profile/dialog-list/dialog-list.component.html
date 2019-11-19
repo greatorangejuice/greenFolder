@@ -1,3 +1,37 @@
 <div class="side-form">
-  <button mat-button (click)="goBack()">Back</button>
+  <div class="top">
+    <h3>Dialogs</h3>
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="test-dialog">
+    <mat-form-field class="message-search">
+      <label for="search">
+        <input matInput id="search" placeholder="Search" autocomplete="off">
+      </label>
+    </mat-form-field>
+  </div>
+
+  <div class="dialog">
+      <h5>TOMMY</h5>
+      <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+      <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+
+
+  <div class="dialog">
+    <h5>JIMMY</h5>
+    <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+
+  <div class="dialog">
+    <h5>JESSICA</h5>
+    <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+
 </div>
+

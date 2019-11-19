@@ -1,0 +1,29 @@
+<div class="test-dialog">
+  <mat-form-field class="message-search">
+    <label for="search">
+      <input matInput id="search" placeholder="Search" autocomplete="off" [(ngModel)]="searchValue">
+    </label>
+  </mat-form-field>
+</div>
+
+<div class="dialogs-list" *ngIf="dialogs$ | async as dialogs">
+  <div class="dialog" *ngFor="let dialog of dialogs | searchTasks:searchValue" (click)="goToDialog(dialog.id)">
+    <h5>TOMMY</h5>
+    <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+
+  <div class="dialog">
+    <h5>JIMMY</h5>
+    <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+
+  <div class="dialog">
+    <h5>JESSICA</h5>
+    <small class="dialog-theme">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</small>
+    <p class="message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, libero?</p>
+  </div>
+</div>
+
+  <button routerLink="1">Test</button>

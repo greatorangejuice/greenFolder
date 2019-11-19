@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AlertService} from "./shared/services/alert.service";
 import {MainPageModule} from "./main-page/main-page.module";
 import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.interceptor";
+import { DialogPageComponent } from './dialog-page/dialog-page.component';
+import {DialogPageModule} from "./dialog-page/dialog-page.module";
 
 // const INTERCEPTOR: Provider = {
 //   provide: HTTP_INTERCEPTORS,
@@ -40,6 +42,7 @@ import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.intercept
     UserModule,
     BrowserAnimationsModule,
     MainPageModule,
+    DialogPageModule,
   ],
   providers: [
     AuthGuard,

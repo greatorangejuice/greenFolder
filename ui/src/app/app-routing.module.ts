@@ -3,13 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./shared/services/auth.guard";
 import {Role} from "./shared/_models/role";
 import {DialogListComponent} from "./shared/components/small-profile/dialog-list/dialog-list.component";
-import {MessageListComponent} from "./shared/components/small-profile/message-list/message-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
   {path: 'welcome',
     loadChildren: './welcome-page/welcome.module#WelcomeModule'},
-  {path: 'messages', component: DialogListComponent},
+  // {path: 'messages', component: DialogListComponent},
+  {path: 'dialogs',
+    loadChildren: './dialog-page/dialog-page.module#DialogPageModule', canActivate: [AuthGuard]},
   {path: 'main',
     loadChildren: './main-page/main-page.module#MainPageModule', canActivate: [AuthGuard]},
   {path: 'tasks',
