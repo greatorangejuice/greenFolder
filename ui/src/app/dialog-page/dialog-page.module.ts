@@ -10,12 +10,15 @@ import {AuthGuard} from "../shared/services/auth.guard";
 import {TaskComponent} from "../task-page/task/task.component";
 import { PersonalDialogComponent } from './personal-dialog/personal-dialog.component';
 import {FormsModule} from "@angular/forms";
+import {SearchDialogsPipe} from "../shared/pipes/searchDialogs.pipe";
+import {MessageService} from "../shared/services/message.service";
 
 @NgModule({
   declarations: [
     DialogPageComponent,
     DialogsListComponent,
     PersonalDialogComponent,
+    SearchDialogsPipe,
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,9 @@ import {FormsModule} from "@angular/forms";
       }
     ]),
     FormsModule
+  ],
+  providers: [
+    MessageService,
   ]
 })
 

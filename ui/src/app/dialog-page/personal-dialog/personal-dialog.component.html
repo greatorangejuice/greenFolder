@@ -1,1 +1,10 @@
 <p>personal-dialog works!</p>
+
+<div class="chat">
+  <div *ngFor="let message of messages">
+    <div class="message" [ngClass]="{'left': !isItme, 'right': isItme}">
+      <div><h5>{{message.from}}</h5></div>
+      <p>{{message.message}}</p>
+    </div>
+  </div>
+</div>

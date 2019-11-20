@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../shared/interfaces';
-import {AuthService} from '../shared/services/auth.service';
 import {TaskService} from "../shared/services/task.service";
 import {Observable} from "rxjs";
 
@@ -12,7 +11,6 @@ import {Observable} from "rxjs";
 export class TaskPageComponent implements OnInit {
 
   searchValue: string;
-  // tasksStream$: Observable<Task[]>;
   tasks$: Observable<Task[]>;
 
   constructor(
