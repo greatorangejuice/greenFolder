@@ -47,10 +47,28 @@ insert into message (id, message_body, message_head, sender_user_id, recipient_u
             values (4, 'fuck you', 'hello mr.customer', 1, 2, false);
 
 insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (5, 'ok', 'changes', 2, 1, false);
+            values (5, 'ok', 'changes', 3, 1, false);
 
 insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (6, 'where my task?', 'for task', 1, 2, false);
+            values (6, 'where my task?', 'for task', 1, 3, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (7, 'feature 11 for task', 'feat', 2, 3, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (8, 'we need talk', 'call me', 3, 2, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (9, 'ololo i trakaka', 'ololo', 3, 1, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (10, 'cancel task', 'cancel', 1, 3, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (11, ' i am sorry', 'sorry', 1, 4, false);
+
+insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
+            values (12, 'i can not help you', 'help', 4, 1, false);
 
 insert into task (id, secret_id, course, university, deadline, type, faculty, keywords, name, specification, description, subject, task_status, customer_id)
             values (1, 'secretId1', '3', 0, '31.12.2019', 'course project', 0, 'java, lab', 'sessionTask', 'need some rest service', 'rest', 'java', 0, 2);

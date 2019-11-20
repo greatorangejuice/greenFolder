@@ -4,6 +4,8 @@
 
 package com.blansplatform.controller;
 
+import com.blansplatform.dto.UserAllDialoguesDto;
+import com.blansplatform.dto.DistinctDialogueDto;
 import com.blansplatform.dto.MessageDto;
 import com.blansplatform.entity.Message;
 import com.blansplatform.service.MessageService;
@@ -56,5 +58,16 @@ public class MessageController {
     public @ResponseBody Response setMessagesAsViewed(@RequestBody LinkedList<MessageDto> messagesDto) {
         messageService.setMessageViewStatusTrue(messagesDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
+    }
+
+    @GetMapping(path = "/all-dialogs/{username}")
+    public @ResponseBody
+    UserAllDialoguesDto getAllDialoguesForUser(@PathVariable String username) {
+        return messageService.getAllDialoguesForUser(username);
+    }
+
+    @PostMapping(path = "/dialog")
+    public @ResponseBody DistinctDialogueDto getDialogueWithDistinctUser(@RequestBody DistinctDialogueDto distinctDialogueDto) {
+        return messageService.getDialogueWithDistinctUser(distinctDialogueDto);
     }
 }

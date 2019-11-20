@@ -4,11 +4,14 @@
 
 package com.blansplatform.service;
 
+import com.blansplatform.dto.UserAllDialoguesDto;
+import com.blansplatform.dto.DistinctDialogueDto;
 import com.blansplatform.dto.MessageDto;
 import com.blansplatform.entity.Message;
 import com.blansplatform.repository.MessageRepository;
 import com.blansplatform.utils.converters.MessageDtoFromMessage;
 import com.blansplatform.utils.converters.MessageFromMessageDto;
+import com.blansplatform.utils.sorter.DialoguesSorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +25,13 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final MessageFromMessageDto messageFromMessageDto;
+    private final UserService userService;
 
     @Autowired
-    public MessageService(MessageRepository messageRepository, MessageFromMessageDto messageFromMessageDto) {
+    public MessageService(MessageRepository messageRepository, MessageFromMessageDto messageFromMessageDto, UserService userService) {
         this.messageRepository = messageRepository;
         this.messageFromMessageDto = messageFromMessageDto;
+        this.userService = userService;
     }
 
     public List<MessageDto> findAll() {
@@ -64,5 +69,28 @@ public class MessageService {
             m.setViewed(true);
         }
         messageRepository.saveAll(messages);
+    }
+
+    public UserAllDialoguesDto getAllDialoguesForUser(String username) {
+        Long userId = userService.findUserByUsername(username).getId();
+        List<Message> messagesFromDb = messageRepository.findAllMessagesForUser(userId);
+        if (messagesFromDb == null) {
+            throw new EntityNotFoundException("No messages for this user");
+        }
+        List<MessageDto> messagesDto = messagesFromDb.stream()
+                .map(MessageDtoFromMessage::convert)
+                .collect(Collectors.toList());
+        return new UserAllDialoguesDto(DialoguesSorter.sortAndGroup(messagesDto));
+    }
+
+    public DistinctDialogueDto getDialogueWithDistinctUser(DistinctDialogueDto distinctDialogueDto) {
+        Long firstUserId = userService.findUserByUsername(distinctDialogueDto.getFirstUsername()).getId();
+        Long secondUserId = userService.findUserByUsername(distinctDialogueDto.getSecondUsername()).getId();
+        List<Message> messagesFromDb = messageRepository.findAllMessagesBetweenTwoUsers(firstUserId, secondUserId);
+        List<MessageDto> messagesDto = messagesFromDb.stream()
+                .map(MessageDtoFromMessage::convert)
+                .collect(Collectors.toList());
+        distinctDialogueDto.setMessages(messagesDto);
+        return distinctDialogueDto;
     }
 }

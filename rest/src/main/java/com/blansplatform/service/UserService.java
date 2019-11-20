@@ -113,7 +113,11 @@ public class UserService implements UserDetailsService {
     }
 
     public User findUserByUsername(String username) {
-       return userRepository.findFirstUserByUsername(username);
+        User userFromDb = userRepository.findFirstUserByUsername(username);
+        if (userFromDb == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+       return userFromDb;
     }
 
     @Override
