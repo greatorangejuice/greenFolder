@@ -2,7 +2,6 @@
 <!--  Почему-то !loading не работает -->
   <div class="top">
     <app-profile [user]="user" class="flex"></app-profile>
-    <app-notification-list *ngIf="outgoingMessages" [messages]="outgoingMessages"></app-notification-list>
   </div>
   <div class="flex center">
     <mat-button-toggle-group [value]="currentComponent" name="fontStyle" aria-label="Font Style">

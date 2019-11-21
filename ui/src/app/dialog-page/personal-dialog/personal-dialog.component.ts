@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Dialog} from "../../shared/_models/dialog";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {MessageService} from "../../shared/services/message.service";
 import {Observable} from "rxjs";
@@ -13,6 +12,7 @@ import {Message} from "../../shared/_models/message";
 })
 export class PersonalDialogComponent implements OnInit {
 
+  @ViewChild("textarea", {static: true}) textArea: ElementRef;
   isItme = true;
   dialog$:Observable<Message[]>;
 
@@ -22,6 +22,7 @@ export class PersonalDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.textArea);
     this.dialog$ = this.route.queryParams
       .pipe(
         switchMap((params: Params) => {
