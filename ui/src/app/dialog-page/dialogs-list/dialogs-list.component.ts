@@ -3,7 +3,8 @@ import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {Dialog} from "../../shared/_models/dialog";
 import {MessageService} from "../../shared/services/message.service";
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
+import {PreviewDialog} from "../../shared/_models/previewDialog";
 
 @Component({
   selector: 'app-dialogs-list',
@@ -13,9 +14,10 @@ import {tap} from "rxjs/operators";
 export class DialogsListComponent implements OnInit {
 
   searchValue: string;
-  dialogs$: Observable<Dialog[]>;
+  dialogs$: Observable<PreviewDialog[]>;
   isLoading = true;
   errorMessage = '';
+  date = new Date();
 
   constructor(
     private router: Router,
@@ -29,10 +31,19 @@ export class DialogsListComponent implements OnInit {
   getMessages() {
     return this.messageService.getDialogs()
       .pipe(
-        tap(
-          () => {
+        map(
+          (req) => {
+            console.log(req);
+            const username = localStorage.getItem('username');
+            const keys = Object.keys(req['dialogues']);
+            let uniqueKeys: PreviewDialog[] = [];
+            keys.forEach((key) => {
+              const arrayMessageLength = req['dialogues'][key].length;
+              uniqueKeys.push({user: key.replace(username, '').trim(), message: req['dialogues'][key][arrayMessageLength-1].message});
+            });
+            console.log(uniqueKeys);
             this.isLoading = false;
-            console.log(this.dialogs$);
+            return uniqueKeys;
           },
           (error) => {
             this.isLoading = false;
@@ -43,7 +54,11 @@ export class DialogsListComponent implements OnInit {
       )
   }
 
-  goToDialog(id: number) {
-    this.router.navigate([`/${id}`])
+  goToDialog(user: string) {
+    this.router.navigate([`dialogs`, 'personal'], {
+      queryParams: {
+        user: user,
+      },
+    })
   }
 }

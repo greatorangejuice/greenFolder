@@ -29,19 +29,19 @@ export class AdminService {
   }
 
   banUser(username: string):Observable<void> {
-    return this.http.post<void>(`${environment.backend}/admin/user/ban/${username}`,{})
+    return this.http.get<void>(`${environment.backend}/admin/user/ban/${username}`)
   }
 
   unbanUser(username: string):Observable<void> {
-    return this.http.post<void>(`${environment.backend}/admin/user/unban/${username}`,{})
+    return this.http.get<void>(`${environment.backend}/admin/user/unban/${username}`)
   }
 
   deactivateUser(username: string):Observable<void> {
-    return this.http.post<void>(`${environment.backend}/admin/user/disable/${username}`,{})
+    return this.http.get<void>(`${environment.backend}/admin/user/disable/${username}`)
   }
 
   activateUser(username: string):Observable<void> {
-    return this.http.post<void>(`${environment.backend}/admin/user/restore/${username}`,{})
+    return this.http.get<void>(`${environment.backend}/admin/user/restore/${username}`)
   }
 
   setRoles(username:string, role: string[]):Observable<void> {

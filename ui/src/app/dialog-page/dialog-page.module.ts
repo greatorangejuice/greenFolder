@@ -12,6 +12,8 @@ import { PersonalDialogComponent } from './personal-dialog/personal-dialog.compo
 import {FormsModule} from "@angular/forms";
 import {SearchDialogsPipe} from "../shared/pipes/searchDialogs.pipe";
 import {MessageService} from "../shared/services/message.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../shared/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import {MessageService} from "../shared/services/message.service";
     FormsModule
   ],
   providers: [
-    MessageService,
+    MessageService, {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}
   ]
 })
 

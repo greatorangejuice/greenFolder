@@ -27,14 +27,16 @@ import { SmallProfileComponent } from './components/small-profile/small-profile.
 import {BoldDirective} from "./directives/bold.directive";
 import { DialogListComponent } from './components/small-profile/dialog-list/dialog-list.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {ObjectKeysPipe} from "./pipes/objectKeys.pipe";
 
 @NgModule({
   declarations: [
+    SearchPipe,
+    ObjectKeysPipe,
     DropdownDirective,
     GreencolorDirective,
     BoldDirective,
     MainLayoutComponent,
-    SearchPipe,
     AlertComponent,
     LoaderComponent,
     GoogleLoaderComponent,
@@ -87,7 +89,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     MatListModule,
     GoogleLoaderComponent,
-    GreencolorDirective
+    GreencolorDirective,
+    ObjectKeysPipe
   ],
 })
 export class SharedModule {}

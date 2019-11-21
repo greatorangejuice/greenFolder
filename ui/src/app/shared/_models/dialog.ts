@@ -1,7 +1,7 @@
+import {Message} from "./message";
+
 export interface Dialog {
-  id: number;
-  from: string;
-  forWho: string;
-  message: string;
-  time?: Date;
+  firstUsername: string;
+  secondUsername: string;
+  messages: Message[];
 }

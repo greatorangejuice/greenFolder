@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {Dialog} from "../_models/dialog";
+import {PreviewDialog} from "../_models/previewDialog";
 
 
 @Pipe({
   name: 'searchDialog',
 })
 export class SearchDialogsPipe implements PipeTransform{
-  transform(dialogs: Dialog[], search='', searchParam=''): Dialog[] {
+  transform(dialogs: PreviewDialog[], search='', searchParam=''): PreviewDialog[] {
     if (!search.trim()) {
       return dialogs;
     }

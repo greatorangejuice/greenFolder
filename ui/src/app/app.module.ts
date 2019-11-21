@@ -16,18 +16,12 @@ import {MainPageModule} from "./main-page/main-page.module";
 import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.interceptor";
 import { DialogPageComponent } from './dialog-page/dialog-page.component';
 import {DialogPageModule} from "./dialog-page/dialog-page.module";
+import {registerLocaleData} from "@angular/common";
+import rulocale from "@angular/common/locales/ru";
 
-// const INTERCEPTOR: Provider = {
-//   provide: HTTP_INTERCEPTORS,
-//   multi: true,
-//   useClass: AuthInterceptor,
-// };
-//
-// const ERRINTERCEPTOR: Provider = {
-//   provide: HTTP_INTERCEPTORS,
-//   multi: true,
-//   useClass: CatchErrorInterceptor,
-// };
+
+
+registerLocaleData(rulocale, 'ru');
 
 @NgModule({
   declarations: [
