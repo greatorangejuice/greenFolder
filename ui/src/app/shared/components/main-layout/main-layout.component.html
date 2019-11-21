@@ -1,45 +1,60 @@
 <div class="main-layout">
     <header class="navbar">
       <h3 class="unselectable"><a [routerLink]="['/main']"><span greencolor>GREEN</span> FOLDER</a>{{title}}</h3>
-      <div >
-        <button mat-button [matMenuTriggerFor]="beforeMenu">
+      <div class="flex">
+        <div >
+          <app-small-profile></app-small-profile>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
           <mat-icon>menu</mat-icon>
         </button>
+
         <mat-menu #beforeMenu="matMenu" xPosition="before">
-          <div
-            *ngIf="!title; else main"
-          >
-            <button
-              mat-menu-item
-              color="black"
-              class="burger-button"
-              (click)="goToPage('user')"
+          <div *ngIf="isLogged">
+            <div
+              *ngIf="!title"
             >
-              <mat-icon>account_circle</mat-icon>
-              Account
-            </button>
-          </div>
+              <button
+                mat-menu-item
+                class="burger-button"
+                (click)="goToPage('user')"
+              >
+                <mat-icon>account_circle</mat-icon>
+                Account
+              </button>
+            </div>
 
-          <ng-template #main>
-            <button
-              mat-menu-item
-              color="black"
-              class="burger-button"
-              (click)="goToPage('main')"
-            >
-              <mat-icon>home</mat-icon>
-              Main Page
-            </button>
-          </ng-template>
+              <button
+                *ngIf="title"
+                mat-menu-item
+                class="burger-button"
+                (click)="goToPage('main')"
+              >
+                <mat-icon>home</mat-icon>
+                Main Page
+              </button>
 
-          <div>
+            <div
+              *ngIf="roles.includes('EXECUTOR') || roles.includes('ADMIN')"
+            >
+              <button
+                mat-menu-item
+                class="burger-button"
+                [routerLink]="['/tasks']"
+              >
+                <mat-icon>list_alt</mat-icon>
+                Tasks
+              </button>
+            </div>
+
             <button
+              *ngIf="roles.includes('ADMIN')"
               mat-menu-item
               class="burger-button"
-              [routerLink]="['/tasks']"
+              [routerLink]="['/shuffle']"
             >
-              <mat-icon>list_alt</mat-icon>
-              Tasks
+              <mat-icon>security</mat-icon>
+              Admin Page
             </button>
           </div>
 

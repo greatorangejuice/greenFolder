@@ -2,8 +2,22 @@
 <!--  Почему-то !loading не работает -->
   <div class="top">
     <app-profile [user]="user" class="flex"></app-profile>
-    <app-notification-list [messages]="outgoingMessages"></app-notification-list>
+    <app-notification-list *ngIf="outgoingMessages" [messages]="outgoingMessages"></app-notification-list>
   </div>
-  <app-user-tasks-lists [taskLikeCustomer]="tasksLikeCustomer" [taskLikeExecutor]="tasksLikeExecutor"></app-user-tasks-lists>
+  <div class="flex center">
+    <mat-button-toggle-group [value]="currentComponent" name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="tasks" (click)="currentComponent = 'tasks'">Задания</mat-button-toggle>
+      <mat-button-toggle value="offers" (click)="currentComponent= 'offers'">Предложения о выполнении</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div *ngIf="tasksLikeCustomer || tasksLikeExecutor else loading">
+    <app-user-tasks-lists *ngIf="currentComponent === 'tasks' else offerList" [taskLikeCustomer]="tasksLikeCustomer"
+                          [taskLikeExecutor]="tasksLikeExecutor"></app-user-tasks-lists>
+  </div>
 </div>
-<ng-template #loading><app-loader diameter="70"></app-loader></ng-template>
+
+<ng-template #offerList>
+  <app-offers-list [offers]="offers"></app-offers-list>
+</ng-template>
+<ng-template #loading><app-loader diameter="50"></app-loader></ng-template>

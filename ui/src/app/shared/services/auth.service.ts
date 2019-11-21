@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {loginResponse, Token, Univers, User} from '../interfaces';
+import {loginResponse, Univers, User} from '../interfaces';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {catchError, map, tap} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {AlertService} from "./alert.service";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import {map, tap} from 'rxjs/operators';
+import {JwtHelperService} from "@auth0/angular-jwt";
 import {delayedRetry} from "../customOperators/retryFailedRequest";
 
 @Injectable({
@@ -14,11 +12,19 @@ import {delayedRetry} from "../customOperators/retryFailedRequest";
 })
 export class AuthService {
 
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
   constructor(
     private httpClient: HttpClient,
-    private route: Router,
-    private alertService: AlertService,
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('username'));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   permissions() {
     const myRawToken = localStorage.getItem('idToken');
@@ -26,28 +32,25 @@ export class AuthService {
     const decodedToken = helper.decodeToken(myRawToken);
     // const expirationDate = helper.getTokenExpirationDate(myRawToken);
     // const isExpired = helper.isTokenExpired(myRawToken);
-    return decodedToken.roles;
+   if (decodedToken) {
+     return decodedToken.roles
+   }
+   return [];
+  }
+
+  isExpired() {
+    const myRawToken = localStorage.getItem('idToken');
+    const helper = new JwtHelperService();
+    const isExpired = helper.isTokenExpired(myRawToken);
+    return isExpired;
   }
 
   get token(): string {
-    console.log('Проверка токена');
     const expireDate = new Date(localStorage.getItem('idToken-expires'));
-    // console.log(expireDate);
-    // console.log('======================');
-    // const myRawToken = localStorage.getItem('idToken');
-    // const helper = new JwtHelperService();
-    // const decodedToken = helper.decodeToken(myRawToken);
-    // const expirationDate = helper.getTokenExpirationDate(myRawToken);
-    // const isExpired = helper.isTokenExpired(myRawToken);
-    // console.log(decodedToken);
-    // console.log(expireDate);
-    // console.log(isExpired);
-    // console.log(expirationDate);
-    // console.log('======================');
+
     if (new Date() > expireDate) {
-      console.log('Зашло в условие new Date > expireDate');
       this.logout();
-      return null;
+      return
     }
     if (expireDate.getTime() - new Date().getTime() <= 300000) {
       this.refreshToken()
@@ -63,8 +66,6 @@ export class AuthService {
   }
 
   private setToken(response: loginResponse | null) {
-    console.log('Устанавливаю токен');
-    console.log(response);
     if (response) {
       const expiresDate = new Date(new Date().getTime() + +response.tokenLifeTime);
       localStorage.setItem('idToken', response.token);
@@ -75,7 +76,6 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    console.log('REFRESH TOKEN');
     const token = localStorage.getItem('idToken');
     const username = localStorage.getItem('username');
     const request = { token: token, username: username };
@@ -86,13 +86,19 @@ export class AuthService {
     return this.httpClient.post(`${environment.backend}/login`, user)
       .pipe(
         tap(
-            this.setToken,
+          (user) => {
+            localStorage.setItem('idToken', user.token);
+            const expiresDate = new Date(new Date().getTime() + +user.tokenLifeTime);
+            localStorage.setItem('idToken-expires', expiresDate.toString());
+            this.currentUserSubject.next(user);
+          }
         )
       );
   }
 
   logout() {
-    this.setToken(null);
+    localStorage.clear();
+    this.currentUserSubject.next(null);
   }
 
   signup(user: User): Observable<any> {
@@ -130,3 +136,18 @@ export class AuthService {
   }
 
 }
+
+
+
+// console.log(expireDate);
+// console.log('======================');
+// const myRawToken = localStorage.getItem('idToken');
+// const helper = new JwtHelperService();
+// const decodedToken = helper.decodeToken(myRawToken);
+// const expirationDate = helper.getTokenExpirationDate(myRawToken);
+// const isExpired = helper.isTokenExpired(myRawToken);
+// console.log(decodedToken);
+// console.log(expireDate);
+// console.log(isExpired);
+// console.log(expirationDate);
+// console.log('======================');

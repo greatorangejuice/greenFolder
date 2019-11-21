@@ -1,0 +1,14 @@
+<div class="chat" *ngIf="dialog$ | async as messages">
+  <div *ngFor="let message of messages">
+    <div class="flex align-items-center message" [ngClass]="{'left': !isItme, 'right': isItme}">
+      <div class="badge" [style.backgroundColor]="getSenderColor(message.userFrom)">{{ getSenderInitials(message.userFrom) }}</div>
+      <div>
+        <div class="flex align-items-center">
+          <p class="username">{{message.userFrom}}</p>
+          <small class="time">{{message.date | date:'medium':null:'ru'}}</small>
+        </div>
+        <p class="message-text">{{message.message}}</p>
+      </div>
+    </div>
+  </div>
+</div>

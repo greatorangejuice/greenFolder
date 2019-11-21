@@ -11,11 +11,12 @@ export class UserTasksListsComponent implements OnInit {
   @Input() taskLikeCustomer: Task[];
   @Input() taskLikeExecutor: Task[];
   visibleTasks = 'ALLTASKS';
-  checkedList = 'EXECUTOR';
+  checkedList = 'CUSTOMER';
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   changeStatus(status: string) {
     this.visibleTasks = status;

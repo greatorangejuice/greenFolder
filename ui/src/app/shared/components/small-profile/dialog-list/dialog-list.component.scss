@@ -1,0 +1,43 @@
+.side-form {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  padding: 20px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-search {
+  margin: 0 auto;
+  width: 70%;
+}
+
+.test-dialog {
+  display: flex;
+}
+
+.dialog {
+  padding: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
+  &:nth-child(odd) {
+    background-color: #f0f8ff
+  }
+}
+
+.dialog,
+.dialog-theme,
+.message {
+  padding: 0.5rem;
+}
+

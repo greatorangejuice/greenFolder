@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {AllAccountInfo, Message, Task, User} from '../shared/interfaces';
+import {AllAccountInfo, Message, Offer, Task, User} from '../shared/interfaces';
 import {UserService} from "../shared/services/user.service";
 
 @Component({
@@ -13,7 +13,9 @@ export class UserPageComponent implements OnInit {
   outgoingMessages: Message[];
   tasksLikeCustomer: Task[];
   tasksLikeExecutor: Task[];
+  offers: Offer[];
   loading = true;
+  currentComponent = 'tasks';
   constructor(
     private userService: UserService,
   ) { }
@@ -23,12 +25,19 @@ export class UserPageComponent implements OnInit {
       .subscribe(
         (request: AllAccountInfo) => {
           this.loading = false;
-          console.log(this.loading);
           this.user = request.user;
           this.outgoingMessages = request.outgoingMessages;
           this.tasksLikeCustomer = request.tasksLikeCustomer;
           this.tasksLikeExecutor = request.tasksLikeExecutor;
         }
+      );
+
+    this.userService.getOffersList()
+      .subscribe(
+        (request: Offer[]) => {
+          this.offers = request;
+        }
       )
   }
+
 }
