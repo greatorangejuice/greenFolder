@@ -1,0 +1,27 @@
+<!--<div *ngFor="let offer of offers">-->
+<!--  <div *ngIf="offer">-->
+<!--    {{offer.customer}}-->
+<!--    {{offer.offerStatus}}-->
+<!--    {{offer.comment}}-->
+<!--    {{offer.bid}}-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="offer-cards">
+  <div *ngFor="let offer of offers" class="card">
+    <div class="flex space-between align-items-center">
+      <h4>Ваше предложение для <span greencolor>{{offer.customer | uppercase }}</span></h4>
+      <mat-icon>reorder</mat-icon>
+    </div>
+    <div><span>ID: </span>{{offer.id}}</div>
+    <div><span>Сообщение: </span><p class="italic">{{offer.comment}}</p></div>
+    <div><span>Предложенная цена: </span><strong>{{offer.bid}}</strong></div>
+    <div><span>Статус предложения: </span><strong>{{offer.offerStatus}}</strong></div>
+    <div class="flex">
+      <button mat-raised-button class="decline"> Отменить </button>
+      <button mat-raised-button class="accept"> Редактировать </button>
+    </div>
+  </div>
+
+</div>

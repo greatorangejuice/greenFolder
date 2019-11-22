@@ -1,24 +1,24 @@
 <div>
   <mat-radio-group [value]="visibleTasks" aria-label="Select an option" class="filter-list">
     <div>
-      <mat-radio-button value="ALLTASKS" (click)="changeStatus('ALLTASKS')">All tasks</mat-radio-button>
+      <mat-radio-button value="ALLTASKS" (click)="changeStatus('ALLTASKS')">Все задания</mat-radio-button>
     </div>
     <div>
-      <mat-radio-button value="INPROGRESS" (click)="changeStatus('INPROGRESS')">In progress tasks</mat-radio-button>
+      <mat-radio-button value="INPROGRESS" (click)="changeStatus('INPROGRESS')">В процессе выполнения</mat-radio-button>
     </div>
     <div>
-      <mat-radio-button value="ACTIVE" (click)="changeStatus('ACTIVE')">Active tasks</mat-radio-button>
+      <mat-radio-button value="ACTIVE" (click)="changeStatus('ACTIVE')">Доступные задания</mat-radio-button>
     </div>
     <div>
-      <mat-radio-button value="DONE" (click)="changeStatus('DONE')">Finished tasks</mat-radio-button>
+      <mat-radio-button value="DONE" (click)="changeStatus('DONE')">Завершённые задания</mat-radio-button>
     </div>
     <div>
-      <mat-radio-button value="INACTIVE" (click)="changeStatus('INACTIVE')">Inactive tasks</mat-radio-button>
+      <mat-radio-button value="INACTIVE" (click)="changeStatus('INACTIVE')">Отменённые задания</mat-radio-button>
     </div>
   </mat-radio-group>
 </div>
 <div>
-  <mat-radio-group [value]="checkedList" aria-label="Select an option" class="filter-list">
+  <mat-radio-group *ngIf="taskLikeExecutor !== []" [value]="checkedList" aria-label="Select an option" class="filter-list">
     <div>
       <mat-radio-button value="EXECUTOR" (click)="changeList('EXECUTOR')">Исполнитель</mat-radio-button>
     </div>

@@ -14,18 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AlertService} from "./shared/services/alert.service";
 import {MainPageModule} from "./main-page/main-page.module";
 import {CatchErrorInterceptor} from "./shared/interceptors/catch-error.interceptor";
+import { DialogPageComponent } from './dialog-page/dialog-page.component';
+import {DialogPageModule} from "./dialog-page/dialog-page.module";
+import {registerLocaleData} from "@angular/common";
+import rulocale from "@angular/common/locales/ru";
 
-const INTERCEPTOR: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: AuthInterceptor,
-};
 
-const ERRINTERCEPTOR: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  multi: true,
-  useClass: CatchErrorInterceptor,
-};
+
+registerLocaleData(rulocale, 'ru');
 
 @NgModule({
   declarations: [
@@ -40,8 +36,14 @@ const ERRINTERCEPTOR: Provider = {
     UserModule,
     BrowserAnimationsModule,
     MainPageModule,
+    DialogPageModule,
   ],
-  providers: [AuthGuard, INTERCEPTOR, AlertService, ERRINTERCEPTOR],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor},
+    {provide: HTTP_INTERCEPTORS, multi: true, useClass: CatchErrorInterceptor},
+    AlertService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

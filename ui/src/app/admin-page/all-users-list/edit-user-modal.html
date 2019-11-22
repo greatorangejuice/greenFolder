@@ -1,0 +1,62 @@
+<div class="flex center edit-modal">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="edit-user-page">
+      <mat-form-field>
+        <input
+          matInput placeholder="Username"
+          formControlName="username"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Name"
+               formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Surname"
+               formControlName="surname">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select [value]="data.userStatus" placeholder="Status" formControlName="status">
+          <mat-option value="ACTIVE">ACTIVE</mat-option>
+          <mat-option value="INACTIVE">BANNED</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="buttons">
+      <div>
+        <div>
+          <button
+            mat-button
+            type="submit"
+            class="common-buttons"
+          >Change user
+          </button>
+        </div>
+      </div>
+      <div class="alert">{{message}}</div>
+    </div>
+  </form>
+
+  <mat-card>
+    <mat-card-header>Admin HAMMER</mat-card-header>
+    <mat-card-content >
+      <div class="flex align-items-center">
+        <button mat-button class="common-buttons" (click)="banUser(data.username)" *ngIf="data.userStatus === 'ACTIVE'"
+                [disabled]="loading">Выписать бан
+          для {{data.username}}</button>
+        <app-loader *ngIf="loading" diameter="30"></app-loader>
+      </div>
+
+    <button mat-button class="common-buttons" (click)="unbanUser(data.username)" *ngIf="data.userStatus === 'BANNED'" [disabled]="loading">
+        Разбанить {{data.username}}</button>
+    </mat-card-content>
+
+    <mat-card-content>
+      <button mat-button class="common-buttons">
+        Деактивировать {{data.username}}</button>
+      <button mat-button *ngIf="data.userStatus === 'DISABLED'" class="common-buttons">
+        Активировать {{data.username}}</button>
+    </mat-card-content>
+  </mat-card>
+</div>

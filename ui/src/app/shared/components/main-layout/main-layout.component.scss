@@ -9,6 +9,8 @@ body {
   user-select: none;
 }
 .main-layout {
+  margin: 0 auto;
+  max-width: 1500px;
   min-height: calc(100vh - 30px);
 }
 .content {
@@ -16,4 +18,10 @@ body {
 .footer {
   display: flex;
   justify-content: center;
+}
+
+.test {
+  margin: 0 auto;
+  border: 2px solid black;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }

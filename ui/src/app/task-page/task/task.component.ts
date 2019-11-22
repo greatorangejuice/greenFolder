@@ -20,6 +20,7 @@ export class TaskComponent implements OnInit {
   form: FormGroup;
   username = localStorage.getItem('username');
   isCustomer = false;
+  isAdmin = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,9 +38,9 @@ export class TaskComponent implements OnInit {
       );
     this.initForm();
     const permissions = this.auth.permissions();
-    if (permissions.includes('EXECUTOR')) {
-      this.isCustomer = true;
-    };
+
+    this.isAdmin = permissions.includes('ADMIN');
+    this.isCustomer = permissions.includes('EXECUTOR') || permissions.includes('ADMIN');
   }
 
   initForm() {

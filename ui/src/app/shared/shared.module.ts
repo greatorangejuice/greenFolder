@@ -13,7 +13,7 @@ import {
   MatSnackBarModule,
   MatDialog,
   MatDialogModule,
-  MatDatepickerModule, MatNativeDateModule, MatListModule,
+  MatDatepickerModule, MatNativeDateModule, MatListModule, MatBadgeModule,
 } from '@angular/material';
 import {MainLayoutComponent} from './components/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
@@ -23,16 +23,25 @@ import {GreencolorDirective} from "./directives/greencolor.directive";
 import { AlertComponent } from './components/alert/alert.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GoogleLoaderComponent } from './components/google-loader/google-loader.component';
+import { SmallProfileComponent } from './components/small-profile/small-profile.component';
+import {BoldDirective} from "./directives/bold.directive";
+import { DialogListComponent } from './components/small-profile/dialog-list/dialog-list.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {ObjectKeysPipe} from "./pipes/objectKeys.pipe";
 
 @NgModule({
   declarations: [
+    SearchPipe,
+    ObjectKeysPipe,
     DropdownDirective,
     GreencolorDirective,
+    BoldDirective,
     MainLayoutComponent,
-    SearchPipe,
     AlertComponent,
     LoaderComponent,
     GoogleLoaderComponent,
+    SmallProfileComponent,
+    DialogListComponent,
   ],
   imports: [
     CommonModule,
@@ -52,11 +61,14 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatBadgeModule,
+    ReactiveFormsModule
   ],
   exports: [
     HttpClientModule,
     DropdownDirective,
+    BoldDirective,
     _MatMenuDirectivesModule,
     MatButtonModule,
     MatIconModule,
@@ -76,7 +88,9 @@ import { GoogleLoaderComponent } from './components/google-loader/google-loader.
     MatNativeDateModule,
     MatDialogModule,
     MatListModule,
-    GoogleLoaderComponent
+    GoogleLoaderComponent,
+    GreencolorDirective,
+    ObjectKeysPipe
   ],
 })
 export class SharedModule {}

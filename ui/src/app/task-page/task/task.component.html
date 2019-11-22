@@ -1,18 +1,37 @@
-<h3>Очередное дело</h3>
 <div *ngIf="task$ | async as task; else loading">
-  <div class="flex column task-params">
-    <div class="flex align-items-center">Статус: {{task.taskStatus}}</div>
-    <div class="flex align-items-center"><mat-icon>person</mat-icon>Имя: {{task.name}}</div>
-    <div class="flex align-items-center">Предмет: {{task.subject}}</div>
-    <div class="flex align-items-center">Описание задания: {{task.specification}}</div>
-    <div class="flex align-items-center">Заказчик: {{task.customer}}</div>
-    <div class="flex align-items-center">Теги: {{task.keywords}}</div>
+  <h3>Очередное дело</h3>
+
+  <div class="flex">
+    <div class="flex column task-params">
+      <div>Статус: {{task.taskStatus}}</div>
+      <div>
+        <mat-icon>person</mat-icon>
+        Имя: {{task.name}}</div>
+      <div>Предмет: {{task.subject}}</div>
+      <div>Описание задания: {{task.specification}}</div>
+      <div>Заказчик: {{task.customer}}</div>
+      <div>Теги: {{task.keywords}}</div>
+      <div *ngIf="task.executor">Исполнитель: {{task.executor}}</div>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+      <mat-icon>clear_all</mat-icon>
+    </button>
   </div>
-  <div *ngIf="task.executor">Исполнитель: {{task.executor}}</div>
-<!--  <h4>Предложения:</h4>-->
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+
+        <button
+          mat-menu-item
+          class="burger-button"
+        >
+          <mat-icon>account_circle</mat-icon>
+          Account
+        </button>
+  </mat-menu>
+
   <hr>
-  <div *ngIf="username === task.customer" class="offer-cards">
-    <div *ngIf="task.offers.length === 0">Пока нет новых откликов на ваше задание</div>
+
+  <div *ngIf="username === task.customer || isAdmin" class="offer-cards">
+    <div *ngIf="task.offers.length === 0">Пока нет новых откликов на задание</div>
     <div *ngFor="let offer of task.offers let idx = index" class="card">
       <div class="flex space-between align-items-center">
         <h4>Предложение номер {{idx + 1}}</h4>

@@ -1,4 +1,4 @@
-<div class="notofications">
+<div *ngIf="messages.length else emptyList" class="notofications">
   <div *ngFor="let message of messages"  class="notification-title" >
     <div (click)="openNoti(message.messageHead, message.messageBody, message.userFrom)">
       <p>Сообщение от <strong>{{message.userFrom}} </strong></p>
@@ -6,3 +6,4 @@
     </div>
   </div>
 </div>
+<ng-template #emptyList>Нет сообщений</ng-template>

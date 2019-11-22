@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../shared/auth.interceptor";
 import {AuthGuard} from "../shared/services/auth.guard";
 import {CatchErrorInterceptor} from "../shared/interceptors/catch-error.interceptor";
+import { OffersListComponent } from './offers-list/offers-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {CatchErrorInterceptor} from "../shared/interceptors/catch-error.intercep
     UserTasksListsComponent,
     NotificationModal,
     EditProfileComponent,
+    OffersListComponent,
   ],
   entryComponents: [NotificationListComponent,NotificationModal, EditProfileComponent, ProfileComponent],
   imports: [
