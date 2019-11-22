@@ -1,8 +1,17 @@
 <div class="flex align-items-center small-profile">
   <img src="../../../../assets/images/user.png" alt="avatar" class="mini-avatar">
-  <button mat-icon-button appDropdown [routerLink]="['/dialogs']">
-    <mat-icon matBadge="15" matBadgeColor="warn">chat_bubble_outline</mat-icon>
-  </button>
+  <div *ngIf="counter$ | async as counter" >
+    <button *ngIf="counter.count !== 0 else empty" mat-icon-button appDropdown [routerLink]="['/dialogs']">
+      <mat-icon matBadge="{{counter.count}}" matBadgeColor="warn">chat_bubble_outline</mat-icon>
+    </button>
+
+    <ng-template #empty>
+      <button mat-icon-button appDropdown [routerLink]="['/dialogs']">
+        <mat-icon>chat_bubble_outline</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+
   <button mat-icon-button appDropdown>
     <mat-icon matBadge="15" matBadgeColor="warn">notifications_none</mat-icon>
   </button>

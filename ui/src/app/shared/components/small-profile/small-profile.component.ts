@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {fadeInAnimation} from "../../_animations/fade-in.animation";
+import {MessageService} from "../../services/message.service";
+import {Observable} from "rxjs";
+import {DialogCounter} from "../../_models/dialogCounter";
 
 @Component({
   selector: 'app-small-profile',
@@ -12,9 +15,14 @@ import {fadeInAnimation} from "../../_animations/fade-in.animation";
 })
 export class SmallProfileComponent implements OnInit {
 
-  constructor() { }
+  counter$:Observable<DialogCounter>;
+
+  constructor(
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit() {
+   this.counter$ = this.messageService.getAllUnreadDialogues();
   }
 
 }

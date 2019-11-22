@@ -17,11 +17,6 @@ export class CatchErrorInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      tap(
-        () => {
-          console.log('ErrorInterceptor')
-        }
-      ),
       catchError((error: HttpErrorResponse) => {
         switch (error.status) {
           case 400:

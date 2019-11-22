@@ -29,10 +29,8 @@ export class AuthGuard implements CanActivate {
 
     const helper = new JwtHelperService();
     const decodedToken: Permissions = helper.decodeToken(myRawToken);
-    // console.log(decodedToken.roles);
 
     const contains = (where, what) => {
-      console.log('Зашло в contains');
       for(let i=0; i<what.length; i++){
         if(where.indexOf(what[i].toUpperCase()) == -1) return false;
       }
@@ -44,7 +42,6 @@ export class AuthGuard implements CanActivate {
       // console.log('Роли гварда:', route.data.roles);
 
       if (decodedToken.roles.includes(<Role>'ADMIN')) {
-        console.log('ADMIN');
         return true;
       }
 

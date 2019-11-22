@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {EMPTY, Observable} from "rxjs";
 import {delayedRetry} from "../customOperators/retryFailedRequest";
 import {catchError, tap} from "rxjs/operators";
+import {DialogCounter} from "../_models/dialogCounter";
 
 @Injectable()
 export class MessageService {
@@ -33,6 +34,22 @@ export class MessageService {
         tap(
           (req) => {
             console.log(req);
+          }
+        )
+      )
+  }
+
+  getAllUnreadDialogues():Observable<DialogCounter> {
+    return this.http.get<DialogCounter>(`${environment.backend}/message/${this.username}/new-messages-count`)
+  }
+
+  setDialogAsViewed(sender):Observable<any> {
+    console.log("SENDER", sender);
+    return this.http.post<any>(`${environment.backend}/message/set-dialog-as-viewed`, {sender: sender, recipient: this.username})
+      .pipe(
+        tap(
+          () => {
+            'Counter is changed'
           }
         )
       )
