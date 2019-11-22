@@ -7,7 +7,6 @@ package com.blansplatform.controller;
 import com.blansplatform.dto.UserDto;
 import com.blansplatform.entity.User;
 import com.blansplatform.service.UserService;
-import com.blansplatform.utils.converters.UserDtoFromUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

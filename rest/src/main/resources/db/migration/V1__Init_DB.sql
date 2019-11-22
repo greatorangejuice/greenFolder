@@ -4,11 +4,11 @@ insert into hibernate_sequence values ( 1 );
 
 create table message (
   id bigint not null auto_increment,
-  message_body varchar(255),
-  message_head varchar(255),
+  message varchar(255),
   sender_user_id bigint,
   recipient_user_id bigint,
   is_viewed boolean,
+  date DATETIME,
   primary key (id)
 ) engine=InnoDB;
 

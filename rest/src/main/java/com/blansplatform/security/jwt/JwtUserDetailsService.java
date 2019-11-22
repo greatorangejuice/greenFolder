@@ -2,9 +2,7 @@ package com.blansplatform.security.jwt;
 
 import com.blansplatform.entity.User;
 import com.blansplatform.repository.UserRepository;
-import com.blansplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

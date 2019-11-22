@@ -1,6 +1,8 @@
 package com.blansplatform.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -15,35 +17,26 @@ public class Message {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "recipientUserId")
     private User userTo;
-    private String messageHead;
-    private String messageBody;
+    private String message;
+    private Timestamp date;
 
-    public Message(Long id, User userFrom, User userTo, String messageHead, String messageBody, boolean isViewed) {
+    public Message(Long id, boolean isViewed, User userFrom, User userTo, String message, Timestamp date) {
         this.id = id;
+        this.isViewed = isViewed;
         this.userFrom = userFrom;
         this.userTo = userTo;
-        this.messageHead = messageHead;
-        this.messageBody = messageBody;
-        this.isViewed = isViewed;
+        this.message = message;
+        this.date = date;
     }
 
-    public Message(User userFrom, User userTo, String messageHead, String messageBody, boolean isViewed) {
+    public Message(User userFrom, User userTo, String message, Timestamp date) {
         this.userFrom = userFrom;
         this.userTo = userTo;
-        this.messageHead = messageHead;
-        this.messageBody = messageBody;
-        this.isViewed = isViewed;
+        this.message = message;
+        this.date = date;
     }
 
     public Message() {
-    }
-
-    public boolean isViewed() {
-        return isViewed;
-    }
-
-    public void setViewed(boolean viewed) {
-        isViewed = viewed;
     }
 
     public Long getId() {
@@ -52,6 +45,14 @@ public class Message {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isViewed() {
+        return isViewed;
+    }
+
+    public void setViewed(boolean viewed) {
+        isViewed = viewed;
     }
 
     public User getUserFrom() {
@@ -70,20 +71,20 @@ public class Message {
         this.userTo = userTo;
     }
 
-    public String getMessageHead() {
-        return messageHead;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessageHead(String messageHead) {
-        this.messageHead = messageHead;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getMessageBody() {
-        return messageBody;
+    public Timestamp getDate() {
+        return date;
     }
 
-    public void setMessageBody(String messageBody) {
-        this.messageBody = messageBody;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     @Override
@@ -95,13 +96,13 @@ public class Message {
                 Objects.equals(id, message.id) &&
                 Objects.equals(userFrom, message.userFrom) &&
                 Objects.equals(userTo, message.userTo) &&
-                Objects.equals(messageHead, message.messageHead) &&
-                Objects.equals(messageBody, message.messageBody);
+                Objects.equals(this.message, message.message) &&
+                Objects.equals(date, message.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isViewed, userFrom, userTo, messageHead, messageBody);
+        return Objects.hash(id, isViewed, userFrom, userTo, message, date);
     }
 
     @Override
@@ -111,8 +112,8 @@ public class Message {
                 ", isViewed=" + isViewed +
                 ", userFrom=" + userFrom +
                 ", userTo=" + userTo +
-                ", messageHead='" + messageHead + '\'' +
-                ", messageBody='" + messageBody + '\'' +
+                ", message='" + message + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

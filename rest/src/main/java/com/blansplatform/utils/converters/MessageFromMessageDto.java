@@ -24,11 +24,11 @@ public class MessageFromMessageDto {
     public Message convert(MessageDto messageDto) {
         return new Message(
                 messageDto.getId(),
+                messageDto.isViewed(),
                 userRepository.findFirstUserByUsername(messageDto.getUserFrom()),
                 userRepository.findFirstUserByUsername(messageDto.getUserTo()),
-                messageDto.getMessageHead(),
-                messageDto.getMessageBody(),
-                messageDto.isViewed()
+                messageDto.getMessage(),
+                messageDto.getDate()
         );
     }
 }

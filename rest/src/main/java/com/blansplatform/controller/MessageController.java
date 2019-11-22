@@ -4,10 +4,7 @@
 
 package com.blansplatform.controller;
 
-import com.blansplatform.dto.UserAllDialoguesDto;
-import com.blansplatform.dto.DistinctDialogueDto;
-import com.blansplatform.dto.MessageDto;
-import com.blansplatform.entity.Message;
+import com.blansplatform.dto.*;
 import com.blansplatform.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,20 +34,20 @@ public class MessageController {
     }
 
     @PostMapping
-    public @ResponseBody Response addNewMessage(@RequestBody Message message) {
-        messageService.addMessage(message);
+    public @ResponseBody Response addNewMessage(@RequestBody MessageDto messageDto) {
+        messageService.addMessage(messageDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 
     @DeleteMapping
-    public @ResponseBody Response deleteMessage(@RequestBody Message message) {
-        messageService.deleteMessage(message);
+    public @ResponseBody Response deleteMessage(@RequestBody MessageDto messageDto) {
+        messageService.deleteMessage(messageDto);
         return Response.status(Response.Status.OK.getStatusCode()).build();
     }
 
     @PutMapping
-    public @ResponseBody Response updateMessage(@RequestBody Message message) {
-        messageService.updateMessage(message);
+    public @ResponseBody Response updateMessage(@RequestBody MessageDto messageDto) {
+        messageService.updateMessage(messageDto);
         return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 
@@ -69,5 +66,21 @@ public class MessageController {
     @PostMapping(path = "/dialog")
     public @ResponseBody DistinctDialogueDto getDialogueWithDistinctUser(@RequestBody DistinctDialogueDto distinctDialogueDto) {
         return messageService.getDialogueWithDistinctUser(distinctDialogueDto);
+    }
+
+    @GetMapping(path = "/{username}/new-messages-count")
+    public @ResponseBody NewMessagesCount getNewMessagesCount(@PathVariable String username) {
+        return messageService.getNewMessagesCount(username);
+    }
+
+    @PostMapping(path = "/dialog-new-messages-count")
+    public @ResponseBody NewMessagesCount getNewMessagesCountForDialogue(@RequestBody SenderRecipientDto senderRecipientDto) {
+        return messageService.getNewMessagesCountForDialogue(senderRecipientDto);
+    }
+
+    @PostMapping(path = "/set-dialog-as-viewed")
+    public @ResponseBody Response setDialogueAsViewed(@RequestBody SenderRecipientDto senderRecipientDto) {
+        messageService.setDialogueAsViewed(senderRecipientDto);
+        return Response.status(Response.Status.CREATED.getStatusCode()).build();
     }
 }

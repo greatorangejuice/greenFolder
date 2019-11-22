@@ -15,8 +15,8 @@ public class MessageDtoFromMessage {
                 message.isViewed(),
                 message.getUserFrom().getUsername(),
                 message.getUserTo().getUsername(),
-                message.getMessageHead(),
-                message.getMessageBody()
+                message.getMessage(),
+                message.getDate()
         );
     }
 }
