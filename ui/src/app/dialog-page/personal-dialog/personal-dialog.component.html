@@ -4,7 +4,7 @@
       <div class="badge" [style.backgroundColor]="getSenderColor(message.userFrom)">{{ getSenderInitials(message.userFrom) }}</div>
       <div>
         <div class="flex align-items-center">
-          <p class="username">{{message.userFrom}}</p>
+          <p class="username">{{message.userFrom}} <span class="you" *ngIf="message.userFrom === currentUser">(вы)</span></p>
           <small class="time">{{message.date | date:'medium':null:'ru'}}</small>
         </div>
         <p class="message-text">{{message.message}}</p>

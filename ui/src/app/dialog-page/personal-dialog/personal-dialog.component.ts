@@ -13,12 +13,11 @@ import {Message} from "../../shared/_models/message";
 export class PersonalDialogComponent implements OnInit {
 
   @ViewChild("textarea", {static: true}) textArea: ElementRef;
-  sender: string;
   isItme = true;
   dialog$:Observable<Message[]>;
-  dialogState$:Observable<void>;
   user$:Observable<Params>;
-  username$:Observable<string>;
+
+  currentUser = localStorage.getItem('username');
 
   constructor(
     private route: ActivatedRoute,
@@ -38,36 +37,9 @@ export class PersonalDialogComponent implements OnInit {
       switchMap(user => this.messageService.getPersonalDialog(user)),
       map(req => req['messages']),
     );
-
     this.user$.pipe(
       switchMap(user => this.messageService.setDialogAsViewed(user))
     ).subscribe()
-
-
-
-    // console.log(this.textArea);
-    // this.dialog$ = this.route.queryParams
-    //   .pipe(
-    //     switchMap((params: Params) => {
-    //         console.log(params['user']);
-    //         this.sender = params['user'];
-    //       // console.log('====');
-    //       // console.log(this.sender);
-    //       // console.log('====');
-    //       return this.messageService.getPersonalDialog(this.sender)
-    //           .pipe(
-    //             map(
-    //               (req) => {
-    //                 return req['messages']
-    //               }
-    //             )
-    //           )
-    //       }
-    //     )
-    //   );
-    // if (this.dialog$) {
-    //   this.dialogState$ = this.messageService.setDialogAsViewed(this.sender)
-    // }
   }
 
 
