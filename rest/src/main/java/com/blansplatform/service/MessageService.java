@@ -4,93 +4,32 @@
 
 package com.blansplatform.service;
 
-import com.blansplatform.dto.UserAllDialoguesDto;
-import com.blansplatform.dto.DistinctDialogueDto;
-import com.blansplatform.dto.MessageDto;
-import com.blansplatform.entity.Message;
-import com.blansplatform.repository.MessageRepository;
-import com.blansplatform.utils.converters.MessageDtoFromMessage;
-import com.blansplatform.utils.converters.MessageFromMessageDto;
-import com.blansplatform.utils.sorter.DialoguesSorter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.blansplatform.dto.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-public class MessageService {
+public interface MessageService {
 
-    private final MessageRepository messageRepository;
-    private final MessageFromMessageDto messageFromMessageDto;
-    private final UserService userService;
+    List<MessageDto> findAll();
 
-    @Autowired
-    public MessageService(MessageRepository messageRepository, MessageFromMessageDto messageFromMessageDto, UserService userService) {
-        this.messageRepository = messageRepository;
-        this.messageFromMessageDto = messageFromMessageDto;
-        this.userService = userService;
-    }
+    MessageDto findMessageById(Long id);
 
-    public List<MessageDto> findAll() {
-        List<Message> messages = messageRepository.findAll();
-        return messages.stream()
-                .map(MessageDtoFromMessage::convert)
-                .collect(Collectors.toList());
-    }
+    void addMessage(MessageDto messageDto);
 
-    public MessageDto findMessageById(Long id) {
-        Message message = messageRepository.findMessageById(id);
-        if (message == null){
-            throw new EntityNotFoundException("Message not found");
-        }
-        return MessageDtoFromMessage.convert(message);
-    }
+    void deleteMessage(MessageDto messageDto);
 
-    public void addMessage(Message message) {
-        messageRepository.save(message);
-    }
+    void updateMessage(MessageDto messageDto);
 
-    public void deleteMessage(Message message) {
-        messageRepository.delete(message);
-    }
+    void setMessageViewStatusTrue(LinkedList<MessageDto> messagesDto);
 
-    public void updateMessage(Message message) {
-        messageRepository.save(message);
-    }
+    UserAllDialoguesDto getAllDialoguesForUser(String username);
 
-    public void setMessageViewStatusTrue(LinkedList<MessageDto> messagesDto) {
-        List<Message> messages = messagesDto.stream()
-                .map(messageFromMessageDto::convert)
-                .collect(Collectors.toList());
-        for (Message m: messages) {
-            m.setViewed(true);
-        }
-        messageRepository.saveAll(messages);
-    }
+    DistinctDialogueDto getDialogueWithDistinctUser(DistinctDialogueDto distinctDialogueDto);
 
-    public UserAllDialoguesDto getAllDialoguesForUser(String username) {
-        Long userId = userService.findUserByUsername(username).getId();
-        List<Message> messagesFromDb = messageRepository.findAllMessagesForUser(userId);
-        if (messagesFromDb == null) {
-            throw new EntityNotFoundException("No messages for this user");
-        }
-        List<MessageDto> messagesDto = messagesFromDb.stream()
-                .map(MessageDtoFromMessage::convert)
-                .collect(Collectors.toList());
-        return new UserAllDialoguesDto(DialoguesSorter.sortAndGroup(messagesDto));
-    }
+    NewMessagesCount getNewMessagesCount(String username);
 
-    public DistinctDialogueDto getDialogueWithDistinctUser(DistinctDialogueDto distinctDialogueDto) {
-        Long firstUserId = userService.findUserByUsername(distinctDialogueDto.getFirstUsername()).getId();
-        Long secondUserId = userService.findUserByUsername(distinctDialogueDto.getSecondUsername()).getId();
-        List<Message> messagesFromDb = messageRepository.findAllMessagesBetweenTwoUsers(firstUserId, secondUserId);
-        List<MessageDto> messagesDto = messagesFromDb.stream()
-                .map(MessageDtoFromMessage::convert)
-                .collect(Collectors.toList());
-        distinctDialogueDto.setMessages(messagesDto);
-        return distinctDialogueDto;
-    }
+    NewMessagesCount getNewMessagesCountForDialogue(SenderRecipientDto senderRecipientDto);
+
+    void setDialogueAsViewed(SenderRecipientDto senderRecipientDto);
 }

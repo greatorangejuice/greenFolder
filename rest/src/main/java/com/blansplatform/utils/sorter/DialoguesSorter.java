@@ -9,7 +9,8 @@ import com.blansplatform.dto.MessageDto;
 import java.util.*;
 
 public class DialoguesSorter {
-    public static Map<String, List<MessageDto>> sortAndGroup(List<MessageDto> messages) {
+    public static Map<String, List<MessageDto>> messagesSortForGroups(List<MessageDto> messages) {
+        DialoguesSorter.messageCollectionSortByUsers(messages);
         Map<String, List<MessageDto>> dialoguesMap = new HashMap<>();
         String currentUserFrom = messages.get(0).getUserFrom();
         String currentUserTo = messages.get(0).getUserTo();
@@ -21,6 +22,7 @@ public class DialoguesSorter {
                     || nextUserFrom.equals(currentUserTo) && nextUserTo.equals(currentUserFrom)) {
                 messagesDto.add(messages.get(i));
             } else {
+                DialoguesSorter.dialogSortByTime(messagesDto);
                 dialoguesMap.put(currentUserFrom + " " + currentUserTo, messagesDto);
                 messagesDto = new LinkedList<>();
                 currentUserFrom = messages.get(i).getUserFrom();
@@ -30,5 +32,19 @@ public class DialoguesSorter {
         }
         dialoguesMap.put(currentUserFrom + " " + currentUserTo, messagesDto);
         return dialoguesMap;
+    }
+
+    private static void messageCollectionSortByUsers(List<MessageDto> messages){
+        Comparator<MessageDto> comparator = (m1, m2) -> {
+            Long hashM1 = (long) (m1.getUserFrom().hashCode() + m1.getUserTo().hashCode());
+            Long hashM2 = (long) (m2.getUserFrom().hashCode() + m2.getUserTo().hashCode());
+            return hashM1.compareTo(hashM2);
+        };
+        messages.sort(comparator);
+    }
+
+    private static void dialogSortByTime(List<MessageDto> messages){
+        Comparator<MessageDto> comparator = Comparator.comparing(MessageDto::getDate);
+        messages.sort(comparator);
     }
 }

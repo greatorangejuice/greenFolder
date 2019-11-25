@@ -4,25 +4,36 @@
 
 package com.blansplatform.dto;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class MessageDto {
 
     private Long id;
     boolean isViewed;
-    private String messageHead;
-    private String messageBody;
+    private String message;
     private String userFrom;
     private String userTo;
+    private Timestamp date;
 
-    public MessageDto(Long id, boolean isViewed, String userFrom, String userTo, String messageHead, String messageBody) {
+    public MessageDto(Long id, boolean isViewed, String userFrom, String userTo, String message, Timestamp date) {
         this.id = id;
         this.isViewed = isViewed;
         this.userFrom = userFrom;
         this.userTo = userTo;
-        this.messageHead = messageHead;
-        this.messageBody = messageBody;
+        this.message = message;
+        this.date = date;
     }
 
     public MessageDto() {
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public boolean isViewed() {
@@ -57,20 +68,12 @@ public class MessageDto {
         this.userTo = userTo;
     }
 
-    public String getMessageHead() {
-        return messageHead;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessageHead(String messageHead) {
-        this.messageHead = messageHead;
-    }
-
-    public String getMessageBody() {
-        return messageBody;
-    }
-
-    public void setMessageBody(String messageBody) {
-        this.messageBody = messageBody;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
@@ -78,10 +81,10 @@ public class MessageDto {
         return "MessageDto{" +
                 "id=" + id +
                 ", isViewed=" + isViewed +
-                ", messageHead='" + messageHead + '\'' +
-                ", messageBody='" + messageBody + '\'' +
+                ", message='" + message + '\'' +
                 ", userFrom='" + userFrom + '\'' +
                 ", userTo='" + userTo + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

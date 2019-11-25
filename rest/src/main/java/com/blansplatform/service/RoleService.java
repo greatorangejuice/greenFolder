@@ -5,44 +5,19 @@
 package com.blansplatform.service;
 
 import com.blansplatform.entity.Role;
-import com.blansplatform.repository.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@Service
-public class RoleService {
+public interface RoleService {
 
-    private final RoleRepository roleRepository;
+    List<Role> findAll();
 
-    @Autowired
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+    Role findRoleById(Long id);
 
-    public List<Role> findAll() {
-        return roleRepository.findAll();
-    }
+    void addRole(Role role);
 
-    public Role findRoleById(Long id) {
-        Role role = roleRepository.findRoleById(id);
-        if (role == null){
-            throw new EntityNotFoundException("Role not found");
-        }
-        return role;
-    }
+    void deleteRole(Role role);
 
-    public void addRole(Role role) {
-        roleRepository.save(role);
-    }
+    void updateRole(Role role);
 
-    public void deleteRole(Role role) {
-        roleRepository.delete(role);
-    }
-
-    public void updateRole(Role role) {
-        roleRepository.save(role);
-    }
 }

@@ -34,41 +34,41 @@ insert  into user_roles (user_id, role_id) values (3, 3);
 
 insert  into user_roles (user_id, role_id) values (4, 2);
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (1, 'i can do it', 'for task', 1, 2, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (1, 'i can do it', 1, 2, false, '2019-11-21 13:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (2, 'ok', 'for task', 2, 1, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (2, 'ok', 2, 1, false, '2019-11-21 13:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (3, 'i need more money', 'pay', 2, 1, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (3, 'i need more money', 2, 1, false, '2019-11-13 13:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (4, 'fuck you', 'hello mr.customer', 1, 2, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (4, 'fuck you', 1, 2, false, '2019-11-14 13:11:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (5, 'ok', 'changes', 3, 1, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (5, 'ok', 3, 1, false, '2019-11-15 13:15:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (6, 'where my task?', 'for task', 1, 3, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (6, 'where my task?', 1, 3, false, '2019-11-15 13:12:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (7, 'feature 11 for task', 'feat', 2, 3, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (7, 'feature 11 for task', 2, 3, false, '2019-11-12 11:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (8, 'we need talk', 'call me', 3, 2, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (8, 'we need talk', 3, 2, false, '2019-11-02 13:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (9, 'ololo i trakaka', 'ololo', 3, 1, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (9, 'ololo i trakaka', 3, 1, false, '2019-10-21 11:12:12.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (10, 'cancel task', 'cancel', 1, 3, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (10, 'cancel task', 1, 3, false, '2019-11-01 22:00:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (11, ' i am sorry', 'sorry', 1, 4, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (11, ' i am sorry', 1, 4, false, '2019-11-05 12:11:00.000');
 
-insert into message (id, message_body, message_head, sender_user_id, recipient_user_id, is_viewed)
-            values (12, 'i can not help you', 'help', 4, 1, false);
+insert into message (id, message, sender_user_id, recipient_user_id, is_viewed, date)
+            values (12, 'i can not help you', 4, 1, false, '2019-11-01 11:11:11.000');
 
 insert into task (id, secret_id, course, university, deadline, type, faculty, keywords, name, specification, description, subject, task_status, customer_id)
             values (1, 'secretId1', '3', 0, '31.12.2019', 'course project', 0, 'java, lab', 'sessionTask', 'need some rest service', 'rest', 'java', 0, 2);

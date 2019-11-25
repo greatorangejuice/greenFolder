@@ -7,7 +7,7 @@ package com.blansplatform.controller;
 import com.blansplatform.dto.OfferDto;
 import com.blansplatform.dto.TaskDto;
 import com.blansplatform.dto.UserDto;
-import com.blansplatform.entity.User;
+
 import com.blansplatform.service.OfferService;
 import com.blansplatform.service.TaskService;
 import com.blansplatform.service.UserService;
